@@ -1,0 +1,25 @@
+{
+  "name": "fintechworkflowtracker",
+  "version": "1.0.0",
+  "description": "An app which allows users track the completion of checklists as part of a fintech company workflow.",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "lint": "./node_modules/.bin/eslint . --ext .js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^8.32.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-import": "^2.27.5",
+    "prettier": "^2.8.3"
+  },
+  "dependencies": {
+    "@hapi/hapi": "^21.2.0",
+    "@hapi/vision": "^7.0.0",
+    "handlebars": "^4.7.7"
+  }
+}
