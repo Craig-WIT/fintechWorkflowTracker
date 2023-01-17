@@ -1,0 +1,35 @@
+<form class="ui stacked segment form" action="/dashboard/addTeam" method="POST"
+      style="background-color: #C9E5F0; border: 3px solid white;">
+  <div class="field">
+    <label>First Name</label>
+    <input placeholder="First name" type="text" name="firstname">
+    <label>Last Name</label>
+    <input placeholder="Last name" type="text" name="lastname">
+    <label>Email</label>
+    <input placeholder="Email" type="text" name="email">
+    <label>Password</label>
+    <input placeholder="Password" type="password" name="password">
+    <label>Role</label>
+    <select name="role" class="ui fluid dropdown" id="role">
+    <option value="">Select role</option>
+      <option value="prepaer">Preparer</option>
+      <option value="reviewer">Reviewer</option>
+    </select>
+    <label>Teams</label>
+    <select name="teams" multiple="" class="ui fluid dropdown" id="teams">
+    <option value="">Add Team(s)</option>
+      <option value="FA Team 1">FA Team 1</option>
+      <option value="FA Team 2">FA Team 2</option>
+      <option value="FA Team 3">FA Team 3</option>
+    </select>
+  </div>
+  <button id="submitButton" class="tiny ui blue submit animated button">
+    <div class="visible content">Add User</div>
+    <div class="hidden content">Are you sure?</div>
+  </button>
+</form>
+
+<script>
+$('#teams').dropdown();
+$('#role').dropdown();
+</script>
