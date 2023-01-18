@@ -8,7 +8,7 @@ export const dashboardController = {
         title: "Teams Dashboard",
         teams: teams,
       };
-      return h.redirect("addTeam-view", viewData);
+      return h.view("dashboard-view", viewData);
     },
   },
 
@@ -20,6 +20,7 @@ export const dashboardController = {
         department: request.payload.department,
         funds: request.payload.funds
       };
+      console.log(newTeam)
       await db.teamStore.addTeam(newTeam);
       return h.redirect("/dashboard");
     },

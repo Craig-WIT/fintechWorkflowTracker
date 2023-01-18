@@ -14,4 +14,5 @@ export const webRoutes = [
     { method: "POST", path: "/authenticate", config: accountsController.login },
 
     { method: "GET", path: "/addUser", config: userController.showAddUser },
+    { method: "POST", path: "/addUser/addUser", config: userController.addUser },
 ];
