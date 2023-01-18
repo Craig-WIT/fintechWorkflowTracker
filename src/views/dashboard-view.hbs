@@ -6,10 +6,13 @@
   </h2>
 </section>
 
-<div class="ui two column middle aligned grid basic segment">
+<div class="ui two column grid basic segment">
   <div class="column">
     {{> addTeam}}
   </div>
   <div class="column">
+    {{#each teams}}
+        {{> teamSummary}}
+    {{/each}}
   </div>
 </div>

@@ -1,18 +1,18 @@
-{{> menu id="users"}}
+{{> menu id="fundAdmin"}}
 
 <section class="ui segment" style="border: 3px solid #043F8C; border-radius: 10px; background-color: #C9E5F0;">
   <h2 class="ui header">
-    Add User
+    Add Fund
   </h2>
 </section>
 
 <div class="ui two column grid basic segment">
   <div class="column">
-    {{> addUser}}
+    {{> addFund}}
   </div>
   <div class="column">
-    {{#each users}}
-        {{> userSummary}}
+    {{#each funds}}
+        {{> fundSummary}}
     {{/each}}
   </div>
 </div>

@@ -5,7 +5,7 @@ let users = [];
 
 export const userMemStore = {
   async getAllUsers() {
-    return users;
+    return users
   },
 
   async addUser(user) {
@@ -25,6 +25,13 @@ export const userMemStore = {
   async deleteUserById(id) {
     const index = users.findIndex((user) => user._id === id);
     users.splice(index, 1);
+  },
+
+  async deleteUserTeamById(id) {
+    users.forEach((user) => {
+        const index = user.teams.findIndex((team) => team._id === id);
+        user.teams.splice(index, 1);
+    });
   },
 
   async deleteAll() {

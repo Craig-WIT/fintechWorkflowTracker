@@ -1,13 +1,14 @@
-import { view } from "@hapi/vision/lib/schemas.js";
 import { db } from "../models/db.js";
 
 export const userController = {
   showAddUser: {
     handler: async function (request, h) {
         const teams = await db.teamStore.getAllTeams();
+        const users = await db.userStore.getAllUsers();
         const viewData = {
         title: "Users Dashboard",
         teams: teams,
+        users: users,
       };
       return h.view("addUser-view", viewData);
     },
@@ -27,8 +28,9 @@ export const userController = {
         else{
             console.log("Multiple")
             const foundTeams = await db.teamStore.getTeamsById(returnedTeams)
-            console.log(foundTeams)
-            teams.push(foundTeams)
+            foundTeams.forEach((team) => {
+                teams.push(team)
+            });
         };
       const newUser = {
         firstname: request.payload.firstname,

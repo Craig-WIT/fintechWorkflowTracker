@@ -6,11 +6,11 @@
     <label>Location</label>
     <select name="location" class="ui fluid dropdown" id="location">
       <option value="">Select Location</option>
-      <option value="dublin">Dublin</option>
-      <option value="luxembourg">Luxembourg</option>
-      <option value="newjersey">New Jersey</option>
-      <option value="bermuda">Bermuda</option>
-      <option value="philippines">Philippines</option>
+      <option value="Dublin">Dublin</option>
+      <option value="Luxembourg">Luxembourg</option>
+      <option value="New Jersey">New Jersey</option>
+      <option value="Bermuda">Bermuda</option>
+      <option value="Philippines">Philippines</option>
     </select>
     <label>Department</label>
     <select name="department" class="ui fluid dropdown" id="department">
@@ -23,12 +23,10 @@
     </select>
     <label>Funds</label>
     <select name="funds" multiple="" class="ui fluid dropdown" id="funds">
-      <option value="">Funds</option>
-      <option value="1">Fund 1</option>
-      <option value="2">Fund 2</option>
-      <option value="3">Fund 3</option>
-      <option value="4">Fund 4</option>
-      <option value="5">Fund 5</option>
+    <option value="">Add Fund(s)</option>
+    {{#each funds}}
+        <option value={{_id}}>{{fundname}}</option>
+    {{/each}}
     </select>
   </div>
   <button id="submitButton" class="tiny ui blue submit animated button">
