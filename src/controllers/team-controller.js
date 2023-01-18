@@ -1,6 +1,6 @@
 import { db } from "../models/db.js";
 
-export const dashboardController = {
+export const teamController = {
   index: {
     handler: async function (request, h) {
       const teams = await db.teamStore.getAllTeams();
@@ -10,7 +10,7 @@ export const dashboardController = {
         teams: teams,
         funds: funds,
       };
-      return h.view("dashboard-view", viewData);
+      return h.view("team-view", viewData);
     },
   },
 
@@ -24,7 +24,7 @@ export const dashboardController = {
       };
       console.log(newTeam)
       await db.teamStore.addTeam(newTeam);
-      return h.redirect("/dashboard");
+      return h.redirect("/teamAdmin");
     },
   },
 
@@ -33,7 +33,7 @@ export const dashboardController = {
       const team = await db.teamStore.getTeamById(request.params.id);
       await db.userStore.deleteUserTeamById(team._id);
       await db.teamStore.deleteTeamById(team._id);
-      return h.redirect("/dashboard");
+      return h.redirect("/teamAdmin");
     },
   },
 };
