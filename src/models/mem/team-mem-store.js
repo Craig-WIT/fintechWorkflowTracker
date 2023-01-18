@@ -18,6 +18,15 @@ export const teamMemStore = {
     return teams.find((team) => team._id === id);
   },
 
+  async getTeamsById(ids) {
+    const userTeams =[]
+    ids.forEach((teamId) => {
+        const newTeam = teams.find((team) => team._id === teamId);
+        userTeams.push(newTeam)
+    });
+    return userTeams
+  },
+
   async deleteTeamById(id) {
     const index = teams.findIndex((team) => team._id === id);
     teams.splice(index, 1);
