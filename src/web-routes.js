@@ -15,8 +15,8 @@ export const webRoutes = [
     { method: "POST", path: "/register", config: accountsController.signup },
     { method: "POST", path: "/authenticate", config: accountsController.login },
 
-    { method: "GET", path: "/addUser", config: userController.showAddUser },
-    { method: "POST", path: "/addUser/addUser", config: userController.addUser },
+    { method: "GET", path: "/userAdmin", config: userController.showAddUser },
+    { method: "POST", path: "/userAdmin/addUser", config: userController.addUser },
 
     { method: "GET", path: "/fundAdmin", config: fundController.showFundAdmin },
     { method: "POST", path: "/fundAdmin/addFund", config: fundController.addFund },

@@ -10,7 +10,7 @@ export const userController = {
         teams: teams,
         users: users,
       };
-      return h.view("addUser-view", viewData);
+      return h.view("userAdmin-view", viewData);
     },
   },
 
@@ -42,7 +42,7 @@ export const userController = {
       };
       await db.userStore.addUser(newUser);
       console.log(JSON.stringify(newUser, null, 4))
-      return h.redirect("/addUser");
+      return h.redirect("/userAdmin");
     },
   },
 };
