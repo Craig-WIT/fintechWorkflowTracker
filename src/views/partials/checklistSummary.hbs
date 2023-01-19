@@ -1,0 +1,20 @@
+<div class="ui segment" style="border: 3px solid #043F8C;">
+    <div class="card" id="cardStyle"><h2>{{checklistname}}</h3>
+    </div>
+    <div class="card" id="cardStyle"><h4>No of Reviewers</h2>
+      {{reviewers}}
+    </div>
+    <br>
+    <a href="/checklistAdmin/deleteChecklist/{{_id}}">
+          <div id="deleteButton" class="tiny red ui animated button" tabindex="0">
+            <div class="visible content">Delete Checklist</div>
+            <div class="hidden content">Are you sure?</div>
+          </div>
+    </a>
+    <a href="/checklistAdmin/{{_id}}/editChecklist">
+          <div id="editButton" class="tiny green ui animated button" tabindex="0">
+            <div class="visible content">Edit Checklist</div>
+            <div class="hidden content">Are you sure?</div>
+          </div>
+    </a>
+</div>

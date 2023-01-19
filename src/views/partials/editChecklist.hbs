@@ -1,0 +1,16 @@
+<form class="ui stacked segment form" action="/editChecklist/{{checklist._id}}" method="POST"
+      style="background-color: #C9E5F0; border: 3px solid white;">
+  <div class="field">
+    <input type="checkbox" name="checklistheader">
+    <label>Is checklist header item?</label>
+    <label>Add Checklist Item</label>
+    <input type="text" name="checklistitem">
+  </div>
+  <button id="submitButton" class="tiny ui blue submit animated button">
+    <div class="visible content">Add Checklist Item</div>
+    <div class="hidden content">Are you sure?</div>
+  </button>
+</form>
+
+<script>
+</script>

@@ -5,7 +5,7 @@ let users = [];
 
 export const userMemStore = {
   async getAllUsers() {
-    return users
+    return users;
   },
 
   async addUser(user) {

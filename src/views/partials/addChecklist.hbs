@@ -1,0 +1,21 @@
+<form class="ui stacked segment form" action="/checklistAdmin/addChecklist" method="POST"
+      style="background-color: #C9E5F0; border: 3px solid white;">
+  <div class="field">
+    <label>Checklist Name</label>
+    <input type="text" name="checklistname" placeholder="Checklist name">
+    <label>No of Reviewers</label>
+    <select name="reviewers" class="ui fluid dropdown" id="reviewers">
+      <option value="">Select No. of Reviewers</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+    </select>
+  </div>
+  <button id="submitButton" class="tiny ui blue submit animated button">
+    <div class="visible content">Add Checklist Template</div>
+    <div class="hidden content">Are you sure?</div>
+  </button>
+</form>
+
+<script>
+    $('#reviewers').dropdown();
+</script>

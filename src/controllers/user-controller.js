@@ -1,7 +1,7 @@
 import { db } from "../models/db.js";
 
 export const userController = {
-  showAddUser: {
+  showUserAdmin: {
     handler: async function (request, h) {
         const teams = await db.teamStore.getAllTeams();
         const users = await db.userStore.getAllUsers();

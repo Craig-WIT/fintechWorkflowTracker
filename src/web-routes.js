@@ -2,9 +2,10 @@ import { teamController } from "./controllers/team-controller.js";
 import { accountsController } from "./controllers/accounts-controller.js";
 import { userController } from "./controllers/user-controller.js";
 import { fundController } from "./controllers/fund-controller.js";
+import { checklistController } from "./controllers/checklist-controller.js";
 
 export const webRoutes = [
-    { method: "GET", path: "/teamAdmin", config: teamController.index },
+    { method: "GET", path: "/teamAdmin", config: teamController.showTeamAdmin },
     { method: "POST", path: "/teamAdmin/addTeam", config: teamController.addTeam },
     { method: "GET", path: "/teamAdmin/deleteTeam/{id}", config: teamController.deleteTeam },
 
@@ -15,11 +16,16 @@ export const webRoutes = [
     { method: "POST", path: "/register", config: accountsController.signup },
     { method: "POST", path: "/authenticate", config: accountsController.login },
 
-    { method: "GET", path: "/userAdmin", config: userController.showAddUser },
+    { method: "GET", path: "/userAdmin", config: userController.showUserAdmin },
     { method: "POST", path: "/userAdmin/addUser", config: userController.addUser },
     { method: "GET", path: "/userAdmin/deleteUser/{id}", config: userController.deleteUser },
 
     { method: "GET", path: "/fundAdmin", config: fundController.showFundAdmin },
     { method: "POST", path: "/fundAdmin/addFund", config: fundController.addFund },
     { method: "GET", path: "/fundAdmin/deleteFund/{id}", config: fundController.deleteFund },
+
+    { method: "GET", path: "/checklistAdmin", config: checklistController.showChecklistAdmin },
+    { method: "GET", path: "/checklistAdmin/{id}/editChecklist", config: checklistController.showEditChecklist },
+    { method: "POST", path: "/editChecklist/{id}", config: checklistController.editChecklist },
+    { method: "POST", path: "/checklistAdmin/addChecklist", config: checklistController.addChecklist },
 ];

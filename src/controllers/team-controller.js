@@ -1,7 +1,7 @@
 import { db } from "../models/db.js";
 
 export const teamController = {
-  index: {
+  showTeamAdmin: {
     handler: async function (request, h) {
       const teams = await db.teamStore.getAllTeams();
       const funds = await db.fundStore.getAllFunds();
