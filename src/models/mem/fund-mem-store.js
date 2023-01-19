@@ -18,6 +18,15 @@ export const fundMemStore = {
     return funds.find((fund) => fund._id === id);
   },
 
+  async getFundsById(ids) {
+    const teamFunds =[]
+    ids.forEach((fundId) => {
+        const newFund = funds.find((fund) => fund._id === fundId);
+        teamFunds.push(newFund)
+    });
+    return teamFunds
+  },
+
   async getFundByEmail(email) {
     return funds.find((fund) => fund.email === email);
   },

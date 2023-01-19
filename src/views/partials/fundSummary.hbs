@@ -4,4 +4,17 @@
     <div class="card" id="cardStyle"><h4>Year End</h2>
       {{yearend}}
     </div>
+    <br>
+    <a href="/fundAdmin/deleteFund/{{_id}}">
+          <div id="deleteButton" class="tiny red ui animated button" tabindex="0">
+            <div class="visible content">Delete Fund</div>
+            <div class="hidden content">Are you sure?</div>
+          </div>
+    </a>
+    <a href="/editFund/{{_id}}">
+          <div id="editButton" class="tiny green ui animated button" tabindex="0">
+            <div class="visible content">Edit Fund</div>
+            <div class="hidden content">Are you sure?</div>
+          </div>
+    </a>
 </div>

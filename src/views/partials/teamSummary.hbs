@@ -4,6 +4,11 @@
     <div class="card" id="cardStyle"><h4>Location</h2>
       {{location}}
     </div>
+    <div class="card" id="cardStyle"><h4>Fund(s)</h2>
+    {{#each funds}}
+      <li>{{fundname}}</li>
+    {{/each}}
+    </div>
     <br>
     <a href="/teamAdmin/deleteTeam/{{_id}}">
           <div id="deleteButton" class="tiny red ui animated button" tabindex="0">

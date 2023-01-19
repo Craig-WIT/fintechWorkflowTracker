@@ -23,4 +23,13 @@ export const fundController = {
       return h.redirect("/fundAdmin");
     },
   },
+
+  deleteFund: {
+    handler: async function (request, h) {
+      const fund = await db.fundStore.getFundById(request.params.id);
+      await db.teamStore.deleteTeamFundById(fund._id);
+      await db.fundStore.deleteFundById(fund._id);
+      return h.redirect("/fundAdmin");
+    },
+  },
 };

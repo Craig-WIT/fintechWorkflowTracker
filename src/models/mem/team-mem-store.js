@@ -32,6 +32,13 @@ export const teamMemStore = {
     teams.splice(index, 1);
   },
 
+  async deleteTeamFundById(id) {
+    teams.forEach((team) => {
+        const index = team.funds.findIndex((fund) => fund._id === id);
+        team.funds.splice(index, 1);
+    });
+  },
+
   async deleteAllTeams() {
     teams = [];
   },
