@@ -12,6 +12,17 @@ export const fundController = {
     },
   },
 
+  showEditFund: {
+    handler: async function (request, h) {
+        const fund = await db.fundStore.getFundById(request.params.id);
+        const viewData = {
+        title: "Edit Fund",
+        fund: fund,
+      };
+      return h.view("editFund-view", viewData);
+    },
+  },
+
   addFund: {
     handler: async function (request, h) {
       const newFund = {
@@ -32,4 +43,23 @@ export const fundController = {
       return h.redirect("/fundAdmin");
     },
   },
+
+  editFund: {
+    handler: async function (request, h) {
+      const fund = await db.fundStore.getFundById(request.params.id);
+      const fundId = request.params.id;
+
+      const editedFund = {
+        fundname: request.payload.fundname,
+        yearend: request.payload.financialyearend,
+      };
+    const viewData = {
+    title: "Edit Fund",
+    fund: fund,
+  };
+  await db.fundStore.editFund(fund._id,editedFund);
+  console.log(fund)
+  return h.redirect("/fundAdmin", viewData);
+},
+},
 };

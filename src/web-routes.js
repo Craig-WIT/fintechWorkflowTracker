@@ -7,7 +7,9 @@ import { checklistController } from "./controllers/checklist-controller.js";
 export const webRoutes = [
     { method: "GET", path: "/teamAdmin", config: teamController.showTeamAdmin },
     { method: "POST", path: "/teamAdmin/addTeam", config: teamController.addTeam },
+    { method: "POST", path: "/teamAdmin/editTeam/{id}", config: teamController.editTeam },
     { method: "GET", path: "/teamAdmin/deleteTeam/{id}", config: teamController.deleteTeam },
+    { method: "GET", path: "/teamAdmin/{id}/editTeam", config: teamController.showEditTeam },
 
     { method: "GET", path: "/", config: accountsController.index },
     { method: "GET", path: "/signup", config: accountsController.showSignup },
@@ -23,9 +25,11 @@ export const webRoutes = [
     { method: "GET", path: "/fundAdmin", config: fundController.showFundAdmin },
     { method: "POST", path: "/fundAdmin/addFund", config: fundController.addFund },
     { method: "GET", path: "/fundAdmin/deleteFund/{id}", config: fundController.deleteFund },
+    { method: "GET", path: "/fundAdmin/{id}/editFund", config: fundController.showEditFund },
+    { method: "POST", path: "/fundAdmin/editFund/{id}", config: fundController.editFund },
 
     { method: "GET", path: "/checklistAdmin", config: checklistController.showChecklistAdmin },
     { method: "GET", path: "/checklistAdmin/{id}/editChecklist", config: checklistController.showEditChecklist },
-    { method: "POST", path: "/editChecklist/{id}", config: checklistController.editChecklist },
+    { method: "POST", path: "/checklistAdmin/editChecklist/{id}", config: checklistController.editChecklist },
     { method: "POST", path: "/checklistAdmin/addChecklist", config: checklistController.addChecklist },
 ];

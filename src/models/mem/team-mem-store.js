@@ -39,6 +39,14 @@ export const teamMemStore = {
     });
   },
 
+  async editTeam(id,editedTeam) {
+    const foundTeam = await this.getTeamById(id);
+    foundTeam.name = editedTeam.name;
+    foundTeam.location = editedTeam.location;
+    foundTeam.department = editedTeam.department;
+    foundTeam.funds = editedTeam.funds;
+  },
+
   async deleteAllTeams() {
     teams = [];
   },

@@ -1,0 +1,42 @@
+<form class="ui stacked segment form" action="/teamAdmin/editTeam/{{team._id}}" method="POST"
+      style="background-color: #C9E5F0; border: 3px solid white;">
+  <div class="field">
+    <label>Team Name</label>
+    <input placeholder="{{team.name}}" type="text" name="name">
+    <label>Location</label>
+    <select name="location" class="ui fluid dropdown" id="location">
+      <option value="">Select Location</option>
+      <option value="Dublin">Dublin</option>
+      <option value="Luxembourg">Luxembourg</option>
+      <option value="New Jersey">New Jersey</option>
+      <option value="Bermuda">Bermuda</option>
+      <option value="Philippines">Philippines</option>
+    </select>
+    <label>Department</label>
+    <select name="department" class="ui fluid dropdown" id="department">
+      <option value="">Select Department</option>
+      <option value="FA">Fund Accounting</option>
+      <option value="PE">Private Equity</option>
+      <option value="CS">Corporate Services</option>
+      <option value="IA">Risk and Audit</option>
+      <option value="IS">Investor Services</option>
+    </select>
+    <label>Funds</label>
+    <select name="funds" multiple="" class="ui fluid dropdown" id="funds">
+    <option value="">Add Fund(s)</option>
+    {{#each funds}}
+        <option value={{_id}}>{{fundname}}</option>
+    {{/each}}
+    </select>
+  </div>
+  <button id="submitButton" class="tiny ui blue submit animated button">
+    <div class="visible content">Edit Team</div>
+    <div class="hidden content">Are you sure?</div>
+  </button>
+</form>
+
+<script>
+  $('#funds').dropdown();
+  $('#location').dropdown();
+  $('#department').dropdown();
+</script>

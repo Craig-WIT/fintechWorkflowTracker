@@ -1,0 +1,13 @@
+<form class="ui stacked segment form" action="/fundAdmin/editFund/{{fund._id}}" method="POST"
+      style="background-color: #C9E5F0; border: 3px solid white;">
+  <div class="field">
+    <label>Change Fund Name</label>
+    <input placeholder="{{fund.fundname}}" type="text" name="fundname">
+    <label>Change Financial Year End</label>
+    <input placeholder="{{fund.yearend}}" type="text" name="financialyearend">
+  </div>
+  <button id="submitButton" class="tiny ui blue submit animated button">
+    <div class="visible content">Edit Fund</div>
+    <div class="hidden content">Are you sure?</div>
+  </button>
+</form>

@@ -27,13 +27,15 @@ export const fundMemStore = {
     return teamFunds
   },
 
-  async getFundByEmail(email) {
-    return funds.find((fund) => fund.email === email);
-  },
-
   async deleteFundById(id) {
     const index = funds.findIndex((fund) => fund._id === id);
     funds.splice(index, 1);
+  },
+
+  async editFund(id,editedFund) {
+    const foundFund = await this.getFundById(id);
+    foundFund.fundname = editedFund.fundname;
+    foundFund.yearend = editedFund.yearend;
   },
 
   async deleteAll() {
