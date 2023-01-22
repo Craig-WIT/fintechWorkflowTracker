@@ -34,6 +34,16 @@ export const userMemStore = {
     });
   },
 
+  async editUser(id,editedUser) {
+    const foundUser = await this.getUserById(id);
+    foundUser.firstname = editedUser.firstname;
+    foundUser.lastname = editedUser.lastname;
+    foundUser.email = editedUser.email;
+    foundUser.password = editedUser.password;
+    foundUser.role = editedUser.role;
+    foundUser.teams = editedUser.teams;
+  },
+
   async deleteAll() {
     users = [];
   },

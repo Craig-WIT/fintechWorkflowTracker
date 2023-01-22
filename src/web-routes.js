@@ -21,6 +21,8 @@ export const webRoutes = [
     { method: "GET", path: "/userAdmin", config: userController.showUserAdmin },
     { method: "POST", path: "/userAdmin/addUser", config: userController.addUser },
     { method: "GET", path: "/userAdmin/deleteUser/{id}", config: userController.deleteUser },
+    { method: "GET", path: "/userAdmin/{id}/editUser", config: userController.showEditUser },
+    { method: "POST", path: "/userAdmin/editUser/{id}", config: userController.editUser },
 
     { method: "GET", path: "/fundAdmin", config: fundController.showFundAdmin },
     { method: "POST", path: "/fundAdmin/addFund", config: fundController.addFund },
