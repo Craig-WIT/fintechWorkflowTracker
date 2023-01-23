@@ -1,0 +1,84 @@
+#cardStyle{
+    padding: 10px;
+    border-radius: 20px;
+    border: 3px solid #043F8C;
+    background-image: linear-gradient(#84B1D9,white);
+    font-weight: bold;
+}
+
+#weatherImage{
+    width: 60px;
+    float: right;
+}
+
+#weatherImageSmall{
+    width: 50px;
+    float: right;
+}
+
+#trendImage{
+    width: 30px;
+    float: right;
+}
+
+#menuImage{
+    width: 120px;
+}
+
+#menuItem{
+    width: 90px;
+}
+
+#loginImage{
+    width: 600px;
+    border: 3px solid #043F8C;
+    border-radius: 20px;
+}
+
+#startImage{
+    width: 500px;
+    border: 5px solid white;
+    border-radius: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#deleteButton{
+    background-image: linear-gradient(red,#A74A3A);
+    border: 3px solid black;
+}
+
+#submitButton{
+    background-image: linear-gradient(#688ECA,#4A8AEF);
+    border: 3px solid black;
+}
+
+#openButton{
+    background-image: linear-gradient(green,seagreen);
+    border: 3px solid black;
+}
+
+#mapid {
+    padding: 10px;
+    border-radius: 20px;
+    border: 3px solid #043F8C;
+    height: 200px;
+}
+
+.transition.main-transition{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 101;
+    background-color: #688ECA;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.5s ease-out;
+}
+
+.transition.main-transition.is-active{
+    opacity: 1;
+    pointer-events: all;
+}

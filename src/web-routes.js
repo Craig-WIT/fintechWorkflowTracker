@@ -34,4 +34,5 @@ export const webRoutes = [
     { method: "GET", path: "/checklistAdmin/{id}/editChecklist", config: checklistController.showEditChecklist },
     { method: "POST", path: "/checklistAdmin/editChecklist/{id}", config: checklistController.editChecklist },
     { method: "POST", path: "/checklistAdmin/addChecklist", config: checklistController.addChecklist },
+    { method: "GET", path: "/checklistAdmin/deleteChecklist/{id}", config: checklistController.deleteChecklist },
 ];

@@ -39,7 +39,7 @@ export const checklistController = {
 
   deleteChecklist: {
     handler: async function (request, h) {
-      const fund = await db.checklistStore.getChecklistById(request.params.id);
+      const checklist = await db.checklistStore.getChecklistById(request.params.id);
       await db.checklistStore.deleteChecklistById(checklist._id);
       return h.redirect("/checklistAdmin");
     },
