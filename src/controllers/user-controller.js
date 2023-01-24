@@ -9,15 +9,15 @@ export const userController = {
         users.forEach((user) => {
             console.log("Loop:")
             console.log(JSON.stringify(user, null, 4))
-            if(user.teams.length > 0) {
-            user.teams.forEach((userTeam) => {
-                const foundTeam = teams.find((team) => team._id === userTeam._id);
-                if(foundTeam === undefined){
-                    const index = user.teams.findIndex((team) => team._id === userTeam._id);
-                    user.teams.splice(index, 1);
-                }
-            });
-        }
+              if(user.teams.length > 0) {
+                user.teams.forEach((userTeam) => {
+                    const foundTeam = teams.find((team) => team._id === userTeam._id);
+                    if(foundTeam === undefined){
+                        const index = user.teams.findIndex((team) => team._id === userTeam._id);
+                        user.teams.splice(index, 1);
+                    }
+                });
+            }
         console.log("After Loop:")
         console.log(JSON.stringify(user, null, 4))
         });
@@ -48,6 +48,14 @@ export const userController = {
     handler: async function (request, h) {
         const returnedTeams = request.payload.teams
         const teams = []
+        let isAdmin = false
+
+        console.log(request.payload.admin)
+
+        if(request.payload.admin === "Yes"){
+          isAdmin = true;
+        }
+
         console.log(typeof returnedTeams)
         if (typeof returnedTeams === "string"){
             console.log("Single item")
@@ -68,6 +76,7 @@ export const userController = {
         email: request.payload.email,
         password: request.payload.password,
         role: request.payload.role,
+        admin : isAdmin,
         teams: teams
       };
       await db.userStore.addUser(newUser);
@@ -88,6 +97,14 @@ export const userController = {
     handler: async function (request, h) {
         const user = await db.userStore.getUserById(request.params.id);
         const userId = request.params.id;
+
+        let isAdmin = false
+
+        console.log(request.payload.admin)
+
+        if(request.payload.admin === "Yes"){
+          isAdmin = true;
+        }
 
         const returnedTeams = request.payload.teams
         const teams = []
@@ -111,6 +128,7 @@ export const userController = {
         email: request.payload.email,
         password: request.payload.password,
         role: request.payload.role,
+        admin : isAdmin,
         teams: teams
       };
       await db.userStore.editUser(user._id,editedUser);

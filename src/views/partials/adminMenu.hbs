@@ -1,9 +1,10 @@
 <nav class="ui menu" style="border: 3px solid #043F8C; border-radius: 10px; background-color: #C9E5F0;">
   <header class="ui header item"></header>
   <div class="right menu">
-    {{#if user.admin}}
-    <a id="admin" class="item" href="/fundAdmin">Admin</a>
-    {{/if}}
+    <a id="userAdmin" class="item" href="/userAdmin">Users</a>
+    <a id="teamAdmin" class="item" href="/teamAdmin">Teams</a>
+    <a id="fundAdmin" class="item" href="/fundAdmin">Funds</a>
+    <a id="checklistAdmin" class="item" href="/checklistAdmin">Checklists</a>
     <a id="dashboard" class="item" href="/dashboard">Dashboard</a>
     <a id="logout" class="item" href="/logout">Logout</a>
   </div>

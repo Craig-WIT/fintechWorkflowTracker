@@ -41,6 +41,7 @@ export const userMemStore = {
     foundUser.email = editedUser.email;
     foundUser.password = editedUser.password;
     foundUser.role = editedUser.role;
+    foundUser.admin = editedUser.admin;
     foundUser.teams = editedUser.teams;
   },
 

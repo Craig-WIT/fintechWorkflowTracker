@@ -15,6 +15,12 @@
       <option value="Preparer">Preparer</option>
       <option value="Reviewer">Reviewer</option>
     </select>
+    <label>Is Admin?</label>
+    <select name="admin" class="ui fluid dropdown" id="admin">
+    <option value="">Is Admin?</option>
+      <option value="Yes">Yes</option>
+      <option value="No">No</option>
+    </select>
     <label>Teams</label>
     <select name="teams" multiple="" class="ui fluid dropdown" id="teams">
     <option value="">Add Team(s)</option>
@@ -32,4 +38,5 @@
 <script>
     $('#teams').dropdown();
     $('#role').dropdown();
+    $('#admin').dropdown();
 </script>

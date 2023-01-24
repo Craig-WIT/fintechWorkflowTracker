@@ -19,6 +19,8 @@ export const accountsController = {
     auth: false,
     handler: async function (request, h) {
       const user = request.payload;
+      user.teams = [];
+      user.admin = true;
       await db.userStore.addUser(user);
       return h.redirect("/");
     },
@@ -40,7 +42,7 @@ export const accountsController = {
         return h.redirect("/");
       }
       request.cookieAuth.set({ id: user._id });
-      return h.redirect("/fundAdmin");
+      return h.redirect("/dashboard");
     },
   },
 

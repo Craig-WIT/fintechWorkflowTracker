@@ -3,6 +3,7 @@ import { accountsController } from "./controllers/accounts-controller.js";
 import { userController } from "./controllers/user-controller.js";
 import { fundController } from "./controllers/fund-controller.js";
 import { checklistController } from "./controllers/checklist-controller.js";
+import { dashboardController } from "./controllers/dashboard-controller.js";
 
 export const webRoutes = [
     { method: "GET", path: "/teamAdmin", config: teamController.showTeamAdmin },
@@ -10,6 +11,8 @@ export const webRoutes = [
     { method: "POST", path: "/teamAdmin/editTeam/{id}", config: teamController.editTeam },
     { method: "GET", path: "/teamAdmin/deleteTeam/{id}", config: teamController.deleteTeam },
     { method: "GET", path: "/teamAdmin/{id}/editTeam", config: teamController.showEditTeam },
+
+    { method: "GET", path: "/dashboard", config: dashboardController.index },
 
     { method: "GET", path: "/", config: accountsController.index },
     { method: "GET", path: "/signup", config: accountsController.showSignup },
