@@ -14,6 +14,12 @@ export const fundMemStore = {
     return fund;
   },
 
+  async addFundChecklist(id, checklist) {
+    const fund = await this.getFundById(id);
+    fund.fundChecklists.push(checklist);
+    return fund;
+  },
+
   async getFundById(id) {
     return funds.find((fund) => fund._id === id);
   },

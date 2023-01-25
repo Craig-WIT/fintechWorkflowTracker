@@ -23,15 +23,42 @@ export const fundController = {
     },
   },
 
+  showAddFundChecklist: {
+    handler: async function (request, h) {
+        const fund = await db.fundStore.getFundById(request.params.id);
+        const checklists = await db.checklistStore.getAllChecklists();
+        const loggedInUser = request.auth.credentials;
+        const viewData = {
+        title: "Add Checklist",
+        fund: fund,
+        checklists: checklists,
+        user: loggedInUser,
+      };
+      return h.view("addFundChecklist-view", viewData);
+    },
+  },
+
   addFund: {
     handler: async function (request, h) {
       const newFund = {
         fundname: request.payload.fundname,
         yearend: request.payload.financialyearend,
+        fundChecklists: [],
       };
       await db.fundStore.addFund(newFund);
       console.log(newFund)
       return h.redirect("/fundAdmin");
+    },
+  },
+
+  addFundChecklist: {
+    handler: async function (request, h) {
+      const fund = await db.fundStore.getFundById(request.params.id);
+      const returnedChecklist = await db.checklistStore.getChecklistById(request.payload.type);
+     
+      await db.fundStore.addFundChecklist(fund._id,returnedChecklist);
+      console.log(fund)
+      return h.redirect(`/viewFund/${fund._id}/addFundChecklist`);
     },
   },
 

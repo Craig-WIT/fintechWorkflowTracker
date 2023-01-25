@@ -1,0 +1,22 @@
+<form class="ui stacked segment form" action="/viewFund/addFundChecklist/{{fund._id}}" method="POST"
+      style="background-color: #C9E5F0; border: 3px solid white;">
+  <div class="field">
+    <label>Checklist Date</label>
+    <input type="text" name="checklistdate" placeholder="Checklist date">
+    <label>Checklist Type</label>
+    <select name="type" class="ui fluid dropdown" id="type">
+      <option value="">Select Checklist Type</option>
+      {{#each checklists}}
+        <option value={{_id}}>{{checklistname}}</option>
+      {{/each}}
+    </select>
+  </div>
+  <button id="submitButton" class="tiny ui blue submit animated button">
+    <div class="visible content">Add Checklist Template</div>
+    <div class="hidden content">Are you sure?</div>
+  </button>
+</form>
+
+<script>
+    $('#type').dropdown();
+</script>

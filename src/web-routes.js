@@ -13,6 +13,7 @@ export const webRoutes = [
     { method: "GET", path: "/teamAdmin/{id}/editTeam", config: teamController.showEditTeam },
 
     { method: "GET", path: "/dashboard", config: dashboardController.index },
+    { method: "GET", path: "/dashboard/{id}/viewTeam", config: dashboardController.showViewTeam },
 
     { method: "GET", path: "/", config: accountsController.index },
     { method: "GET", path: "/signup", config: accountsController.showSignup },
@@ -32,6 +33,8 @@ export const webRoutes = [
     { method: "GET", path: "/fundAdmin/deleteFund/{id}", config: fundController.deleteFund },
     { method: "GET", path: "/fundAdmin/{id}/editFund", config: fundController.showEditFund },
     { method: "POST", path: "/fundAdmin/editFund/{id}", config: fundController.editFund },
+    { method: "GET", path: "/viewFund/{id}/addFundChecklist", config: fundController.showAddFundChecklist },
+    { method: "POST", path: "/viewFund/addFundChecklist/{id}", config: fundController.addFundChecklist },
 
     { method: "GET", path: "/checklistAdmin", config: checklistController.showChecklistAdmin },
     { method: "GET", path: "/checklistAdmin/{id}/editChecklist", config: checklistController.showEditChecklist },
