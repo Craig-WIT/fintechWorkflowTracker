@@ -57,7 +57,7 @@ export const checklistController = {
         const newItem = {
             title: request.payload.checklistitem,
             header: checklistItem.header,
-            preparerstatus: true,
+            default: request.payload.defaultvalue
           };
         const viewData = {
         title: "Edit Checklist",

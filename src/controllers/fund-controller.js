@@ -23,15 +23,32 @@ export const fundController = {
     },
   },
 
+  showFundChecklists: {
+    handler: async function (request, h) {
+        const fund = await db.fundStore.getFundById(request.params.id);
+        const fundChecklists = await db.fundStore.getFundChecklists(fund._id);
+        const loggedInUser = request.auth.credentials;
+        const viewData = {
+        title: "View Checklists",
+        fund: fund,
+        fundchecklists: fundChecklists,
+        user: loggedInUser,
+      };
+      return h.view("fundChecklists-view", viewData);
+    },
+  },
+
   showAddFundChecklist: {
     handler: async function (request, h) {
         const fund = await db.fundStore.getFundById(request.params.id);
         const checklists = await db.checklistStore.getAllChecklists();
+        const fundChecklists = await db.fundStore.getFundChecklists(fund._id);
         const loggedInUser = request.auth.credentials;
         const viewData = {
         title: "Add Checklist",
         fund: fund,
         checklists: checklists,
+        fundchecklists: fundChecklists,
         user: loggedInUser,
       };
       return h.view("addFundChecklist-view", viewData);
@@ -55,8 +72,10 @@ export const fundController = {
     handler: async function (request, h) {
       const fund = await db.fundStore.getFundById(request.params.id);
       const returnedChecklist = await db.checklistStore.getChecklistById(request.payload.type);
+      const newChecklist = JSON.parse(JSON.stringify(returnedChecklist));
+      newChecklist.checklistdate = request.payload.checklistdate
      
-      await db.fundStore.addFundChecklist(fund._id,returnedChecklist);
+      await db.fundStore.addFundChecklist(fund._id,newChecklist);
       console.log(fund)
       return h.redirect(`/viewFund/${fund._id}/addFundChecklist`);
     },

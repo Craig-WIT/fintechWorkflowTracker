@@ -15,9 +15,15 @@ export const fundMemStore = {
   },
 
   async addFundChecklist(id, checklist) {
+    checklist._id = v4();
     const fund = await this.getFundById(id);
     fund.fundChecklists.push(checklist);
     return fund;
+  },
+
+  async getFundChecklists(id) {
+    const fund = await this.getFundById(id);
+    return fund.fundChecklists;
   },
 
   async getFundById(id) {

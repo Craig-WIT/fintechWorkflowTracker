@@ -5,6 +5,14 @@
     <label>Is checklist header item?</label>
     <label>Add Checklist Item</label>
     <input type="text" name="checklistitem">
+    <label>Default Value</label>
+    <div class = "font-awesome">
+      <select class="fa" name="defaultvalue" class="ui fluid dropdown" id="defaultvalue">
+      <option value="">Select Default Value</option>
+      <option class="fa" value="Checked">&#xf00c</option>
+      <option value="N/A">N/A</option>
+    </select>
+    </div>
   </div>
   <button id="submitButton" class="tiny ui blue submit animated button">
     <div class="visible content">Add Checklist Item</div>
@@ -13,4 +21,8 @@
 </form>
 
 <script>
+  $('#defaultvalue').dropdown();
+  .font-awesome .fa {
+    font-family: "Font Awesome 5 Free", Open Sans;
+}
 </script>
