@@ -81,6 +81,22 @@ export const fundController = {
     },
   },
 
+  showEditFundChecklist: {
+    handler: async function (request, h) {
+      const fund = await db.fundStore.getFundById(request.params.id);
+      const fundChecklist = await db.fundStore.getFundChecklistById(fund._id,request.params.checklistid);
+      const loggedInUser = request.auth.credentials;
+
+      const viewData = {
+        title: "Edit Fund Checklist",
+        fund: fund,
+        fundchecklist: fundChecklist,
+        user: loggedInUser,
+      };
+      return h.view("editFundChecklist-view", viewData);
+    },
+  },
+
   deleteFund: {
     handler: async function (request, h) {
       const fund = await db.fundStore.getFundById(request.params.id);
