@@ -54,6 +54,7 @@ process.on("unhandledRejection", (err) => {
 });
 
 Handlebars.registerHelper("eq", function( a, b ){
+	// eslint-disable-next-line prefer-rest-params
 	const next =  arguments[arguments.length-1];
 	return (a === b) ? next.fn(this) : next.inverse(this);
 });

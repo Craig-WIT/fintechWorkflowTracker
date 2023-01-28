@@ -1,3 +1,5 @@
+<form class="ui stacked segment form" action="/viewFund/{{fund._id}}/editFundChecklist/{{fundchecklist._id}}" method="POST"
+      style="background-color: #C9E5F0; border: 3px solid white;">
 <table class="ui table">
   <thead>
   <tr>
@@ -19,18 +21,35 @@
             {{title}}
         {{/if}}
       </td>
+      {{#unless header}}
       <td>
         <div class = "font-awesome">
-            <select class="fa" name="defaultvalue" class="ui fluid dropdown" id="defaultvalue">
+            <select class="fa" name="Preparer value {{_id}}" class="ui fluid dropdown" id="defaultvalue">
                 <option class="fa" value="Checked">&#xf00c</option>
                 <option value="N/A">N/A</option>
             </select>
         </div>
       </td>
+      {{/unless}}
+      {{#unless header}}
+      <td>
+        <div class = "font-awesome">
+            <select class="fa" name="1st Reviewer value {{_id}}" class="ui fluid dropdown" id="defaultvalue">
+                <option class="fa" value="Checked">&#xf00c</option>
+                <option value="N/A">N/A</option>
+            </select>
+        </div>
+      </td>
+      {{/unless}}
     </tr>
   {{/each}}
   </tbody>
 </table>
+  <button id="submitButton" class="tiny ui blue submit animated button">
+    <div class="visible content">Save Checklist</div>
+    <div class="hidden content">Are you sure?</div>
+  </button>
+</form>
 
 <script>
   $('#defaultvalue').dropdown();

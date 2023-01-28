@@ -122,6 +122,14 @@ export const fundController = {
   await db.fundStore.editFund(fund._id,editedFund);
   console.log(fund)
   return h.redirect("/fundAdmin", viewData);
-},
-},
+  },
+  },
+
+  editFundChecklist: {
+    handler: async function (request, h) {
+    
+    console.log(JSON.stringify(request.payload, null, 4))
+    return h.redirect("/fundAdmin");
+  },
+  },
 };
