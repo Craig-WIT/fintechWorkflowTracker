@@ -1,0 +1,40 @@
+<table class="ui table">
+  <thead>
+  <tr>
+    <th>Checklist Item</th>
+    <th>Prepared By</th>
+    <th>1st Review</th>
+    {{#eq fundchecklist.reviewers "2"}}
+    <th>2nd Review</th>
+    {{/eq}}
+  </tr>
+  </thead>
+  <tbody>
+  {{#each fundchecklist.items}}
+    <tr>
+      <td>
+        {{#if header}}
+            <h3>{{title}}</h3>
+        {{else}}
+            {{title}}
+        {{/if}}
+      </td>
+      <td>
+        <div class = "font-awesome">
+            <select class="fa" name="defaultvalue" class="ui fluid dropdown" id="defaultvalue">
+                <option class="fa" value="Checked">&#xf00c</option>
+                <option value="N/A">N/A</option>
+            </select>
+        </div>
+      </td>
+    </tr>
+  {{/each}}
+  </tbody>
+</table>
+
+<script>
+  $('#defaultvalue').dropdown();
+  .font-awesome .fa {
+    font-family:monospace,monospace;
+}
+</script>

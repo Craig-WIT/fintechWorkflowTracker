@@ -1,16 +1,11 @@
-{{> adminMenu id="checklistAdmin"}}
+{{> menu id="dashboard"}}
 
 <section class="ui segment" style="border: 3px solid #043F8C; border-radius: 10px; background-color: #C9E5F0;">
   <h2 class="ui header">
-    Edit Fund Checklist
+    {{fund.fundname}}: {{fundchecklist.checklistname}} - {{fundchecklist.checklistdate}}
   </h2>
 </section>
 
-<div class="ui two column grid basic segment">
   <div class="column">
-    {{> editChecklist}}
+    {{> editFundChecklist}}
   </div>
-  <div class="column">
-    {{> editChecklistSummary}}
-  </div>
-</div>

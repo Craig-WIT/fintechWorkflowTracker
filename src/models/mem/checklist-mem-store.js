@@ -16,6 +16,7 @@ export const checklistMemStore = {
 
   async addChecklistItem(id,checklistItem) {
     const foundChecklist = await this.getChecklistById(id);
+    checklistItem._id = v4();
     foundChecklist.items.push(checklistItem);
     return foundChecklist;
   },

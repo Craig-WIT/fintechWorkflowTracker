@@ -55,6 +55,22 @@ export const fundController = {
     },
   },
 
+  showEditFundChecklist: {
+    handler: async function (request, h) {
+      const fund = await db.fundStore.getFundById(request.params.id);
+      const fundChecklist = await db.fundStore.getFundChecklistById(fund._id,request.params.checklistid);
+      const loggedInUser = request.auth.credentials;
+
+      const viewData = {
+        title: "Edit Fund Checklist",
+        fund: fund,
+        fundchecklist: fundChecklist,
+        user: loggedInUser,
+      };
+      return h.view("editFundChecklist-view", viewData);
+    },
+  },
+
   addFund: {
     handler: async function (request, h) {
       const newFund = {
@@ -76,24 +92,8 @@ export const fundController = {
       newChecklist.checklistdate = request.payload.checklistdate
      
       await db.fundStore.addFundChecklist(fund._id,newChecklist);
-      console.log(fund)
+      console.log(JSON.stringify(fund, null, 4))
       return h.redirect(`/viewFund/${fund._id}/addFundChecklist`);
-    },
-  },
-
-  showEditFundChecklist: {
-    handler: async function (request, h) {
-      const fund = await db.fundStore.getFundById(request.params.id);
-      const fundChecklist = await db.fundStore.getFundChecklistById(fund._id,request.params.checklistid);
-      const loggedInUser = request.auth.credentials;
-
-      const viewData = {
-        title: "Edit Fund Checklist",
-        fund: fund,
-        fundchecklist: fundChecklist,
-        user: loggedInUser,
-      };
-      return h.view("editFundChecklist-view", viewData);
     },
   },
 
