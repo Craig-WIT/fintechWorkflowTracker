@@ -53,4 +53,9 @@ process.on("unhandledRejection", (err) => {
   process.exit(1);
 });
 
+Handlebars.registerHelper("eq", function( a, b ){
+	const next =  arguments[arguments.length-1];
+	return (a === b) ? next.fn(this) : next.inverse(this);
+});
+
 init();
