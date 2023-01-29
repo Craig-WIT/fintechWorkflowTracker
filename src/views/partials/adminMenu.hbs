@@ -1,10 +1,16 @@
 <nav class="ui menu" style="border: 3px solid #043F8C; border-radius: 10px; background-color: #C9E5F0;">
   <header class="ui header item"></header>
-  <div class="right menu">
-    <a id="userAdmin" class="item" href="/userAdmin">Users</a>
-    <a id="teamAdmin" class="item" href="/teamAdmin">Teams</a>
-    <a id="fundAdmin" class="item" href="/fundAdmin">Funds</a>
-    <a id="checklistAdmin" class="item" href="/checklistAdmin">Checklists</a>
+  <div class="ui right dropdown item">
+    Admin
+    <i class="dropdown icon"></i>
+    <div class="menu">
+      <a id="userAdmin" class="item" href="/userAdmin">Users</a>
+      <a id="teamAdmin" class="item" href="/teamAdmin">Teams</a>
+      <a id="fundAdmin" class="item" href="/fundAdmin">Funds</a>
+      <a id="checklistAdmin" class="item" href="/checklistAdmin">Checklists</a>
+    </div>
+  </div>
+    
     <a id="dashboard" class="item" href="/dashboard">Dashboard</a>
     <a id="logout" class="item" href="/logout">Logout</a>
   </div>
@@ -12,4 +18,5 @@
 
 <script>
   $("#{{id}}").addClass("active item");
+  $('.ui.right.dropdown').dropdown();
 </script>

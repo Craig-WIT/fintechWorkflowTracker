@@ -2,7 +2,7 @@
   <header class="ui header item"></header>
   <div class="right menu">
     {{#if user.admin}}
-    <a id="admin" class="item" href="/fundAdmin">Admin</a>
+    {{<a id="admin" class="item" href="/fundAdmin">Admin</a>}}
     {{/if}}
     <a id="dashboard" class="item" href="/dashboard">Dashboard</a>
     <a id="logout" class="item" href="/logout">Logout</a>
