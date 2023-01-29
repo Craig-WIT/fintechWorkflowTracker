@@ -25,8 +25,14 @@
       <td>
         <div class = "font-awesome">
             <select class="fa" name="Preparer value {{_id}}" class="ui fluid dropdown" id="defaultvalue">
-                <option class="fa" value="Checked">&#xf00c</option>
+                {{#eq preparer "Checked"}}
+                <option class="fa" value="Checked" selected="selected">&#xf00c</option>
                 <option value="N/A">N/A</option>
+                {{/eq}}
+                {{#eq preparer "N/A"}}
+                <option class="fa" value="Checked">&#xf00c</option>
+                <option value="N/A" selected="selected">N/A</option>
+                {{/eq}}
             </select>
         </div>
       </td>
@@ -35,12 +41,36 @@
       <td>
         <div class = "font-awesome">
             <select class="fa" name="1st Reviewer value {{_id}}" class="ui fluid dropdown" id="defaultvalue">
-                <option class="fa" value="Checked">&#xf00c</option>
+                {{#eq firstReview "Checked"}}
+                <option class="fa" value="Checked" selected="selected">&#xf00c</option>
                 <option value="N/A">N/A</option>
+                {{/eq}}
+                {{#eq firstReview "N/A"}}
+                <option class="fa" value="Checked">&#xf00c</option>
+                <option value="N/A" selected="selected">N/A</option>
+                {{/eq}}
             </select>
         </div>
       </td>
       {{/unless}}
+      {{#eq ../fundchecklist.reviewers "2"}}    
+      {{#unless header}}
+      <td>
+        <div class = "font-awesome">
+            <select class="fa" name="2nd Reviewer value {{_id}}" class="ui fluid dropdown" id="defaultvalue">
+                {{#eq secondReview "Checked"}}
+                <option class="fa" value="Checked" selected="selected">&#xf00c</option>
+                <option value="N/A">N/A</option>
+                {{/eq}}
+                {{#eq secondReview "N/A"}}
+                <option class="fa" value="Checked">&#xf00c</option>
+                <option value="N/A" selected="selected">N/A</option>
+                {{/eq}}
+            </select>
+        </div>
+      </td>
+      {{/unless}}
+      {{/eq}}
     </tr>
   {{/each}}
   </tbody>

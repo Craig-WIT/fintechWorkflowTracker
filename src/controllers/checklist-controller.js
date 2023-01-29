@@ -57,7 +57,10 @@ export const checklistController = {
         const newItem = {
             title: request.payload.checklistitem,
             header: checklistItem.header,
-            default: request.payload.defaultvalue
+            default: request.payload.defaultvalue,
+            preparer: request.payload.defaultvalue,
+            firstReview: request.payload.defaultvalue,
+            secondReview: request.payload.defaultvalue
           };
         const viewData = {
         title: "Edit Checklist",

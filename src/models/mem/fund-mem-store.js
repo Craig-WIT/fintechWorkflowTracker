@@ -56,6 +56,25 @@ export const fundMemStore = {
     foundFund.yearend = editedFund.yearend;
   },
 
+  async editFundChecklist(id,checklistid,checklistItems) {
+    const foundChecklist = await this.getFundChecklistById(id,checklistid);
+
+    Object.keys(checklistItems).forEach(key => {
+      const itemId = key.slice(-36);
+      const foundItem = foundChecklist.items.find((item) => item._id === itemId);
+      if(key.includes("Preparer")){
+        foundItem.preparer = checklistItems[key]
+      }
+      else if(key.includes("1st")){
+        foundItem.firstReview = checklistItems[key]
+      }
+      else if(key.includes("2nd")){
+        foundItem.secondReview = checklistItems[key]
+      }
+    });
+    console.log(JSON.stringify(foundChecklist, null, 4))
+  },
+
   async deleteAll() {
     funds = [];
   },

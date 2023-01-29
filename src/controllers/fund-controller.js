@@ -109,7 +109,6 @@ export const fundController = {
   editFund: {
     handler: async function (request, h) {
       const fund = await db.fundStore.getFundById(request.params.id);
-      const fundId = request.params.id;
 
       const editedFund = {
         fundname: request.payload.fundname,
@@ -127,9 +126,27 @@ export const fundController = {
 
   editFundChecklist: {
     handler: async function (request, h) {
+      const fundId = request.params.id
+      const checklistId = request.params.checklistid
+      const checklistItems = request.payload
+
+      await db.fundStore.editFundChecklist(fundId,checklistId,checklistItems);
+
+      Object.keys(checklistItems).forEach(key => {
+        console.log(key, checklistItems[key]);
+        if(key.includes("Preparer")){
+          console.log("This is a preparer")
+        }
+        else if(key.includes("1st")){
+          console.log("This is a 1st review")
+        }
+        else if(key.includes("2nd")){
+          console.log("This is a 2nd review")
+        }
+      });
     
     console.log(JSON.stringify(request.payload, null, 4))
-    return h.redirect("/fundAdmin");
+    return h.redirect(`/viewFund/${fundId}/editFundChecklist/${checklistId}`);
   },
   },
 };
