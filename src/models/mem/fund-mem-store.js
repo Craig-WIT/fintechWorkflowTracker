@@ -75,6 +75,18 @@ export const fundMemStore = {
     console.log(JSON.stringify(foundChecklist, null, 4))
   },
 
+  async preparerSignOff(id,checklistid,user) {
+    const foundChecklist = await this.getFundChecklistById(id,checklistid);
+
+    foundChecklist.preparer = user.firstname + user.lastname
+  },
+
+  async removePreparerSignOff(id,checklistid,user) {
+    const foundChecklist = await this.getFundChecklistById(id,checklistid);
+
+    foundChecklist.preparer = "No preparer Sign Off"
+  },
+
   async deleteAll() {
     funds = [];
   },

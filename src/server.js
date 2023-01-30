@@ -1,5 +1,7 @@
 import Hapi from "@hapi/hapi";
 // eslint-disable-next-line import/no-extraneous-dependencies
+import Yar from "@hapi/yar";
+// eslint-disable-next-line import/no-extraneous-dependencies
 import Vision from "@hapi/vision";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import Handlebars from "handlebars";

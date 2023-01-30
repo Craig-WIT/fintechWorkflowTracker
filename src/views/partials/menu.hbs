@@ -2,7 +2,16 @@
   <header class="ui header item"></header>
   <div class="right menu">
     {{#if user.admin}}
-    {{<a id="admin" class="item" href="/fundAdmin">Admin</a>}}
+    <div class="ui right dropdown item">
+    Admin
+    <i class="dropdown icon"></i>
+    <div class="menu">
+      <a id="userAdmin" class="item" href="/userAdmin">Users</a>
+      <a id="teamAdmin" class="item" href="/teamAdmin">Teams</a>
+      <a id="fundAdmin" class="item" href="/fundAdmin">Funds</a>
+      <a id="checklistAdmin" class="item" href="/checklistAdmin">Checklists</a>
+    </div>
+  </div>
     {{/if}}
     <a id="dashboard" class="item" href="/dashboard">Dashboard</a>
     <a id="logout" class="item" href="/logout">Logout</a>
@@ -11,4 +20,5 @@
 
 <script>
   $("#{{id}}").addClass("active item");
+  $('.ui.right.dropdown').dropdown();
 </script>

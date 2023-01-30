@@ -4,10 +4,27 @@
   <thead>
   <tr>
     <th>Checklist Item</th>
-    <th>Prepared By</th>
-    <th>1st Review</th>
+    <th>Prepared By
+        {{#eq fundchecklist.preparer "No preparer Sign Off"}}
+    <a href="/viewFund/{{fund._id}}/editFundChecklist/{{fundchecklist._id}}/preparerSignOff">
+        Click to sign off <i class="fa-solid fa-check"></i>
+        {{else}}
+        <a href="/viewFund/{{fund._id}}/editFundChecklist/{{fundchecklist._id}}/removePreparerSignOff">
+        {{user.firstname}} {{user.lastname}} <i class="fa-solid fa-x"></i>
+        {{/eq}}
+    </a>
+    </th>
+    <th>1st Review
+    <a href="/viewFund/{{fund._id}}/editFundChecklist/{{fundchecklist._id}}/1stReviewSignOff">
+        Click to sign off<i class="fa-solid fa-check"></i>
+    </a>
+    </th>
     {{#eq fundchecklist.reviewers "2"}}
-    <th>2nd Review</th>
+    <th>2nd Review
+    <a href="/viewFund/{{fund._id}}/editFundChecklist/{{fundchecklist._id}}/2ndReviewSignOff">
+        Click to sign off<i class="fa-solid fa-check"></i>
+    </a>
+    </th>
     {{/eq}}
   </tr>
   </thead>

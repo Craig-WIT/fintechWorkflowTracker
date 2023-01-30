@@ -90,6 +90,12 @@ export const fundController = {
       const returnedChecklist = await db.checklistStore.getChecklistById(request.payload.type);
       const newChecklist = JSON.parse(JSON.stringify(returnedChecklist));
       newChecklist.checklistdate = request.payload.checklistdate
+      newChecklist.preparer = "No preparer Sign Off"
+      newChecklist.firstReview = "No 1st Review"
+
+      if(returnedChecklist.reviewers === "2"){
+        newChecklist.secondReview = "No 2nd Review"
+      }      
      
       await db.fundStore.addFundChecklist(fund._id,newChecklist);
       console.log(JSON.stringify(fund, null, 4))
@@ -147,6 +153,46 @@ export const fundController = {
     
     console.log(JSON.stringify(request.payload, null, 4))
     return h.redirect(`/viewFund/${fundId}/editFundChecklist/${checklistId}`);
+  },
+  },
+
+  preparerSignOff: {
+    handler: async function (request, h) {
+      const fundId = request.params.id
+      const checklistId = request.params.checklistid
+      const loggedInUser = request.auth.credentials;
+
+      await db.fundStore.preparerSignOff(fundId,checklistId,loggedInUser);
+
+    return h.redirect(`/viewFund/${fundId}/editFundChecklist/${checklistId}`);
+  },
+  },
+
+  removePreparerSignOff: {
+    handler: async function (request, h) {
+      const fundId = request.params.id
+      const checklistId = request.params.checklistid
+      const loggedInUser = request.auth.credentials;
+
+      if(loggedInUser.admin){
+        await db.fundStore.removePreparerSignOff(fundId,checklistId,loggedInUser);
+        return h.redirect(`/viewFund/${fundId}/editFundChecklist/${checklistId}`);
+      }
+
+      const fund = await db.fundStore.getFundById(fundId);
+      const fundChecklist = await db.fundStore.getFundChecklistById(fundId,checklistId);
+      const errorMsg = "Can't remove sign off - Not Admin level"
+        
+      const viewData = {
+        title: "Edit Fund Checklist",
+        fund: fund,
+        fundchecklist: fundChecklist,
+        user: loggedInUser,
+        error: errorMsg,
+      };
+
+      return h.view("editFundChecklist-view", viewData);
+      
   },
   },
 };
