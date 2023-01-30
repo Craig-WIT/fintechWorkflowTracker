@@ -168,6 +168,30 @@ export const fundController = {
   },
   },
 
+  firstReviewSignOff: {
+    handler: async function (request, h) {
+      const fundId = request.params.id
+      const checklistId = request.params.checklistid
+      const loggedInUser = request.auth.credentials;
+
+      await db.fundStore.firstReviewSignOff(fundId,checklistId,loggedInUser);
+
+    return h.redirect(`/viewFund/${fundId}/editFundChecklist/${checklistId}`);
+  },
+  },
+
+  secondReviewSignOff: {
+    handler: async function (request, h) {
+      const fundId = request.params.id
+      const checklistId = request.params.checklistid
+      const loggedInUser = request.auth.credentials;
+
+      await db.fundStore.secondReviewSignOff(fundId,checklistId,loggedInUser);
+
+    return h.redirect(`/viewFund/${fundId}/editFundChecklist/${checklistId}`);
+  },
+  },
+
   removePreparerSignOff: {
     handler: async function (request, h) {
       const fundId = request.params.id

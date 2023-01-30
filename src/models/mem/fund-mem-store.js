@@ -81,6 +81,18 @@ export const fundMemStore = {
     foundChecklist.preparer = user.firstname + user.lastname
   },
 
+  async firstReviewSignOff(id,checklistid,user) {
+    const foundChecklist = await this.getFundChecklistById(id,checklistid);
+
+    foundChecklist.firstReview = user.firstname + user.lastname
+  },
+
+  async secondReviewSignOff(id,checklistid,user) {
+    const foundChecklist = await this.getFundChecklistById(id,checklistid);
+
+    foundChecklist.secondReview = user.firstname + user.lastname
+  },
+
   async removePreparerSignOff(id,checklistid,user) {
     const foundChecklist = await this.getFundChecklistById(id,checklistid);
 
