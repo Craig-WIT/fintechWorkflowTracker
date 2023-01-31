@@ -208,7 +208,63 @@ export const fundController = {
       const loggedInUser = request.auth.credentials;
 
       if(loggedInUser.admin){
-        await db.fundStore.removePreparerSignOff(fundId,checklistId,loggedInUser);
+        await db.fundStore.removePreparerSignOff(fundId,checklistId);
+        return h.redirect(`/viewFund/${fundId}/editFundChecklist/${checklistId}`);
+      }
+
+      const fund = await db.fundStore.getFundById(fundId);
+      const fundChecklist = await db.fundStore.getFundChecklistById(fundId,checklistId);
+      const errorMsg = "Can't remove sign off - Not Admin level"
+        
+      const viewData = {
+        title: "Edit Fund Checklist",
+        fund: fund,
+        fundchecklist: fundChecklist,
+        user: loggedInUser,
+        error: errorMsg,
+      };
+
+      return h.view("editFundChecklist-view", viewData);
+      
+  },
+  },
+
+  removeFirstReviewSignOff: {
+    handler: async function (request, h) {
+      const fundId = request.params.id
+      const checklistId = request.params.checklistid
+      const loggedInUser = request.auth.credentials;
+
+      if(loggedInUser.admin){
+        await db.fundStore.removeFirstReviewSignOff(fundId,checklistId);
+        return h.redirect(`/viewFund/${fundId}/editFundChecklist/${checklistId}`);
+      }
+
+      const fund = await db.fundStore.getFundById(fundId);
+      const fundChecklist = await db.fundStore.getFundChecklistById(fundId,checklistId);
+      const errorMsg = "Can't remove sign off - Not Admin level"
+        
+      const viewData = {
+        title: "Edit Fund Checklist",
+        fund: fund,
+        fundchecklist: fundChecklist,
+        user: loggedInUser,
+        error: errorMsg,
+      };
+
+      return h.view("editFundChecklist-view", viewData);
+      
+  },
+  },
+
+  removeSecondReviewSignOff: {
+    handler: async function (request, h) {
+      const fundId = request.params.id
+      const checklistId = request.params.checklistid
+      const loggedInUser = request.auth.credentials;
+
+      if(loggedInUser.admin){
+        await db.fundStore.removeSecondReviewSignOff(fundId,checklistId);
         return h.redirect(`/viewFund/${fundId}/editFundChecklist/${checklistId}`);
       }
 

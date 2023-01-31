@@ -227,7 +227,7 @@ export const AddUserSpec = {
         });
         return errors;
       }),
-    department: Joi.string().email().required().error(errors => {
+    department: Joi.string().required().error(errors => {
         errors.forEach(err => {
           switch (err.code) {
             case "string.empty":

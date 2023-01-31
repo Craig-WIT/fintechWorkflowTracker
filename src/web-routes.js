@@ -41,7 +41,9 @@ export const webRoutes = [
     { method: "GET", path: "/viewFund/{id}/editFundChecklist/{checklistid}/preparerSignOff", config: fundController.preparerSignOff },
     { method: "GET", path: "/viewFund/{id}/editFundChecklist/{checklistid}/removePreparerSignOff", config: fundController.removePreparerSignOff },
     { method: "GET", path: "/viewFund/{id}/editFundChecklist/{checklistid}/firstReviewSignOff", config: fundController.firstReviewSignOff },
+    { method: "GET", path: "/viewFund/{id}/editFundChecklist/{checklistid}/removeFirstReviewSignOff", config: fundController.removeFirstReviewSignOff },
     { method: "GET", path: "/viewFund/{id}/editFundChecklist/{checklistid}/secondReviewSignOff", config: fundController.secondReviewSignOff },
+    { method: "GET", path: "/viewFund/{id}/editFundChecklist/{checklistid}/removeSecondReviewSignOff", config: fundController.removeSecondReviewSignOff },
     
     { method: "GET", path: "/checklistAdmin", config: checklistController.showChecklistAdmin },
     { method: "GET", path: "/checklistAdmin/{id}/editChecklist", config: checklistController.showEditChecklist },

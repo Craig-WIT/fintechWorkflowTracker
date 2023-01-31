@@ -78,25 +78,49 @@ export const fundMemStore = {
   async preparerSignOff(id,checklistid,user) {
     const foundChecklist = await this.getFundChecklistById(id,checklistid);
 
-    foundChecklist.preparer = user.firstname + user.lastname
+    foundChecklist.preparer = {
+      userid: user._id,
+      firstname: user.firstname,
+      lastname: user.lastname,
+    };
   },
 
   async firstReviewSignOff(id,checklistid,user) {
     const foundChecklist = await this.getFundChecklistById(id,checklistid);
 
-    foundChecklist.firstReview = user.firstname + user.lastname
+    foundChecklist.firstReview = {
+      userid: user._id,
+      firstname: user.firstname,
+      lastname: user.lastname,
+    };
   },
 
   async secondReviewSignOff(id,checklistid,user) {
     const foundChecklist = await this.getFundChecklistById(id,checklistid);
 
-    foundChecklist.secondReview = user.firstname + user.lastname
+    foundChecklist.secondReview = {
+      userid: user._id,
+      firstname: user.firstname,
+      lastname: user.lastname,
+    };
   },
 
-  async removePreparerSignOff(id,checklistid,user) {
+  async removePreparerSignOff(id,checklistid) {
     const foundChecklist = await this.getFundChecklistById(id,checklistid);
 
     foundChecklist.preparer = "No preparer Sign Off"
+  },
+
+  async removeFirstReviewSignOff(id,checklistid) {
+    const foundChecklist = await this.getFundChecklistById(id,checklistid);
+
+    foundChecklist.firstReview = "No 1st Review"
+  },
+
+  async removeSecondReviewSignOff(id,checklistid) {
+    const foundChecklist = await this.getFundChecklistById(id,checklistid);
+
+    foundChecklist.secondReview = "No 2nd Review"
   },
 
   async deleteAll() {
