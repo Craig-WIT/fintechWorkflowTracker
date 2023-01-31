@@ -7,17 +7,16 @@
     <th>Prepared By
         {{#eq fundchecklist.preparer "No preparer Sign Off"}}
     <a href="/viewFund/{{fund._id}}/editFundChecklist/{{fundchecklist._id}}/preparerSignOff">
-        Click to sign off <i class="fa-solid fa-check"></i>
+        Click to sign off <i class="fa-solid fa-circle-check"></i></a>
         {{else}}
         <a href="/viewFund/{{fund._id}}/editFundChecklist/{{fundchecklist._id}}/removePreparerSignOff">
-        {{fundchecklist.preparer}} <i class="fa-solid fa-x"></i>
+        {{fundchecklist.preparer}} <i class="fa-solid fa-x"></i></a>
         {{/eq}}
-    </a>
     </th>
     <th>1st Review
-        {{#eq fundchecklist.preparer "No 1st Review"}}
+        {{#eq fundchecklist.firstReview "No 1st Review"}}
     <a href="/viewFund/{{fund._id}}/editFundChecklist/{{fundchecklist._id}}/firstReviewSignOff">
-        Click to sign off<i class="fa-solid fa-check"></i>
+        Click to sign off <i class="fa-solid fa-circle-check"></i>
         {{else}}
         <a href="/viewFund/{{fund._id}}/editFundChecklist/{{fundchecklist._id}}/removeFirstReviewSignOff">
         {{fundchecklist.firstReview}} <i class="fa-solid fa-x"></i>
@@ -26,9 +25,9 @@
     </th>
     {{#eq fundchecklist.reviewers "2"}}
     <th>2nd Review
-        {{#eq fundchecklist.preparer "No 2nd Review"}}
+        {{#eq fundchecklist.secondReview "No 2nd Review"}}
     <a href="/viewFund/{{fund._id}}/editFundChecklist/{{fundchecklist._id}}/secondReviewSignOff">
-        Click to sign off<i class="fa-solid fa-check"></i>
+        Click to sign off <i class="fa-solid fa-circle-check"></i>
         {{else}}
         <a href="/viewFund/{{fund._id}}/editFundChecklist/{{fundchecklist._id}}/removeSecondReviewSignOff">
         {{fundchecklist.secondReview}} <i class="fa-solid fa-x"></i>

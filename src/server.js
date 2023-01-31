@@ -4,6 +4,8 @@ import Yar from "@hapi/yar";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import Vision from "@hapi/vision";
 // eslint-disable-next-line import/no-extraneous-dependencies
+import Joi from "joi";
+// eslint-disable-next-line import/no-extraneous-dependencies
 import Handlebars from "handlebars";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -23,6 +25,7 @@ async function init() {
   });
   await server.register(Vision);
   await server.register(Cookie);
+  server.validator(Joi);
   server.auth.strategy("session", "cookie", {
     cookie: {
       name: "playtime",

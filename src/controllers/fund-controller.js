@@ -1,4 +1,5 @@
 import { db } from "../models/db.js";
+import { FundSpec, } from "../models/joi-schemas.js";
 
 export const fundController = {
   showFundAdmin: {
@@ -72,6 +73,14 @@ export const fundController = {
   },
 
   addFund: {
+    validate: {
+      payload: FundSpec,
+      options: { abortEarly: false },
+      failAction: function (request, h, error) {
+        console.log(error.details)
+        return h.view("fundAdmin-view", { title: "Sign up error", errors: error.details }).takeover().code(400);
+      },
+    },
     handler: async function (request, h) {
       const newFund = {
         fundname: request.payload.fundname,

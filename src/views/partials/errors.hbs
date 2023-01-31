@@ -1,0 +1,25 @@
+{{#if errors}}
+<div class="ui negative message">
+  <i class="close icon"></i>
+  <div class="header">
+    There was a problem...
+  </div>
+    <ul>
+      {{#each errors}}
+        <li>{{message}}</li>
+      {{/each}}
+    </ul>
+  </div>
+</div>
+{{/if}}
+
+<script>
+    $('.negative.message .close')
+  .on('click', function() {
+    $(this)
+      .closest('.message')
+      .transition('fade')
+    ;
+  })
+;
+  </script>
