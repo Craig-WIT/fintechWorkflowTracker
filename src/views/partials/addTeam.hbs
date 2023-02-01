@@ -2,24 +2,24 @@
       style="background-color: #C9E5F0; border: 3px solid white;">
   <div class="field">
     <label>Team Name</label>
-    <input placeholder="Team name" type="text" name="name">
+    <input placeholder="Team name" type="text" name="name" {{#if form}}value="{{form.name}}"{{/if}}>
     <label>Location</label>
-    <select name="location" class="ui fluid dropdown" id="location">
+    <select name="location" class="ui fluid dropdown" id="location" {{#if form}}value="{{form.location}}"{{/if}}>
       <option value="">Select Location</option>
-      <option value="Dublin">Dublin</option>
-      <option value="Luxembourg">Luxembourg</option>
-      <option value="New Jersey">New Jersey</option>
-      <option value="Bermuda">Bermuda</option>
-      <option value="Philippines">Philippines</option>
+      <option value="Dublin" {{#eq form.location "Dublin"}}selected="selected"{{/eq}}>Dublin</option>
+      <option value="Luxembourg" {{#eq form.location "Luxembourg"}}selected="selected"{{/eq}}>Luxembourg</option>
+      <option value="New Jersey" {{#eq form.location "New Jersey"}}selected="selected"{{/eq}}>New Jersey</option>
+      <option value="Bermuda" {{#eq form.location "Bermuda"}}selected="selected"{{/eq}}>Bermuda</option>
+      <option value="Philippines" {{#eq form.location "Philippines"}}selected="selected"{{/eq}}>Philippines</option>
     </select>
     <label>Department</label>
-    <select name="department" class="ui fluid dropdown" id="department">
+    <select name="department" class="ui fluid dropdown" id="department" {{#if form}}value="{{form.department}}"{{/if}}>
       <option value="">Select Department</option>
-      <option value="FA">Fund Accounting</option>
-      <option value="PE">Private Equity</option>
-      <option value="CS">Corporate Services</option>
-      <option value="IA">Risk and Audit</option>
-      <option value="IS">Investor Services</option>
+      <option value="FA" {{#eq form.department "FA"}}selected="selected"{{/eq}}>Fund Accounting</option>
+      <option value="PE" {{#eq form.department "PE"}}selected="selected"{{/eq}}>Private Equity</option>
+      <option value="CS" {{#eq form.department "CS"}}selected="selected"{{/eq}}>Corporate Services</option>
+      <option value="IA" {{#eq form.department "IA"}}selected="selected"{{/eq}}>Risk and Audit</option>
+      <option value="IS" {{#eq form.department "IS"}}selected="selected"{{/eq}}>Investor Services</option>
     </select>
     <label>Funds</label>
     <select name="funds" multiple="" class="ui fluid dropdown" id="funds">

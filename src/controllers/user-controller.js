@@ -39,10 +39,11 @@ export const userController = {
         console.log(error.details);
         const teams = await db.teamStore.getAllTeams();
         const users = await db.userStore.getAllUsers();
+        const formDetails = request.payload
 
         userController.refreshUserTeams(users,teams)
 
-        return h.view("userAdmin-view", { title: "Add user error", errors: error.details, users: users, teams: teams }).takeover().code(400);
+        return h.view("userAdmin-view", { title: "Add user error", errors: error.details, users: users, teams: teams, form: formDetails }).takeover().code(400);
       },
     },
     handler: async function (request, h) {

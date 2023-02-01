@@ -78,7 +78,8 @@ export const fundController = {
       options: { abortEarly: false },
       failAction: function (request, h, error) {
         console.log(error.details)
-        return h.view("fundAdmin-view", { title: "Sign up error", errors: error.details }).takeover().code(400);
+        const formDetails = request.payload
+        return h.view("fundAdmin-view", { title: "Sign up error", errors: error.details, form: formDetails }).takeover().code(400);
       },
     },
     handler: async function (request, h) {

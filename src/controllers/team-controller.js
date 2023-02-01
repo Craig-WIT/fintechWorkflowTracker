@@ -34,9 +34,11 @@ export const teamController = {
       options: { abortEarly: false },
       failAction: async function (request, h, error) {
         console.log(error.details);
+        console.log(request.payload);
         const teams = await db.teamStore.getAllTeams();
         const funds = await db.fundStore.getAllFunds();
-        return h.view("teamAdmin-view", { title: "Sign up error", errors: error.details, funds: funds, teams: teams }).takeover().code(400);
+        const formDetails = request.payload
+        return h.view("teamAdmin-view", { title: "Sign up error", errors: error.details, funds: funds, teams: teams, form: formDetails }).takeover().code(400);
       },
     },
     handler: async function (request, h) {
