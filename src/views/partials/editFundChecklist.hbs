@@ -16,10 +16,10 @@
     <th>1st Review
         {{#eq fundchecklist.firstReview "No 1st Review"}}
     <a href="/viewFund/{{fund._id}}/editFundChecklist/{{fundchecklist._id}}/firstReviewSignOff">
-        Click to sign off <i id="check" class="fa-solid fa-circle-check"></i>
+        Click to sign off <i id="check" class="fa-solid fa-circle-check" style="font-size:20px;color:rgb(17, 145, 104);"></i>
         {{else}}
         <a href="/viewFund/{{fund._id}}/editFundChecklist/{{fundchecklist._id}}/removeFirstReviewSignOff">
-        {{fundchecklist.firstReview.firstname}} {{fundchecklist.firstReview.lastname}} <i id="xmark" class="fa-solid fa-circle-xmark"></i>
+        {{fundchecklist.firstReview.firstname}} {{fundchecklist.firstReview.lastname}} <i id="xmark" class="fa-solid fa-circle-xmark" style="font-size:20px;color:red;"></i>
         {{/eq}}
     </a>
     </th>
@@ -27,10 +27,10 @@
     <th>2nd Review
         {{#eq fundchecklist.secondReview "No 2nd Review"}}
     <a href="/viewFund/{{fund._id}}/editFundChecklist/{{fundchecklist._id}}/secondReviewSignOff">
-        Click to sign off <i id="check" class="fa-solid fa-circle-check"></i>
+        Click to sign off <i id="check" class="fa-solid fa-circle-check" style="font-size:20px;color:rgb(17, 145, 104);"></i>
         {{else}}
         <a href="/viewFund/{{fund._id}}/editFundChecklist/{{fundchecklist._id}}/removeSecondReviewSignOff">
-        {{fundchecklist.secondReview.firstname}} {{fundchecklist.secondReview.lastname}} <i id="xmark" class="fa-solid fa-circle-xmark"></i>
+        {{fundchecklist.secondReview.firstname}} {{fundchecklist.secondReview.lastname}} <i id="xmark" class="fa-solid fa-circle-xmark" style="font-size:20px;color:red;"></i>
         {{/eq}}
     </a>
     </th>
@@ -112,11 +112,4 @@
   .font-awesome .fa {
     font-family:monospace,monospace;
 }
-
-    $('.fa-solid fa-circle-check')
-  .popup({
-    title   : 'Popup Title',
-    content : 'Hello I am a popup'
-  })
-;
 </script>

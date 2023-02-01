@@ -172,9 +172,25 @@ export const fundController = {
       const checklistId = request.params.checklistid
       const loggedInUser = request.auth.credentials;
 
-      await db.fundStore.preparerSignOff(fundId,checklistId,loggedInUser);
+      const fund = await db.fundStore.getFundById(fundId);
+      const fundChecklist = await db.fundStore.getFundChecklistById(fundId,checklistId);
 
-    return h.redirect(`/viewFund/${fundId}/editFundChecklist/${checklistId}`);
+      if(loggedInUser._id !== fundChecklist.firstReview.userid && loggedInUser._id !== fundChecklist.secondReview.userid){
+      await db.fundStore.preparerSignOff(fundId,checklistId,loggedInUser);
+      return h.redirect(`/viewFund/${fundId}/editFundChecklist/${checklistId}`);
+      }
+
+      const errorMsg = "Can't Sign off as preparer - already signed off as Reviewer"
+        
+      const viewData = {
+        title: "Edit Fund Checklist",
+        fund: fund,
+        fundchecklist: fundChecklist,
+        user: loggedInUser,
+        error: errorMsg,
+      };
+
+      return h.view("editFundChecklist-view", viewData);
   },
   },
 
@@ -184,9 +200,25 @@ export const fundController = {
       const checklistId = request.params.checklistid
       const loggedInUser = request.auth.credentials;
 
-      await db.fundStore.firstReviewSignOff(fundId,checklistId,loggedInUser);
+      const fund = await db.fundStore.getFundById(fundId);
+      const fundChecklist = await db.fundStore.getFundChecklistById(fundId,checklistId);
 
-    return h.redirect(`/viewFund/${fundId}/editFundChecklist/${checklistId}`);
+      if(loggedInUser.role === "Reviewer"){
+      await db.fundStore.firstReviewSignOff(fundId,checklistId,loggedInUser);
+      return h.redirect(`/viewFund/${fundId}/editFundChecklist/${checklistId}`);
+      }
+
+      const errorMsg = "Can't Sign off - user is not a Reviewer"
+        
+      const viewData = {
+        title: "Edit Fund Checklist",
+        fund: fund,
+        fundchecklist: fundChecklist,
+        user: loggedInUser,
+        error: errorMsg,
+      };
+
+      return h.view("editFundChecklist-view", viewData);
   },
   },
 
@@ -196,9 +228,25 @@ export const fundController = {
       const checklistId = request.params.checklistid
       const loggedInUser = request.auth.credentials;
 
-      await db.fundStore.secondReviewSignOff(fundId,checklistId,loggedInUser);
+      const fund = await db.fundStore.getFundById(fundId);
+      const fundChecklist = await db.fundStore.getFundChecklistById(fundId,checklistId);
 
-    return h.redirect(`/viewFund/${fundId}/editFundChecklist/${checklistId}`);
+      if(loggedInUser.role === "Reviewer"){
+        await db.fundStore.secondReviewSignOff(fundId,checklistId,loggedInUser);
+        return h.redirect(`/viewFund/${fundId}/editFundChecklist/${checklistId}`);
+        }
+  
+        const errorMsg = "Can't Sign off - user is not a Reviewer"
+          
+        const viewData = {
+          title: "Edit Fund Checklist",
+          fund: fund,
+          fundchecklist: fundChecklist,
+          user: loggedInUser,
+          error: errorMsg,
+        };
+  
+        return h.view("editFundChecklist-view", viewData);
   },
   },
 

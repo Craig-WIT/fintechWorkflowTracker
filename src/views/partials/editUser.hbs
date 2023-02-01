@@ -2,24 +2,24 @@
       style="background-color: #C9E5F0; border: 3px solid white;">
   <div class="field">
     <label>Change First Name</label>
-    <input placeholder="{{user.firstname}}" type="text" name="firstname">
+    <input value="{{user.firstname}}" type="text" name="firstname">
     <label>Last Name</label>
-    <input placeholder="{{user.lastname}}" type="text" name="lastname">
+    <input value="{{user.lastname}}" type="text" name="lastname">
     <label>Email</label>
-    <input placeholder="{{user.email}}" type="text" name="email">
+    <input value="{{user.email}}" type="text" name="email">
     <label>Password</label>
-    <input placeholder="{{user.password}}" type="password" name="password">
+    <input value="{{user.password}}" type="password" name="password">
     <label>Role</label>
     <select name="role" class="ui fluid dropdown" id="role">
     <option value="">Select role</option>
-      <option value="Preparer">Preparer</option>
-      <option value="Reviewer">Reviewer</option>
+      <option value="Preparer" {{#eq user.role "Preparer"}}selected="selected"{{/eq}}>Preparer</option>
+      <option value="Reviewer" {{#eq user.role "Reviewer"}}selected="selected"{{/eq}}>Reviewer</option>
     </select>
     <label>Is Admin?</label>
     <select name="admin" class="ui fluid dropdown" id="admin">
     <option value="">Is Admin?</option>
-      <option value="Yes">Yes</option>
-      <option value="No">No</option>
+      <option value="Yes" {{#if user.admin}}selected="selected"{{/if}}>Yes</option>
+      <option value="No" {{#unless user.admin}}selected="selected"{{/unless}}>No</option>
     </select>
     <label>Teams</label>
     <select name="teams" multiple="" class="ui fluid dropdown" id="teams">
@@ -30,7 +30,7 @@
     </select>
   </div>
   <button id="submitButton" class="tiny ui blue submit animated button">
-    <div class="visible content">Edit User</div>
+    <div class="visible content">Save changes</div>
     <div class="hidden content">Are you sure?</div>
   </button>
 </form>
