@@ -7,21 +7,7 @@ export const userController = {
         const teams = await db.teamStore.getAllTeams();
         const users = await db.userStore.getAllUsers();
 
-        users.forEach((user) => {
-            console.log("Loop:")
-            console.log(JSON.stringify(user, null, 4))
-              if(user.teams.length > 0) {
-                user.teams.forEach((userTeam) => {
-                    const foundTeam = teams.find((team) => team._id === userTeam._id);
-                    if(foundTeam === undefined){
-                        const index = user.teams.findIndex((team) => team._id === userTeam._id);
-                        user.teams.splice(index, 1);
-                    }
-                });
-            }
-        console.log("After Loop:")
-        console.log(JSON.stringify(user, null, 4))
-        });
+        userController.refreshUserTeams(users,teams)
 
         const viewData = {
         title: "Users Dashboard",
@@ -49,9 +35,14 @@ export const userController = {
     validate: {
       payload: AddUserSpec,
       options: { abortEarly: false },
-      failAction: function (request, h, error) {
-        console.log(error.details)
-        return h.view("userAdmin-view", { title: "Sign up error", errors: error.details }).takeover().code(400);
+      failAction: async function (request, h, error) {
+        console.log(error.details);
+        const teams = await db.teamStore.getAllTeams();
+        const users = await db.userStore.getAllUsers();
+
+        userController.refreshUserTeams(users,teams)
+
+        return h.view("userAdmin-view", { title: "Add user error", errors: error.details, users: users, teams: teams }).takeover().code(400);
       },
     },
     handler: async function (request, h) {
@@ -144,5 +135,23 @@ export const userController = {
       console.log(JSON.stringify(user, null, 4))
       return h.redirect("/userAdmin");
     },
+  },
+
+  refreshUserTeams(users,teams) {
+    users.forEach((user) => {
+      console.log("Loop:")
+      console.log(JSON.stringify(user, null, 4))
+        if(user.teams.length > 0) {
+          user.teams.forEach((userTeam) => {
+              const foundTeam = teams.find((team) => team._id === userTeam._id);
+              if(foundTeam === undefined){
+                  const index = user.teams.findIndex((team) => team._id === userTeam._id);
+                  user.teams.splice(index, 1);
+              }
+          });
+      }
+  console.log("After Loop:")
+  console.log(JSON.stringify(user, null, 4))
+  });
   },
 };

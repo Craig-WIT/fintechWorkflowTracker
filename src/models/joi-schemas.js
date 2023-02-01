@@ -161,7 +161,7 @@ export const AddUserSpec = {
         });
         return errors;
       }),
-    teams: Joi.string().required().error(errors => {
+    teams: Joi.alternatives().required().try(Joi.array().items(Joi.string()), Joi.string()).error(errors => {
         errors.forEach(err => {
           switch (err.code) {
             case "any.required":
@@ -239,7 +239,7 @@ export const AddUserSpec = {
         });
         return errors;
       }),
-    funds: Joi.string().required().error(errors => {
+    funds: Joi.alternatives().required().try(Joi.array().items(Joi.string()), Joi.string()).error(errors => {
         errors.forEach(err => {
           switch (err.code) {
             case "any.required":
