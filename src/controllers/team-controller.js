@@ -80,6 +80,17 @@ export const teamController = {
   },
 
   editTeam: {
+    validate: {
+      payload: TeamSpec,
+      options: { abortEarly: false },
+      failAction: async function (request, h, error) {
+        console.log(error.details);
+        const team = await db.teamStore.getTeamById(request.params.id);
+        const funds = await db.fundStore.getAllFunds();
+        const formDetails = request.payload
+        return h.view("editTeam-view", { title: "Sign up error", errors: error.details, funds: funds, team: team, form: formDetails }).takeover().code(400);
+      },
+    },
     handler: async function (request, h) {
       const team = await db.teamStore.getTeamById(request.params.id);
       const teamId = request.params.id;

@@ -76,10 +76,11 @@ export const fundController = {
     validate: {
       payload: FundSpec,
       options: { abortEarly: false },
-      failAction: function (request, h, error) {
+      failAction: async function (request, h, error) {
         console.log(error.details)
         const formDetails = request.payload
-        return h.view("fundAdmin-view", { title: "Sign up error", errors: error.details, form: formDetails }).takeover().code(400);
+        const funds = await db.fundStore.getAllFunds();
+        return h.view("fundAdmin-view", { title: "Sign up error", errors: error.details, form: formDetails,funds:funds }).takeover().code(400);
       },
     },
     handler: async function (request, h) {
@@ -123,6 +124,16 @@ export const fundController = {
   },
 
   editFund: {
+    validate: {
+      payload: FundSpec,
+      options: { abortEarly: false },
+      failAction: async function (request, h, error) {
+        console.log(error.details)
+        const formDetails = request.payload
+        const fund = await db.fundStore.getFundById(request.params.id);
+        return h.view("editFund-view", { title: "Sign up error", errors: error.details, form: formDetails,fund:fund }).takeover().code(400);
+      },
+    },
     handler: async function (request, h) {
       const fund = await db.fundStore.getFundById(request.params.id);
 

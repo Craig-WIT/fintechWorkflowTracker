@@ -95,6 +95,18 @@ export const userController = {
   },
   
   editUser: {
+    validate: {
+      payload: AddUserSpec,
+      options: { abortEarly: false },
+      failAction: async function (request, h, error) {
+        console.log(error.details);
+        const teams = await db.teamStore.getAllTeams();
+        const user = await db.userStore.getUserById(request.params.id);
+        const formDetails = request.payload
+
+        return h.view("editUser-view", { title: "Add user error", errors: error.details, user: user, teams: teams, form: formDetails }).takeover().code(400);
+      },
+    },
     handler: async function (request, h) {
         const user = await db.userStore.getUserById(request.params.id);
         const userId = request.params.id;
