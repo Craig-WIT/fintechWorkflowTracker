@@ -191,7 +191,14 @@ export const fundController = {
       return h.redirect(`/viewFund/${fundId}/editFundChecklist/${checklistId}`);
       }
 
-      const errorMsg = "Can't Sign off as preparer - already signed off as Reviewer"
+      let errorMsg = ""
+
+      if(loggedInUser._id === fundChecklist.firstReview.userid)  {
+        errorMsg = "Can't Sign off - user has already signed as 1st Reviewer"
+      }
+      else if(loggedInUser._id === fundChecklist.secondReview.userid){
+        errorMsg = "Can't Sign off - user has already signed as 2nd Reviewer"
+      }
         
       const viewData = {
         title: "Edit Fund Checklist",
@@ -214,12 +221,22 @@ export const fundController = {
       const fund = await db.fundStore.getFundById(fundId);
       const fundChecklist = await db.fundStore.getFundChecklistById(fundId,checklistId);
 
-      if(loggedInUser.role === "Reviewer"){
+      if(loggedInUser.role === "Reviewer" && loggedInUser._id !== fundChecklist.preparer.userid && loggedInUser._id !== fundChecklist.secondReview.userid){
       await db.fundStore.firstReviewSignOff(fundId,checklistId,loggedInUser);
       return h.redirect(`/viewFund/${fundId}/editFundChecklist/${checklistId}`);
       }
 
-      const errorMsg = "Can't Sign off - user is not a Reviewer"
+      let errorMsg = "";
+
+        if(loggedInUser.role !== "Reviewer"){
+          errorMsg = "Can't Sign off - user is not a Reviewer"
+        }
+        else if(loggedInUser._id === fundChecklist.preparer.userid)  {
+          errorMsg = "Can't Sign off - user has already signed as Preparer"
+        }
+        else{
+          errorMsg = "Can't Sign off - user has already signed as 2nd Reviewer"
+        }
         
       const viewData = {
         title: "Edit Fund Checklist",
@@ -242,12 +259,22 @@ export const fundController = {
       const fund = await db.fundStore.getFundById(fundId);
       const fundChecklist = await db.fundStore.getFundChecklistById(fundId,checklistId);
 
-      if(loggedInUser.role === "Reviewer"){
+      if(loggedInUser.role === "Reviewer" && loggedInUser._id !== fundChecklist.preparer.userid && loggedInUser._id !== fundChecklist.firstReview.userid){
         await db.fundStore.secondReviewSignOff(fundId,checklistId,loggedInUser);
         return h.redirect(`/viewFund/${fundId}/editFundChecklist/${checklistId}`);
         }
-  
-        const errorMsg = "Can't Sign off - user is not a Reviewer"
+        
+        let errorMsg = "";
+
+        if(loggedInUser.role !== "Reviewer"){
+          errorMsg = "Can't Sign off - user is not a Reviewer"
+        }
+        else if(loggedInUser._id === fundChecklist.preparer.userid)  {
+          errorMsg = "Can't Sign off - user has already signed as Preparer"
+        }
+        else{
+          errorMsg = "Can't Sign off - user has already signed as 1st Reviewer"
+        }
           
         const viewData = {
           title: "Edit Fund Checklist",
