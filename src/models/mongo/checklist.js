@@ -7,8 +7,8 @@ const checklistSchema = new Schema({
   checklistname: String,
   reviewers: String,
   items: [{ 
-    type: Schema.Types.ObjectId, ref: "ChecklistItem" 
+    type: Schema.Types.Object, ref: "ChecklistItem" 
     }],
 });
 
-export const User = Mongoose.model("Checklist", checklistSchema);
+export const Checklist = Mongoose.model("Checklist", checklistSchema);

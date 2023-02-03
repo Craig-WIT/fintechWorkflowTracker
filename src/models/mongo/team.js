@@ -7,9 +7,9 @@ const teamSchema = new Schema({
   name: String,
   location: String,
   department: String,
-  fund: [{ 
-    type: Schema.Types.ObjectId, ref: "Fund" 
+  funds: [{ 
+    type: Schema.Types.Object, ref: "Fund" 
     }],
 });
 
-export const User = Mongoose.model("Team", teamSchema);
+export const Team = Mongoose.model("Team", teamSchema);

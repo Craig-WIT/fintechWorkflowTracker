@@ -7,8 +7,8 @@ const fundSchema = new Schema({
   fundname: String,
   yearend: String,
   fundChecklists: [{ 
-    type: Schema.Types.ObjectId, ref: "FundChecklist" 
+    type: Schema.Types.Object, ref: "FundChecklist" 
     }],
 });
 
-export const User = Mongoose.model("Fund", fundSchema);
+export const Fund = Mongoose.model("Fund", fundSchema);

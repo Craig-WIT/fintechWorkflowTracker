@@ -62,9 +62,8 @@ export const teamController = {
         name: request.payload.name,
         location: request.payload.location,
         department: request.payload.department,
-        funds: funds
       };
-      await db.teamStore.addTeam(newTeam);
+      await db.teamStore.addTeam(newTeam,funds);
       console.log(newTeam)
       return h.redirect("/teamAdmin");
     },

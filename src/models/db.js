@@ -4,6 +4,8 @@ import { fundMemStore } from "./mem/fund-mem-store.js";
 import { checklistMemStore } from "./mem/checklist-mem-store.js";
 import { connectMongo } from "./mongo/connect.js";
 import { userMongoStore } from "./mongo/user-mongo-store.js";
+import { teamMongoStore } from "./mongo/team-mongo-store.js";
+import { fundMongoStore } from "./mongo/fund-mongo-store.js";
 
 export const db = {
   userStore: null,
@@ -14,6 +16,8 @@ export const db = {
     switch (storeType) {
       case "mongo":
         this.userStore = userMongoStore;
+        this.teamStore = teamMongoStore;
+        this.fundStore = fundMongoStore;
         connectMongo();
         break;
       default:

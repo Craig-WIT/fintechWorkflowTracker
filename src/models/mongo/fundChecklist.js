@@ -9,13 +9,13 @@ const fundChecklistSchema = new Schema({
   items: [{ type: Schema.Types.ObjectId, ref: "ChecklistItem" }],
   checklistdate: String,
   preparer: { 
-    type: Schema.Types.ObjectId, ref: "User" 
+    type: Schema.Types.Object, ref: "User" 
     },
   firstReview: { 
-    type: Schema.Types.ObjectId, ref: "User" 
+    type: Schema.Types.Object, ref: "User" 
     },
   secondReview: { 
-    type: Schema.Types.ObjectId, ref: "User" 
+    type: Schema.Types.Object, ref: "User" 
     },
 });
 
