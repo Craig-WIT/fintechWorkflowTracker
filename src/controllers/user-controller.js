@@ -4,10 +4,19 @@ import { AddUserSpec, } from "../models/joi-schemas.js";
 export const userController = {
   showUserAdmin: {
     handler: async function (request, h) {
-        const teams = await db.teamStore.getAllTeams();
         const users = await db.userStore.getAllUsers();
 
-        userController.refreshUserTeams(users,teams)
+        for (let userIndex = 0; userIndex < users.length; userIndex += 1) {
+          // eslint-disable-next-line no-await-in-loop
+          const userTeams = await db.teamStore.getTeamsById(users[userIndex].teams)
+          if(userTeams){
+              users[userIndex].teams = userTeams
+              // eslint-disable-next-line no-await-in-loop
+              await db.userStore.updateUserTeams(users[userIndex]._id,userTeams)
+          }
+      };
+
+        const teams = await db.teamStore.getAllTeams();
 
         const viewData = {
         title: "Users Dashboard",
@@ -148,23 +157,5 @@ export const userController = {
       console.log(JSON.stringify(user, null, 4))
       return h.redirect("/userAdmin");
     },
-  },
-
-  refreshUserTeams(users,teams) {
-    users.forEach((user) => {
-      console.log("Loop:")
-      console.log(JSON.stringify(user, null, 4))
-        if(user.teams.length > 0) {
-          user.teams.forEach((userTeam) => {
-              const foundTeam = teams.find((team) => team._id === userTeam);
-              if(foundTeam === undefined){
-                  const index = user.teams.findIndex((team) => team._id === userTeam);
-                  user.teams.splice(index, 1);
-              }
-          });
-      }
-  console.log("After Loop:")
-  console.log(JSON.stringify(user, null, 4))
-  });
   },
 };

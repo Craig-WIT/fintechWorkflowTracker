@@ -64,6 +64,16 @@ export const userMongoStore =  {
     await foundUser.save();
   },
 
+  async updateUserTeams(id,userTeams) {
+    const foundUser = await User.findOne({ _id: id });
+    const updatedTeamIds = [];
+    userTeams.forEach((team) => {
+        updatedTeamIds.push(team._id)
+    })
+    foundUser.teams = updatedTeamIds;
+    await foundUser.save();
+  },
+
   async deleteAll() {
     await User.deleteMany({});
   },

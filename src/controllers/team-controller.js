@@ -137,22 +137,4 @@ export const teamController = {
       return h.redirect("/teamAdmin", viewData);
     },
   },
-
-  refreshTeamFunds(teams,funds) {
-    teams.forEach((team) => {
-      console.log("Loop:")
-      console.log(JSON.stringify(team, null, 4))
-        if(team.funds.length > 0) {
-          team.funds.forEach((teamFund) => {
-              const foundFund = funds.find((fund) => fund._id === teamFund._id);
-              if(foundFund === undefined){
-                  const index = team.funds.findIndex((fund) => fund._id === teamFund._id);
-                  team.funds.splice(index, 1);
-              }
-          });
-      }
-  console.log("After Loop:")
-  console.log(JSON.stringify(team, null, 4))
-  });
-  },
 };
