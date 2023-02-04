@@ -11,6 +11,8 @@ export const teamController = {
         const teamFunds = await db.fundStore.getFundsById(teams[teamIndex].funds)
         if(teamFunds){
             teams[teamIndex].funds = teamFunds
+            // eslint-disable-next-line no-await-in-loop
+            await db.teamStore.updateTeamFunds(teams[teamIndex]._id,teamFunds)
         }
     };
 
