@@ -5,7 +5,17 @@ export const teamController = {
   showTeamAdmin: {
     handler: async function (request, h) {
       const teams = await db.teamStore.getAllTeams();
+
+      for (let teamIndex = 0; teamIndex < teams.length; teamIndex += 1) {
+        // eslint-disable-next-line no-await-in-loop
+        const teamFunds = await db.fundStore.getFundsById(teams[teamIndex].funds)
+        if(teamFunds){
+            teams[teamIndex].funds = teamFunds
+        }
+    };
+
       const funds = await db.fundStore.getAllFunds();
+
       const viewData = {
         title: "Teams Dashboard",
         teams: teams,
@@ -72,7 +82,7 @@ export const teamController = {
   deleteTeam: {
     handler: async function (request, h) {
       const team = await db.teamStore.getTeamById(request.params.id);
-      await db.userStore.deleteUserTeamById(team._id);
+
       await db.teamStore.deleteTeamById(team._id);
       return h.redirect("/teamAdmin");
     },
@@ -124,5 +134,23 @@ export const teamController = {
       console.log(team)
       return h.redirect("/teamAdmin", viewData);
     },
+  },
+
+  refreshTeamFunds(teams,funds) {
+    teams.forEach((team) => {
+      console.log("Loop:")
+      console.log(JSON.stringify(team, null, 4))
+        if(team.funds.length > 0) {
+          team.funds.forEach((teamFund) => {
+              const foundFund = funds.find((fund) => fund._id === teamFund._id);
+              if(foundFund === undefined){
+                  const index = team.funds.findIndex((fund) => fund._id === teamFund._id);
+                  team.funds.splice(index, 1);
+              }
+          });
+      }
+  console.log("After Loop:")
+  console.log(JSON.stringify(team, null, 4))
+  });
   },
 };

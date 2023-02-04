@@ -7,7 +7,7 @@ const fundSchema = new Schema({
   fundname: String,
   yearend: String,
   fundChecklists: [{ 
-    type: Schema.Types.Object, ref: "FundChecklist" 
+    type: Schema.Types.ObjectId, ref: "FundChecklist" 
     }],
 });
 

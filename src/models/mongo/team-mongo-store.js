@@ -9,7 +9,9 @@ export const teamMongoStore =  {
 
   async addTeam(team,funds) {
     const newTeam = new Team(team);
-    newTeam.funds.push(funds);
+    funds.forEach((fundId) => {
+        newTeam.funds.push(fundId)
+    });
     const teamObj = await newTeam.save();
     const u = await this.getTeamById(teamObj._id);
     return u;
@@ -24,11 +26,15 @@ export const teamMongoStore =  {
   },
 
   async getTeamsById(ids) {
-    const userTeams =[]
-    ids.forEach((teamId) => {
-        const newTeam = Team.findOne({ _id: teamId }).lean();
-        userTeams.push(newTeam)
-    });
+    const userTeams =[];
+    for (let teamIndex = 0; teamIndex < ids.length; teamIndex += 1) {
+        const teamId = ids[teamIndex]
+        // eslint-disable-next-line no-await-in-loop
+        const foundTeam = await Team.findOne({ _id: teamId }).lean();
+        if(foundTeam){
+            userTeams.push(foundTeam)
+        }
+    };
     return userTeams
   },
 
@@ -38,15 +44,6 @@ export const teamMongoStore =  {
       } catch (error) {
         console.log("bad id");
       }
-  },
-
-  async deleteTeamFundById(id) {
-    const teams = await Team.find().lean();
-    teams.forEach((team) => {
-        const index = team.funds.findIndex((fund) => fund._id === id);
-        team.funds.splice(index, 1);
-        team.save()
-    });
   },
 
   async editTeam(id,editedTeam) {

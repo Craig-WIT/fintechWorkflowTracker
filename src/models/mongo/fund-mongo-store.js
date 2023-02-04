@@ -21,6 +21,26 @@ export const fundMongoStore =  {
       return null;
   },
 
+  async getFundsById(ids) {
+    const teamFunds =[];
+    for (let fundIndex = 0; fundIndex < ids.length; fundIndex += 1) {
+        const fundId = ids[fundIndex]
+        // eslint-disable-next-line no-await-in-loop
+        const foundFund = await Fund.findOne({ _id: fundId }).lean();
+        if(foundFund){
+            teamFunds.push(foundFund)
+        }
+    };
+    return teamFunds
+  },
+
+  async editFund(id,editedFund) {
+    const foundFund = await Fund.findOne({ _id: id });
+    foundFund.fundname = editedFund.fundname;
+    foundFund.yearend = editedFund.yearend;
+    await foundFund.save();
+  },
+
   async deleteFundById(id) {
     try {
         await Fund.deleteOne({ _id: id });

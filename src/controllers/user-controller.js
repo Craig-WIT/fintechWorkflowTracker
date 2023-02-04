@@ -156,9 +156,9 @@ export const userController = {
       console.log(JSON.stringify(user, null, 4))
         if(user.teams.length > 0) {
           user.teams.forEach((userTeam) => {
-              const foundTeam = teams.find((team) => team._id === userTeam._id);
+              const foundTeam = teams.find((team) => team._id === userTeam);
               if(foundTeam === undefined){
-                  const index = user.teams.findIndex((team) => team._id === userTeam._id);
+                  const index = user.teams.findIndex((team) => team._id === userTeam);
                   user.teams.splice(index, 1);
               }
           });

@@ -10,9 +10,13 @@
   <div class="column">
 
   </div>
+  {{#if teams.length}}
   <div class="column">
+    
     {{#each teams}}
         {{> teamDashboardSummary}}
     {{/each}}
+    
   </div>
+  {{/if}}
 </div>

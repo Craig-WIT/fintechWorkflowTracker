@@ -7,7 +7,7 @@ const checklistSchema = new Schema({
   checklistname: String,
   reviewers: String,
   items: [{ 
-    type: Schema.Types.Object, ref: "ChecklistItem" 
+    type: Schema.Types.ObjectId, ref: "ChecklistItem" 
     }],
 });
 

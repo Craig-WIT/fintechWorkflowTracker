@@ -2,9 +2,9 @@ import { db } from "../models/db.js";
 
 export const dashboardController = {
   index: {
-    handler: function (request, h) {
+    handler: async function (request, h) {
       const loggedInUser = request.auth.credentials;
-      const userTeams = loggedInUser.teams;
+      const userTeams = await db.teamStore.getTeamsById(loggedInUser.teams);
 
       const viewData = {
         title: "Dashboard",

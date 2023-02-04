@@ -44,7 +44,8 @@ export const userMongoStore =  {
         const index = foundUser.teams.findIndex((team) => team._id === id);
         foundUser.teams.splice(index, 1);
 
-        foundUser.markModified("teams");
+        // eslint-disable-next-line quotes
+        foundUser.markModified('teams');
         foundUser.save();
         // eslint-disable-next-line no-await-in-loop
         console.log(user)

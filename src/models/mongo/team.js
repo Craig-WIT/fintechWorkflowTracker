@@ -8,7 +8,7 @@ const teamSchema = new Schema({
   location: String,
   department: String,
   funds: [{ 
-    type: Schema.Types.Object, ref: "Fund" 
+    type: Schema.Types.ObjectId, ref: "Fund" 
     }],
 });
 

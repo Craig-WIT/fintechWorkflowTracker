@@ -11,7 +11,7 @@ const userSchema = new Schema({
   role: String,
   admin: Boolean,
   teams: [{ 
-    type: Schema.Types.Object, ref: "Team" 
+    type: Schema.Types.ObjectId, ref: "Team" 
     }],
 });
 
