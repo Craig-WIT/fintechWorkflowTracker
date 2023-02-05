@@ -280,5 +280,32 @@ export const AddUserSpec = {
       }),
   };
 
+  export const FundChecklistSpec = {
+    checklistdate: Joi.string().required().error(errors => {
+        errors.forEach(err => {
+          switch (err.code) {
+            case "string.empty":
+              err.message = "Checklist date cannot be empty";
+              break;
+            default:
+              break;
+          }
+        });
+        return errors;
+      }),
+    type: Joi.string().required().error(errors => {
+        errors.forEach(err => {
+          switch (err.code) {
+            case "string.empty":
+              err.message = "Please select a checklist type";
+              break;
+            default:
+              break;
+          }
+        });
+        return errors;
+      }),
+  };
+
   
 

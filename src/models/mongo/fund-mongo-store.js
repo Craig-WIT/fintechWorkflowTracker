@@ -1,3 +1,4 @@
+import Mongoose from "mongoose";
 import { Fund } from "./fund.js";
 import { FundChecklist } from "./fundChecklist.js";
 
@@ -12,6 +13,16 @@ export const fundMongoStore =  {
     const fundObj = await newFund.save();
     const u = await this.getFundById(fundObj._id);
     return u;
+  },
+
+  async addFundChecklist(id, fundChecklist) {
+    const fund = await Fund.findOne({ _id: id });
+    fundChecklist._id = Mongoose.Types.ObjectId();
+    const newFundChecklist = new FundChecklist(fundChecklist);
+    const fundChecklistObj = await newFundChecklist.save();
+    fund.fundChecklists.push(fundChecklistObj._id);
+    await fund.save();
+    return fund;
   },
 
   async getFundById(id) {

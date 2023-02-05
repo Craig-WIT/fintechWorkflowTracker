@@ -1,5 +1,5 @@
 import { db } from "../models/db.js";
-import { FundSpec, } from "../models/joi-schemas.js";
+import { FundSpec,FundChecklistSpec } from "../models/joi-schemas.js";
 
 export const fundController = {
   showFundAdmin: {
@@ -96,6 +96,19 @@ export const fundController = {
   },
 
   addFundChecklist: {
+    validate: {
+      payload: FundChecklistSpec,
+      options: { abortEarly: false },
+      failAction: async function (request, h, error) {
+        console.log(error.details)
+        const formDetails = request.payload
+        const fund = await db.fundStore.getFundById(request.params.id);
+        const checklists = await db.checklistStore.getAllChecklists();
+        const fundChecklists = await db.fundStore.getFundChecklists(fund._id);
+        const loggedInUser = request.auth.credentials;
+        return h.view("addFundChecklist-view", { title: "Sign up error", errors: error.details, form: formDetails, fund: fund, checklists: checklists, fundchecklists: fundChecklists, user: loggedInUser }).takeover().code(400);
+      },
+    },
     handler: async function (request, h) {
       const fund = await db.fundStore.getFundById(request.params.id);
       const returnedChecklist = await db.checklistStore.getChecklistById(request.payload.type);
