@@ -57,7 +57,7 @@ export const teamMongoStore =  {
 
   async updateTeamFunds(id,teamFunds) {
     const foundTeam = await Team.findOne({ _id: id });
-    constupdatedFundIds = [];
+    const updatedFundIds = [];
     teamFunds.forEach((fund) => {
         updatedFundIds.push(fund._id)
     })

@@ -12,4 +12,4 @@ const checklistItemSchema = new Schema({
     secondReview: String,
 });
 
-export const User = Mongoose.model("ChecklistItem", checklistItemSchema);
+export const ChecklistItem = Mongoose.model("ChecklistItem", checklistItemSchema);

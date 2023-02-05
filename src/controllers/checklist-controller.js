@@ -15,6 +15,12 @@ export const checklistController = {
   showEditChecklist: {
     handler: async function (request, h) {
         const checklist = await db.checklistStore.getChecklistById(request.params.id);
+
+          const checklistItems = await db.checklistStore.getChecklistItemsById(checklist.items)
+          if(checklistItems){
+              checklist.items = checklistItems
+          }
+
         const viewData = {
         title: "Edit Checklist",
         checklist: checklist,
@@ -25,11 +31,9 @@ export const checklistController = {
 
   addChecklist: {
     handler: async function (request, h) {
-      const checklistItems = []
       const newChecklist = {
         checklistname: request.payload.checklistname,
         reviewers: request.payload.reviewers,
-        items: checklistItems,
       };
       await db.checklistStore.addChecklist(newChecklist);
       console.log(newChecklist)

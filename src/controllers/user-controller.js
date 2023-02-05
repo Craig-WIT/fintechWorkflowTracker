@@ -48,9 +48,18 @@ export const userController = {
         console.log(error.details);
         const teams = await db.teamStore.getAllTeams();
         const users = await db.userStore.getAllUsers();
-        const formDetails = request.payload
 
-        userController.refreshUserTeams(users,teams)
+        for (let userIndex = 0; userIndex < users.length; userIndex += 1) {
+          // eslint-disable-next-line no-await-in-loop
+          const userTeams = await db.teamStore.getTeamsById(users[userIndex].teams)
+          if(userTeams){
+              users[userIndex].teams = userTeams
+              // eslint-disable-next-line no-await-in-loop
+              await db.userStore.updateUserTeams(users[userIndex]._id,userTeams)
+          }
+      };
+
+        const formDetails = request.payload
 
         return h.view("userAdmin-view", { title: "Add user error", errors: error.details, users: users, teams: teams, form: formDetails }).takeover().code(400);
       },

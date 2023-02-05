@@ -1,4 +1,5 @@
 import { Fund } from "./fund.js";
+import { FundChecklist } from "./fundChecklist.js";
 
 export const fundMongoStore =  {
   async getAllFunds() {
@@ -19,6 +20,19 @@ export const fundMongoStore =  {
         return fund;
       }
       return null;
+  },
+
+  async getFundChecklists(ids) {
+    const fundChecklists =[];
+    for (let fundChecklistIndex = 0; fundChecklistIndex < ids.length; fundChecklistIndex += 1) {
+        const fundChecklistId = ids[fundChecklistIndex]
+        // eslint-disable-next-line no-await-in-loop
+        const foundFundChecklist = await FundChecklist.findOne({ _id: fundChecklistId }).lean();
+        if(foundFundChecklist){
+            fundChecklists.push(foundFundChecklist)
+        }
+    };
+    return fundChecklists
   },
 
   async getFundsById(ids) {

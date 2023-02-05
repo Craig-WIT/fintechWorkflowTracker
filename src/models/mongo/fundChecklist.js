@@ -19,4 +19,4 @@ const fundChecklistSchema = new Schema({
     },
 });
 
-export const User = Mongoose.model("fundChecklist", fundChecklistSchema);
+export const FundChecklist = Mongoose.model("fundChecklist", fundChecklistSchema);

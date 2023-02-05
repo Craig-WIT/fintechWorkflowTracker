@@ -6,6 +6,16 @@ export const dashboardController = {
       const loggedInUser = request.auth.credentials;
       const userTeams = await db.teamStore.getTeamsById(loggedInUser.teams);
 
+      for (let teamIndex = 0; teamIndex < userTeams.length; teamIndex += 1) {
+        // eslint-disable-next-line no-await-in-loop
+        const teamFunds = await db.fundStore.getFundsById(userTeams[teamIndex].funds)
+        if(teamFunds){
+            userTeams[teamIndex].funds = teamFunds
+            // eslint-disable-next-line no-await-in-loop
+            await db.teamStore.updateTeamFunds(userTeams[teamIndex]._id,teamFunds)
+        }
+    };
+
       const viewData = {
         title: "Dashboard",
         teams: userTeams,
