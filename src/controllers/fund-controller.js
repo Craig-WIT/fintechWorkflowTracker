@@ -43,7 +43,10 @@ export const fundController = {
     handler: async function (request, h) {
         const fund = await db.fundStore.getFundById(request.params.id);
         const checklists = await db.checklistStore.getAllChecklists();
-        const fundChecklists = await db.fundStore.getFundChecklists(fund._id);
+        const fundChecklists = await db.fundStore.getFundChecklists(fund.fundChecklists);
+
+
+
         const loggedInUser = request.auth.credentials;
         const viewData = {
         title: "Add Checklist",
@@ -59,7 +62,7 @@ export const fundController = {
   showEditFundChecklist: {
     handler: async function (request, h) {
       const fund = await db.fundStore.getFundById(request.params.id);
-      const fundChecklist = await db.fundStore.getFundChecklistById(fund._id,request.params.checklistid);
+      const fundChecklist = await db.fundStore.getFundChecklistById(request.params.checklistid);
       const loggedInUser = request.auth.credentials;
 
       const viewData = {

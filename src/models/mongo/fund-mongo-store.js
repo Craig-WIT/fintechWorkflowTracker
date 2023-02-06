@@ -69,6 +69,11 @@ export const fundMongoStore =  {
     return teamFunds
   },
 
+  async getFundChecklistById(checklistid) {
+    const foundChecklist = await FundChecklist.findOne({ _id: checklistid }).lean();
+    return foundChecklist;
+  },
+
   async editFund(id,editedFund) {
     const foundFund = await Fund.findOne({ _id: id });
     foundFund.fundname = editedFund.fundname;

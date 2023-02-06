@@ -8,15 +8,9 @@ const fundChecklistSchema = new Schema({
   reviewers: String,
   items: [{ type: Schema.Types.Object, ref: "ChecklistItem" }],
   checklistdate: String,
-  preparer: { 
-    String, 
-    },
-  firstReview: { 
-    String, 
-    },
-  secondReview: { 
-    String, 
-    },
+  preparer: String,
+  firstReview: String, 
+  secondReview: String, 
 });
 
 export const FundChecklist = Mongoose.model("fundChecklist", fundChecklistSchema);
