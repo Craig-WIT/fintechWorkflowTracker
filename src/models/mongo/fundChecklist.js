@@ -6,7 +6,7 @@ const { Schema } = Mongoose;
 const fundChecklistSchema = new Schema({
   checklistname: String,
   reviewers: String,
-  items: [{ type: Schema.Types.ObjectId, ref: "ChecklistItem" }],
+  items: [{ type: Schema.Types.Object, ref: "ChecklistItem" }],
   checklistdate: String,
   preparer: { 
     String, 
