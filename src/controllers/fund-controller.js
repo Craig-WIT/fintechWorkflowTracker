@@ -117,11 +117,11 @@ export const fundController = {
       const returnedChecklist = await db.checklistStore.getChecklistById(request.payload.type);
       const newChecklist = JSON.parse(JSON.stringify(returnedChecklist));
       newChecklist.checklistdate = request.payload.checklistdate
-      newChecklist.preparer = "No preparer Sign Off"
-      newChecklist.firstReview = "No 1st Review"
+      newChecklist.preparer = {userid: "No Preparer", firstname: "", lastname: ""}
+      newChecklist.firstReview = {userid: "No 1st Reviewer", firstname: "", lastname: ""}
 
       if(returnedChecklist.reviewers === "2"){
-        newChecklist.secondReview = "No 2nd Review"
+        newChecklist.secondReview = {userid: "No 2nd Reviewer", firstname: "", lastname: ""}
       }      
      
       await db.fundStore.addFundChecklist(fund._id,newChecklist);
@@ -172,7 +172,7 @@ export const fundController = {
       const checklistId = request.params.checklistid
       const checklistItems = request.payload
 
-      await db.fundStore.editFundChecklist(fundId,checklistId,checklistItems);
+      await db.fundStore.editFundChecklist(checklistId,checklistItems);
 
       Object.keys(checklistItems).forEach(key => {
         console.log(key, checklistItems[key]);
@@ -199,10 +199,10 @@ export const fundController = {
       const loggedInUser = request.auth.credentials;
 
       const fund = await db.fundStore.getFundById(fundId);
-      const fundChecklist = await db.fundStore.getFundChecklistById(fundId,checklistId);
+      const fundChecklist = await db.fundStore.getFundChecklistById(checklistId);
 
       if(loggedInUser._id !== fundChecklist.firstReview.userid && loggedInUser._id !== fundChecklist.secondReview.userid){
-      await db.fundStore.preparerSignOff(fundId,checklistId,loggedInUser);
+      await db.fundStore.preparerSignOff(checklistId,loggedInUser);
       return h.redirect(`/viewFund/${fundId}/editFundChecklist/${checklistId}`);
       }
 
@@ -234,10 +234,10 @@ export const fundController = {
       const loggedInUser = request.auth.credentials;
 
       const fund = await db.fundStore.getFundById(fundId);
-      const fundChecklist = await db.fundStore.getFundChecklistById(fundId,checklistId);
+      const fundChecklist = await db.fundStore.getFundChecklistById(checklistId);
 
       if(loggedInUser.role === "Reviewer" && loggedInUser._id !== fundChecklist.preparer.userid && loggedInUser._id !== fundChecklist.secondReview.userid){
-      await db.fundStore.firstReviewSignOff(fundId,checklistId,loggedInUser);
+      await db.fundStore.firstReviewSignOff(checklistId,loggedInUser);
       return h.redirect(`/viewFund/${fundId}/editFundChecklist/${checklistId}`);
       }
 
@@ -272,10 +272,10 @@ export const fundController = {
       const loggedInUser = request.auth.credentials;
 
       const fund = await db.fundStore.getFundById(fundId);
-      const fundChecklist = await db.fundStore.getFundChecklistById(fundId,checklistId);
+      const fundChecklist = await db.fundStore.getFundChecklistById(checklistId);
 
       if(loggedInUser.role === "Reviewer" && loggedInUser._id !== fundChecklist.preparer.userid && loggedInUser._id !== fundChecklist.firstReview.userid){
-        await db.fundStore.secondReviewSignOff(fundId,checklistId,loggedInUser);
+        await db.fundStore.secondReviewSignOff(checklistId,loggedInUser);
         return h.redirect(`/viewFund/${fundId}/editFundChecklist/${checklistId}`);
         }
         
@@ -310,10 +310,10 @@ export const fundController = {
       const loggedInUser = request.auth.credentials;
 
       const fund = await db.fundStore.getFundById(fundId);
-      const fundChecklist = await db.fundStore.getFundChecklistById(fundId,checklistId);
+      const fundChecklist = await db.fundStore.getFundChecklistById(checklistId);
 
       if(loggedInUser.admin || loggedInUser._id === fundChecklist.preparer.userid){
-        await db.fundStore.removePreparerSignOff(fundId,checklistId);
+        await db.fundStore.removePreparerSignOff(checklistId);
         return h.redirect(`/viewFund/${fundId}/editFundChecklist/${checklistId}`);
       }
 
@@ -339,10 +339,10 @@ export const fundController = {
       const loggedInUser = request.auth.credentials;
 
       const fund = await db.fundStore.getFundById(fundId);
-      const fundChecklist = await db.fundStore.getFundChecklistById(fundId,checklistId);
+      const fundChecklist = await db.fundStore.getFundChecklistById(checklistId);
 
       if(loggedInUser.admin || loggedInUser._id === fundChecklist.firstReview.userid){
-        await db.fundStore.removeFirstReviewSignOff(fundId,checklistId);
+        await db.fundStore.removeFirstReviewSignOff(checklistId);
         return h.redirect(`/viewFund/${fundId}/editFundChecklist/${checklistId}`);
       }
 
@@ -368,10 +368,10 @@ export const fundController = {
       const loggedInUser = request.auth.credentials;
 
       const fund = await db.fundStore.getFundById(fundId);
-      const fundChecklist = await db.fundStore.getFundChecklistById(fundId,checklistId);
+      const fundChecklist = await db.fundStore.getFundChecklistById(checklistId);
 
       if(loggedInUser.admin || loggedInUser._id === fundChecklist.secondReview.userid){
-        await db.fundStore.removeSecondReviewSignOff(fundId,checklistId);
+        await db.fundStore.removeSecondReviewSignOff(checklistId);
         return h.redirect(`/viewFund/${fundId}/editFundChecklist/${checklistId}`);
       }
 

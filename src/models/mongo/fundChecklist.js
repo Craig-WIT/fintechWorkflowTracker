@@ -13,11 +13,27 @@ const fundChecklistSchema = new Schema({
     default: String,
     preparer: String,
     firstReview: String,
-    secondReview: String, }],
+    secondReview: String, 
+  }],
   checklistdate: String,
-  preparer: String,
-  firstReview: String, 
-  secondReview: String, 
+  preparer: { 
+    userid : String,
+    firstname: String,
+    lastname: String,
+    _id : false
+  },
+  firstReview: { 
+    userid : String,
+    firstname: String,
+    lastname: String,
+    _id : false
+  }, 
+  secondReview: { 
+    userid : String,
+    firstname: String,
+    lastname: String,
+    _id : false
+  }, 
 });
 
 export const FundChecklist = Mongoose.model("fundChecklist", fundChecklistSchema);
