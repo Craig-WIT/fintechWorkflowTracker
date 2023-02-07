@@ -201,17 +201,17 @@ export const fundController = {
       const fund = await db.fundStore.getFundById(fundId);
       const fundChecklist = await db.fundStore.getFundChecklistById(checklistId);
 
-      if(loggedInUser._id !== fundChecklist.firstReview.userid && loggedInUser._id !== fundChecklist.secondReview.userid){
+      if(loggedInUser._id.toString() !== fundChecklist.firstReview.userid && loggedInUser._id.toString() !== fundChecklist.secondReview.userid){
       await db.fundStore.preparerSignOff(checklistId,loggedInUser);
       return h.redirect(`/viewFund/${fundId}/editFundChecklist/${checklistId}`);
       }
 
       let errorMsg = ""
 
-      if(loggedInUser._id === fundChecklist.firstReview.userid)  {
+      if(loggedInUser._id.toString() === fundChecklist.firstReview.userid)  {
         errorMsg = "Can't Sign off - user has already signed as 1st Reviewer"
       }
-      else if(loggedInUser._id === fundChecklist.secondReview.userid){
+      else if(loggedInUser._id.toString() === fundChecklist.secondReview.userid){
         errorMsg = "Can't Sign off - user has already signed as 2nd Reviewer"
       }
         
@@ -236,7 +236,7 @@ export const fundController = {
       const fund = await db.fundStore.getFundById(fundId);
       const fundChecklist = await db.fundStore.getFundChecklistById(checklistId);
 
-      if(loggedInUser.role === "Reviewer" && loggedInUser._id !== fundChecklist.preparer.userid && loggedInUser._id !== fundChecklist.secondReview.userid){
+      if(loggedInUser.role === "Reviewer" && loggedInUser._id.toString() !== fundChecklist.preparer.userid && loggedInUser._id.toString() !== fundChecklist.secondReview.userid){
       await db.fundStore.firstReviewSignOff(checklistId,loggedInUser);
       return h.redirect(`/viewFund/${fundId}/editFundChecklist/${checklistId}`);
       }
@@ -246,7 +246,7 @@ export const fundController = {
         if(loggedInUser.role !== "Reviewer"){
           errorMsg = "Can't Sign off - user is not a Reviewer"
         }
-        else if(loggedInUser._id === fundChecklist.preparer.userid)  {
+        else if(loggedInUser._id.toString() === fundChecklist.preparer.userid)  {
           errorMsg = "Can't Sign off - user has already signed as Preparer"
         }
         else{
@@ -274,7 +274,7 @@ export const fundController = {
       const fund = await db.fundStore.getFundById(fundId);
       const fundChecklist = await db.fundStore.getFundChecklistById(checklistId);
 
-      if(loggedInUser.role === "Reviewer" && loggedInUser._id !== fundChecklist.preparer.userid && loggedInUser._id !== fundChecklist.firstReview.userid){
+      if(loggedInUser.role === "Reviewer" && loggedInUser._id.toString() !== fundChecklist.preparer.userid && loggedInUser._id.toString() !== fundChecklist.firstReview.userid){
         await db.fundStore.secondReviewSignOff(checklistId,loggedInUser);
         return h.redirect(`/viewFund/${fundId}/editFundChecklist/${checklistId}`);
         }
@@ -284,7 +284,7 @@ export const fundController = {
         if(loggedInUser.role !== "Reviewer"){
           errorMsg = "Can't Sign off - user is not a Reviewer"
         }
-        else if(loggedInUser._id === fundChecklist.preparer.userid)  {
+        else if(loggedInUser._id.toString() === fundChecklist.preparer.userid)  {
           errorMsg = "Can't Sign off - user has already signed as Preparer"
         }
         else{
@@ -312,7 +312,7 @@ export const fundController = {
       const fund = await db.fundStore.getFundById(fundId);
       const fundChecklist = await db.fundStore.getFundChecklistById(checklistId);
 
-      if(loggedInUser.admin || loggedInUser._id === fundChecklist.preparer.userid){
+      if(loggedInUser.admin || loggedInUser._id.toString() === fundChecklist.preparer.userid){
         await db.fundStore.removePreparerSignOff(checklistId);
         return h.redirect(`/viewFund/${fundId}/editFundChecklist/${checklistId}`);
       }
@@ -341,7 +341,7 @@ export const fundController = {
       const fund = await db.fundStore.getFundById(fundId);
       const fundChecklist = await db.fundStore.getFundChecklistById(checklistId);
 
-      if(loggedInUser.admin || loggedInUser._id === fundChecklist.firstReview.userid){
+      if(loggedInUser.admin || loggedInUser._id.toString() === fundChecklist.firstReview.userid){
         await db.fundStore.removeFirstReviewSignOff(checklistId);
         return h.redirect(`/viewFund/${fundId}/editFundChecklist/${checklistId}`);
       }
@@ -370,7 +370,7 @@ export const fundController = {
       const fund = await db.fundStore.getFundById(fundId);
       const fundChecklist = await db.fundStore.getFundChecklistById(checklistId);
 
-      if(loggedInUser.admin || loggedInUser._id === fundChecklist.secondReview.userid){
+      if(loggedInUser.admin || loggedInUser._id.toString() === fundChecklist.secondReview.userid){
         await db.fundStore.removeSecondReviewSignOff(checklistId);
         return h.redirect(`/viewFund/${fundId}/editFundChecklist/${checklistId}`);
       }
