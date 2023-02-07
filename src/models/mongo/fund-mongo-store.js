@@ -1,3 +1,4 @@
+import { v4 } from "uuid";
 import Mongoose from "mongoose";
 import { Fund } from "./fund.js";
 import { FundChecklist } from "./fundChecklist.js";
@@ -23,7 +24,7 @@ export const fundMongoStore =  {
     const checklistItems = await checklistMongoStore.getChecklistItemsById(fundChecklist.items)
 
     checklistItems.forEach(checklistItem => {
-      checklistItem._id = Mongoose.Types.ObjectId();
+      checklistItem._id = v4();
     });
 
     fundChecklist.items = checklistItems;
@@ -79,6 +80,35 @@ export const fundMongoStore =  {
     foundFund.fundname = editedFund.fundname;
     foundFund.yearend = editedFund.yearend;
     await foundFund.save();
+  },
+
+  async editFundChecklist(checklistid,checklistItems) {
+    const foundChecklist = await FundChecklist.findOne({ _id: checklistid });
+
+    Object.keys(checklistItems).forEach(key => {
+      const itemId = key.slice(-36);
+      const foundItem = foundChecklist.items.find((item) => item._id === itemId);
+      if(key.includes("Preparer")){
+        foundItem.preparer = checklistItems[key]
+      }
+      else if(key.includes("1st")){
+        foundItem.firstReview = checklistItems[key]
+      }
+      else if(key.includes("2nd")){
+        foundItem.secondReview = checklistItems[key]
+      }
+    });
+    await foundChecklist.save();
+  },
+
+  async preparerSignOff(checklistid,user) {
+    const foundChecklist = await FundChecklist.findOne({ _id: checklistid });
+
+    foundChecklist.preparer = {
+      userid: user._id,
+      firstname: user.firstname,
+      lastname: user.lastname,
+    };
   },
 
   async deleteFundById(id) {
