@@ -34,9 +34,16 @@
     <div class="hidden content">Are you sure?</div>
   </button>
 </form>
+<button id="backButton" class="tiny ui orange submit button" action="/userAdmin/" method="GET">
+    <div class="visible content"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</div>
+</button>
 
 <script>
     $('#teams').dropdown();
     $('#role').dropdown();
     $('#admin').dropdown();
+
+    document.getElementById("backButton").onclick = function () {
+        window.location.href = "/userAdmin";
+    };
 </script>

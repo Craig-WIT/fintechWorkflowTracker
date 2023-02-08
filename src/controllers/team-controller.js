@@ -48,6 +48,17 @@ export const teamController = {
         console.log(error.details);
         console.log(request.payload);
         const teams = await db.teamStore.getAllTeams();
+
+        for (let teamIndex = 0; teamIndex < teams.length; teamIndex += 1) {
+          // eslint-disable-next-line no-await-in-loop
+          const teamFunds = await db.fundStore.getFundsById(teams[teamIndex].funds)
+          if(teamFunds){
+              teams[teamIndex].funds = teamFunds
+              // eslint-disable-next-line no-await-in-loop
+              await db.teamStore.updateTeamFunds(teams[teamIndex]._id,teamFunds)
+          }
+      };
+
         const funds = await db.fundStore.getAllFunds();
         const formDetails = request.payload
         return h.view("teamAdmin-view", { title: "Sign up error", errors: error.details, funds: funds, teams: teams, form: formDetails }).takeover().code(400);
@@ -71,7 +82,7 @@ export const teamController = {
             });
         };
       const newTeam = {
-        name: request.payload.name,
+        teamname: request.payload.teamname,
         location: request.payload.location,
         department: request.payload.department,
       };
@@ -123,7 +134,7 @@ export const teamController = {
             });
         };
       const editedTeam = {
-        name: request.payload.name,
+        teamname: request.payload.teamname,
         location: request.payload.location,
         department: request.payload.department,
         funds: funds,

@@ -203,7 +203,7 @@ export const AddUserSpec = {
   };
 
   export const TeamSpec = {
-    name: Joi.string().required().error(errors => {
+    teamname: Joi.string().required().error(errors => {
         errors.forEach(err => {
           switch (err.code) {
             case "string.empty":

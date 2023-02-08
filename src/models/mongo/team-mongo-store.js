@@ -48,7 +48,7 @@ export const teamMongoStore =  {
 
   async editTeam(id,editedTeam) {
     const foundTeam = await Team.findOne({ _id: id });
-    foundTeam.name = editedTeam.name;
+    foundTeam.teamname = editedTeam.teamname;
     foundTeam.location = editedTeam.location;
     foundTeam.department = editedTeam.department;
     foundTeam.funds = editedTeam.funds;

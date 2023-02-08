@@ -2,7 +2,7 @@
       style="background-color: #C9E5F0; border: 3px solid white;">
   <div class="field">
     <label>Team Name</label>
-    <input value="{{team.name}}" type="text" name="name">
+    <input value="{{team.teamname}}" type="text" name="teamname">
     <label>Location</label>
     <select name="location" class="ui fluid dropdown" id="location">
       <option value="">Select Location</option>
@@ -34,9 +34,16 @@
     <div class="hidden content">Are you sure?</div>
   </button>
 </form>
+<button id="backButton" class="tiny ui orange submit button" action="/userAdmin/" method="GET">
+    <div class="visible content"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</div>
+</button>
 
 <script>
   $('#funds').dropdown();
   $('#location').dropdown();
   $('#department').dropdown();
+
+  document.getElementById("backButton").onclick = function () {
+        window.location.href = "/teamAdmin";
+    };
 </script>

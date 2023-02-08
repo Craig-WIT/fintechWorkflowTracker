@@ -4,7 +4,7 @@ import Mongoose from "mongoose";
 const { Schema } = Mongoose;
 
 const teamSchema = new Schema({
-  name: String,
+  teamname: String,
   location: String,
   department: String,
   funds: [{ 
