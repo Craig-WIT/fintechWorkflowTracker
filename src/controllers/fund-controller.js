@@ -27,7 +27,7 @@ export const fundController = {
   showFundChecklists: {
     handler: async function (request, h) {
         const fund = await db.fundStore.getFundById(request.params.id);
-        const fundChecklists = await db.fundStore.getFundChecklists(fund._id);
+        const fundChecklists = await db.fundStore.getFundChecklists(fund.fundChecklists);
         const loggedInUser = request.auth.credentials;
         const viewData = {
         title: "View Checklists",
@@ -44,8 +44,6 @@ export const fundController = {
         const fund = await db.fundStore.getFundById(request.params.id);
         const checklists = await db.checklistStore.getAllChecklists();
         const fundChecklists = await db.fundStore.getFundChecklists(fund.fundChecklists);
-
-
 
         const loggedInUser = request.auth.credentials;
         const viewData = {
@@ -135,6 +133,16 @@ export const fundController = {
       const fund = await db.fundStore.getFundById(request.params.id);
       await db.fundStore.deleteFundById(fund._id);
       return h.redirect("/fundAdmin");
+    },
+  },
+
+  deleteFundChecklist: {
+    handler: async function (request, h) {
+      const fund = await db.fundStore.getFundById(request.params.id);
+      const fundId = request.params.id;
+      const fundChecklist = await db.fundStore.getFundChecklistById(request.params.checklistid);
+      await db.fundStore.deleteFundChecklistById(fundChecklist._id);
+      return h.redirect(`/viewFund/${fundId}/addFundChecklist`);
     },
   },
 

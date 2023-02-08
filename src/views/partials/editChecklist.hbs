@@ -18,17 +18,19 @@
     <div class="hidden content">Are you sure?</div>
   </button>
 </form>
-<button id="backButton" class="tiny ui orange submit button" action="/userAdmin/" method="GET">
+<button id="backButton" class="tiny ui orange submit button">
     <div class="visible content"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</div>
 </button>
 
 <script>
   $('#defaultvalue').dropdown();
   .font-awesome .fa {
-    font-family:monospace,monospace;
-}
+    font-family:monospace;
+  };
+</script>
 
-    document.getElementById("backButton").onclick = function () {
-        window.location.href = "/checklistAdmin";
-    };
+<script>
+  document.getElementById("backButton").onclick = function () {
+      window.location.href = "/checklistAdmin";
+  };
 </script>

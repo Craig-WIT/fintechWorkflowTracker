@@ -142,6 +142,14 @@ export const fundMongoStore =  {
       }
   },
 
+  async deleteFundChecklistById(id) {
+    try {
+        await FundChecklist.deleteOne({ _id: id });
+      } catch (error) {
+        console.log("bad id");
+      }
+  },
+
   async deleteAll() {
     await Fund.deleteMany({});
   },

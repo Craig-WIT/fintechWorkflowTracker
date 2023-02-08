@@ -8,9 +8,9 @@ import { dashboardController } from "./controllers/dashboard-controller.js";
 export const webRoutes = [
     { method: "GET", path: "/teamAdmin", config: teamController.showTeamAdmin },
     { method: "POST", path: "/teamAdmin/addTeam", config: teamController.addTeam },
-    { method: "POST", path: "/teamAdmin/editTeam/{id}", config: teamController.editTeam },
     { method: "GET", path: "/teamAdmin/deleteTeam/{id}", config: teamController.deleteTeam },
     { method: "GET", path: "/teamAdmin/{id}/editTeam", config: teamController.showEditTeam },
+    { method: "POST", path: "/teamAdmin/editTeam/{id}", config: teamController.editTeam },
 
     { method: "GET", path: "/dashboard", config: dashboardController.index },
     { method: "GET", path: "/dashboard/{id}/viewTeam", config: dashboardController.showViewTeam },
@@ -35,6 +35,7 @@ export const webRoutes = [
     { method: "POST", path: "/fundAdmin/editFund/{id}", config: fundController.editFund },
     { method: "GET", path: "/viewFund/{id}/addFundChecklist", config: fundController.showAddFundChecklist },
     { method: "GET", path: "/viewFund/{id}/viewFundChecklists", config: fundController.showFundChecklists },
+    { method: "GET", path: "/viewFund/{id}/deleteFundChecklist/{checklistid}", config: fundController.deleteFundChecklist },
     { method: "GET", path: "/viewFund/{id}/editFundChecklist/{checklistid}", config: fundController.showEditFundChecklist },
     { method: "POST", path: "/viewFund/{id}/editFundChecklist/{checklistid}", config: fundController.editFundChecklist },
     { method: "POST", path: "/viewFund/addFundChecklist/{id}", config: fundController.addFundChecklist },
