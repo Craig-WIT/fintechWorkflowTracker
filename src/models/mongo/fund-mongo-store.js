@@ -134,6 +134,30 @@ export const fundMongoStore =  {
 
   },
 
+  async removePreparerSignOff(checklistid) {
+    const foundChecklist = await FundChecklist.findOne({ _id: checklistid });
+
+    foundChecklist.preparer = {userid: "No Preparer", firstname: "", lastname: ""}
+
+    foundChecklist.save();
+  },
+
+  async removeFirstReviewSignOff(checklistid) {
+    const foundChecklist = await FundChecklist.findOne({ _id: checklistid });
+
+    foundChecklist.firstReview = {userid: "No 1st Reviewer", firstname: "", lastname: ""}
+
+    foundChecklist.save();
+  },
+
+  async removeSecondReviewSignOff(checklistid) {
+    const foundChecklist = await FundChecklist.findOne({ _id: checklistid });
+
+    foundChecklist.secondReview = {userid: "No 2nd Reviewer", firstname: "", lastname: ""}
+
+    foundChecklist.save();
+  },
+
   async deleteFundById(id) {
     try {
         await Fund.deleteOne({ _id: id });
