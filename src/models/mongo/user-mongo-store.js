@@ -72,6 +72,20 @@ export const userMongoStore =  {
     await foundUser.save();
   },
 
+  async updateUsers(){
+    const users = await this.getAllUsers();
+    for (let userIndex = 0; userIndex < users.length; userIndex += 1) {
+      // eslint-disable-next-line no-await-in-loop
+      const userTeams = await teamMongoStore.getTeamsById(users[userIndex].teams)
+      if(userTeams){
+          users[userIndex].teams = userTeams
+          // eslint-disable-next-line no-await-in-loop
+          await this.updateUserTeams(users[userIndex]._id,userTeams)
+      }
+  };
+  return users;
+  },
+  
   async updateUserTeams(id,userTeams) {
     const foundUser = await User.findOne({ _id: id });
     const updatedTeamIds = [];

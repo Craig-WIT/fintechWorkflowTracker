@@ -55,6 +55,20 @@ export const teamMongoStore =  {
     await foundTeam.save();
   },
 
+  async updateTeams(){
+    const teams = await this.getAllTeams();
+    for (let teamIndex = 0; teamIndex < teams.length; teamIndex += 1) {
+      // eslint-disable-next-line no-await-in-loop
+      const teamFunds = await fundMongoStore.getFundsById(teams[teamIndex].funds)
+      if(teamFunds){
+          teams[teamIndex].funds = teamFunds
+          // eslint-disable-next-line no-await-in-loop
+          await this.updateTeamFunds(teams[teamIndex]._id,teamFunds)
+      }
+  };
+  return teams
+  },
+
   async updateTeamFunds(id,teamFunds) {
     const foundTeam = await Team.findOne({ _id: id });
     const updatedFundIds = [];

@@ -4,18 +4,7 @@ import { AddUserSpec, } from "../models/joi-schemas.js";
 export const userController = {
   showUserAdmin: {
     handler: async function (request, h) {
-        const users = await db.userStore.getAllUsers();
-
-        for (let userIndex = 0; userIndex < users.length; userIndex += 1) {
-          // eslint-disable-next-line no-await-in-loop
-          const userTeams = await db.teamStore.getTeamsById(users[userIndex].teams)
-          if(userTeams){
-              users[userIndex].teams = userTeams
-              // eslint-disable-next-line no-await-in-loop
-              await db.userStore.updateUserTeams(users[userIndex]._id,userTeams)
-          }
-      };
-
+        const users = await db.userStore.updateUsers();
         const teams = await db.teamStore.getAllTeams();
 
         const viewData = {

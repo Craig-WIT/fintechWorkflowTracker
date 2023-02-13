@@ -46,10 +46,25 @@ export const checklistMongoStore = {
 
   async deleteChecklistById(id) {
     try {
+        const checklist = await Checklist.findOne({ _id: id });
+        if (checklist.items.length > 0) {
+          await this.deleteChecklistItems(checklist.items)
+        };
         await Checklist.deleteOne({ _id: id });
       } catch (error) {
         console.log("bad id");
       }
+  },
+
+  async deleteChecklistItems(items){
+    for (let itemIndex = 0; itemIndex < items.length; itemIndex += 1) {
+      // eslint-disable-next-line no-await-in-loop
+      await this.deleteChecklistItemById(items[itemIndex]._id)
+  };
+  },
+
+  async deleteChecklistItemById(id){
+    await ChecklistItem.deleteOne({ _id: id });
   },
 
   async deleteAll() {

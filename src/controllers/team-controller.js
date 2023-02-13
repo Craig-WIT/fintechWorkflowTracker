@@ -4,18 +4,7 @@ import { TeamSpec, } from "../models/joi-schemas.js";
 export const teamController = {
   showTeamAdmin: {
     handler: async function (request, h) {
-      const teams = await db.teamStore.getAllTeams();
-
-      for (let teamIndex = 0; teamIndex < teams.length; teamIndex += 1) {
-        // eslint-disable-next-line no-await-in-loop
-        const teamFunds = await db.fundStore.getFundsById(teams[teamIndex].funds)
-        if(teamFunds){
-            teams[teamIndex].funds = teamFunds
-            // eslint-disable-next-line no-await-in-loop
-            await db.teamStore.updateTeamFunds(teams[teamIndex]._id,teamFunds)
-        }
-    };
-
+      const teams = await db.teamStore.updateTeams();
       const funds = await db.fundStore.getAllFunds();
 
       const viewData = {
@@ -97,6 +86,7 @@ export const teamController = {
       const team = await db.teamStore.getTeamById(request.params.id);
 
       await db.teamStore.deleteTeamById(team._id);
+      await db.userStore.updateUsers();
       return h.redirect("/teamAdmin");
     },
   },

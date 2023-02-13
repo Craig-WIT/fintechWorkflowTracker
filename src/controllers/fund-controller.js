@@ -134,6 +134,7 @@ export const fundController = {
     handler: async function (request, h) {
       const fund = await db.fundStore.getFundById(request.params.id);
       await db.fundStore.deleteFundById(fund._id);
+      await db.teamStore.updateTeams();
       return h.redirect("/fundAdmin");
     },
   },
@@ -144,6 +145,7 @@ export const fundController = {
       const fundId = request.params.id;
       const fundChecklist = await db.fundStore.getFundChecklistById(request.params.checklistid);
       await db.fundStore.deleteFundChecklistById(fundChecklist._id);
+      await db.fundStore.updateFunds();
       return h.redirect(`/viewFund/${fundId}/addFundChecklist`);
     },
   },

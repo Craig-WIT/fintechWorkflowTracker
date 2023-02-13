@@ -75,6 +75,19 @@ export const fundMongoStore =  {
     return foundChecklist;
   },
 
+  async getFundChecklistsById(ids) {
+    const fundChecklists =[];
+    for (let fundChecklistIndex = 0; fundChecklistIndex < ids.length; fundChecklistIndex += 1) {
+        const fundChecklistId = ids[fundChecklistIndex]
+        // eslint-disable-next-line no-await-in-loop
+        const foundFundChecklist = await FundChecklist.findOne({ _id: fundChecklistId }).lean();
+        if(foundFundChecklist){
+            fundChecklists.push(foundFundChecklist)
+        }
+    };
+    return fundChecklists
+  },
+
   async editFund(id,editedFund) {
     const foundFund = await Fund.findOne({ _id: id });
     foundFund.fundname = editedFund.fundname;
@@ -158,12 +171,35 @@ export const fundMongoStore =  {
     foundChecklist.save();
   },
 
-  async deleteFundById(id) {
-    try {
-        await Fund.deleteOne({ _id: id });
-      } catch (error) {
-        console.log("bad id");
+  async updateFunds(){
+    const funds = await this.getAllFunds();
+    for (let fundIndex = 0; fundIndex < funds.length; fundIndex += 1) {
+      // eslint-disable-next-line no-await-in-loop
+      const fundChecklists = await this.getFundChecklistsById(funds[fundIndex].fundChecklists)
+      if(fundChecklists){
+          funds[fundIndex].fundChecklists = fundChecklists;
+          // eslint-disable-next-line no-await-in-loop
+          await this.updateFundChecklists(funds[fundIndex]._id,fundChecklists)
       }
+  };
+  return funds;
+  },
+
+  async updateFundChecklists(id,fundChecklists) {
+    const foundFund = await Fund.findOne({ _id: id });
+    const updatedFundChecklistIds = [];
+    fundChecklists.forEach((fundChecklist) => {
+      updatedFundChecklistIds.push(fundChecklist._id)
+    })
+    foundFund.fundChecklists = updatedFundChecklistIds;
+    await foundFund.save();
+  },
+
+  async deleteFundChecklists(fundChecklists){
+    for (let fundChecklistsIndex = 0; fundChecklistsIndex < fundChecklists.length; fundChecklistsIndex += 1) {
+      // eslint-disable-next-line no-await-in-loop
+      await this.deleteFundChecklistById(fundChecklists[fundChecklistsIndex]._id)
+  };
   },
 
   async deleteFundChecklistById(id) {
