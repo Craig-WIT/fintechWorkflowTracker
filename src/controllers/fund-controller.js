@@ -1,3 +1,5 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
+import Excel from "exceljs";
 import { db } from "../models/db.js";
 import { FundSpec,FundChecklistSpec } from "../models/joi-schemas.js";
 

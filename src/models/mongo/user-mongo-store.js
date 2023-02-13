@@ -14,6 +14,14 @@ export const userMongoStore =  {
     return u;
   },
 
+  async checkIfUserExists(user) {
+    const foundUser = await User.findOne({ email: user.email }).lean();
+    if(foundUser){
+      return true;
+    }
+    return false;
+  },
+
   async getUserById(id) {
     if (id) {
         const user = await User.findOne({ _id: id }).lean();

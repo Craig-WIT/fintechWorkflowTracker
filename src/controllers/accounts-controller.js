@@ -29,8 +29,15 @@ export const accountsController = {
       const user = request.payload;
       user.teams = [];
       user.admin = true;
-      await db.userStore.addUser(user);
-      return h.redirect("/");
+      const userExists = await db.userStore.checkIfUserExists(user);
+      if(!userExists) {
+        await db.userStore.addUser(user);
+      }
+      else {
+        const errorMsg = "That email address is already registered - please try again"
+        return h.view("signup-view", { error: errorMsg });
+      }
+      return h.redirect("/login");
     },
   },
 
@@ -53,11 +60,18 @@ export const accountsController = {
     handler: async function (request, h) {
       const { email, password } = request.payload;
       const user = await db.userStore.getUserByEmail(email);
-      if (!user || user.password !== password) {
-        return h.redirect("/");
+      let errorMsg = "";
+      if (!user) {
+        errorMsg = "No user found with that email address - please try again"
       }
-      request.cookieAuth.set({ id: user._id });
-      return h.redirect("/dashboard");
+      else if (user.password !== password){
+        errorMsg = "You have entered an incorrect password - please try again"
+      }
+      else{
+        request.cookieAuth.set({ id: user._id });
+        return h.redirect("/dashboard");
+      }
+      return h.view("login-view",{error: errorMsg})
     },
   },
 
