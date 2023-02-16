@@ -87,7 +87,24 @@ export const userController = {
         admin : isAdmin,
         teams: teams
       };
-      await db.userStore.addUser(newUser);
+
+      const userExists = await db.userStore.checkIfUserExists(newUser);
+      if(!userExists) {
+        await db.userStore.addUser(newUser);
+      }
+      else {
+        const errorMsg = "That email address is already registered - please try again"
+        const users = await db.userStore.updateUsers();
+        const allteams = await db.teamStore.getAllTeams();
+
+        const viewData = {
+        title: "Users Dashboard",
+        teams: allteams,
+        users: users,
+        error: errorMsg
+      };
+        return h.view("userAdmin-view", viewData);
+      }
       console.log(JSON.stringify(newUser, null, 4))
       return h.redirect("/userAdmin");
     },
