@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "start": "node src/server.js",
-    "lint": "./node_modules/.bin/eslint . --ext .js"
+    "lint": "./node_modules/.bin/eslint . --ext .js",
+    "test": "mocha --ui tdd test/**.js"
   },
   "author": "",
   "license": "ISC",
@@ -22,12 +23,14 @@
     "@hapi/hapi": "^21.2.0",
     "@hapi/vision": "^7.0.0",
     "@hapi/yar": "^11.0.0",
+    "chai": "^4.3.7",
     "chart.js": "^4.2.1",
     "dotenv": "^16.0.3",
     "exceljs": "^4.3.0",
     "handlebars": "^4.7.7",
     "joi": "^17.7.0",
     "lowdb": "^5.0.5",
+    "mocha": "^10.2.0",
     "mongoose": "^6.9.0",
     "uuid": "^9.0.0"
   }

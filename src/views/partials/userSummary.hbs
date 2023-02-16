@@ -1,7 +1,11 @@
-<div class="ui segment" style="border: 3px solid #043F8C;">
-    <div class="card" id="cardStyle"><h2>{{firstname}} {{lastname}} <a href="/userAdmin/{{_id}}/editUser"><i class="fas fa-edit"></i></a></h3>
+<div class="ui styled accordion" style="border: 3px solid #043F8C;">
+      <div class="title">
+      <i class="dropdown icon"></i> 
+      <h2 style="display: inline">{{firstname}} {{lastname}}</h2>
+      <h2 style="display: inline"><a href="/userAdmin/{{_id}}/editUser"><i class="fas fa-edit"></i></a></h2>
     </div>
-    <div class="card" id="cardStyle"><h4>Role</h4>
+    <div class="content">
+      <div class="card" id="cardStyle"><h4>Role</h4>
       {{role}}
     </div>
     <div class="card" id="cardStyle"><h4>Team(s)</h4>
@@ -22,4 +26,15 @@
             <div class="hidden content">Are you sure?</div>
           </div>
     </a>
+    </div>
 </div>
+
+<script>
+  $('.ui.accordion')
+  .accordion({
+    selector: {
+      trigger: '.title .icon .h2'
+    }
+  })
+;
+</script>
