@@ -10,7 +10,7 @@
       <li>{{fundname}}</li>
     {{/each}}
     </div>
-    <canvas id="myChart" style="width:100%;max-width:700px"></canvas>
+    <canvas id="{{_id}}" style="width:100%;max-width:700px"></canvas>
 </div>
 <br>
 </a>
@@ -26,7 +26,7 @@ var barColors = [
   "#1e7145"
 ];
 
-new Chart("myChart", {
+new Chart("{{{_id}}}", {
   type: "doughnut",
   data: {
     labels: xValues,

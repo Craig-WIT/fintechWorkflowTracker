@@ -4,7 +4,7 @@
     <div class="card" id="cardStyle"><h4>Year End</h2>
       {{yearend}}
     </div>
-    <canvas id="myChart" style="width:100%;max-width:700px"></canvas>
+    <canvas id="{{_id}}" style="width:100%;max-width:700px"></canvas>
     <br>
     <a href="/viewFund/{{_id}}/addFundChecklist">
         <div id="addButton" class="tiny red ui animated button" tabindex="0">
@@ -31,7 +31,7 @@ var barColors = [
   "#1e7145"
 ];
 
-new Chart("myChart", {
+new Chart("{{{_id}}}", {
   type: "doughnut",
   data: {
     labels: xValues,
