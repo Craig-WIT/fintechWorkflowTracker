@@ -1,11 +1,11 @@
 {{> menu id="dashboard"}}
 
-<section class="ui segment" style="border: 3px solid #043F8C; border-radius: 10px; background-color: #C9E5F0;">
-  <h2 class="ui header">
+<section class="ui segment" style="border: 3px solid black; border-radius: 10px; background-color: #DB65C6;">
+  <h2 class="ui header" style="color: white;">
     Team View: {{team.teamname}}
   </h2>
 </section>
 
     {{#each funds}}
-        {{> fundDashboardSummary}}
+        {{> fundDashboardSummary teamid=../team._id}}
     {{/each}}

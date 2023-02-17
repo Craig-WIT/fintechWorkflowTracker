@@ -64,21 +64,3 @@
     border: 3px solid #043F8C;
     height: 200px;
 }
-
-.transition.main-transition{
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 101;
-    background-color: #688ECA;
-    opacity: 0;
-    pointer-events: none;
-    transition: 0.5s ease-out;
-}
-
-.transition.main-transition.is-active{
-    opacity: 1;
-    pointer-events: all;
-}

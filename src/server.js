@@ -71,4 +71,9 @@ Handlebars.registerHelper("eq", function( a, b ){
 	return (a === b) ? next.fn(this) : next.inverse(this);
 });
 
+Handlebars.registerHelper("log", function(content) {
+  console.log(content.fn(this));
+  return "";
+});
+
 init();

@@ -1,5 +1,5 @@
 <form class="ui stacked segment form" action="/viewFund/addFundChecklist/{{fund._id}}" method="POST"
-      style="background-color: #C9E5F0; border: 3px solid white;">
+      style="background-color: #F5C0EF; border: 3px solid white;">
   <div class="field">
     <label>Checklist Date</label>
     <input type="text" name="checklistdate" placeholder="Checklist date">
@@ -24,6 +24,6 @@
     $('#type').dropdown();
 
     document.getElementById("backButton").onclick = function () {
-        window.location.href = "/dashboard/{id}/viewTeam;
+        window.location.href = "/dashboard/{{{team._id}}}/viewTeam";
     };
 </script>

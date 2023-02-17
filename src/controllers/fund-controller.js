@@ -44,12 +44,14 @@ export const fundController = {
   showAddFundChecklist: {
     handler: async function (request, h) {
         const fund = await db.fundStore.getFundById(request.params.id);
+        const team = await db.teamStore.getTeamById(request.params.teamid);
         const checklists = await db.checklistStore.getAllChecklists();
         const fundChecklists = await db.fundStore.getFundChecklists(fund.fundChecklists);
 
         const loggedInUser = request.auth.credentials;
         const viewData = {
         title: "Add Checklist",
+        team: team,
         fund: fund,
         checklists: checklists,
         fundchecklists: fundChecklists,
