@@ -1,11 +1,11 @@
+<div class="ui two column grid basic segment">
+<div class="column">
 <div class="ui segment" style="border: 3px solid #043F8C;">
     <div class="card" id="cardStyle"><h2>{{fundname}}</h3>
     </div>
     <div class="card" id="cardStyle"><h4>Year End</h2>
       {{yearend}}
     </div>
-    <canvas id="{{_id}}" style="width:100%;max-width:700px"></canvas>
-    <br>
     <a href="/viewFund/{{_id}}/addFundChecklist">
         <div id="addButton" class="tiny red ui animated button" tabindex="0">
             <div class="visible content">Add Checklist</div>
@@ -19,6 +19,14 @@
         </div>
     </a>
 </div>
+</div>
+<div class="column">
+   <div class="ui segment" style="border: 3px solid #043F8C;">
+  <canvas id="{{_id}}" style="width:100%;max-width:700px"></canvas>
+    </div>
+</div>
+</div>
+<br>
 
 <script>
 var xValues = ["Complete","Incomplete"];
@@ -43,7 +51,7 @@ new Chart("{{{_id}}}", {
   options: {
     title: {
       display: true,
-      text: "Completed checklists"
+      text: "{{{fundname}}} Checklist Summary"
     }
   }
 });

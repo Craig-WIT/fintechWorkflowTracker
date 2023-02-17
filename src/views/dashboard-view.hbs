@@ -6,17 +6,8 @@
   </h2>
 </section>
 
-<div class="ui two column grid basic segment">
-  <div class="column">
-
-  </div>
-  {{#if teams}}
-  <div class="column">
-    
-    {{#each teams}}
-        {{> teamDashboardSummary}}
-    {{/each}}
-    
-  </div>
-  {{/if}}
-</div>
+{{#if teams}}
+  {{#each teams}}
+      {{> teamDashboardSummary}}
+  {{/each}}
+{{/if}}

@@ -1,3 +1,5 @@
+<div class="ui two column grid basic segment">
+<div class="column">
 <a href="/dashboard/{{_id}}/viewTeam">
 <div class="ui segment" style="border: 3px solid #043F8C;">
     <div class="card" id="cardStyle"><h2>{{teamname}}</h3>
@@ -10,10 +12,17 @@
       <li>{{fundname}}</li>
     {{/each}}
     </div>
-    <canvas id="{{_id}}" style="width:100%;max-width:700px"></canvas>
+</div>
+</a>
+</div>
+<div class="column">
+  <div class="ui segment" style="border: 3px solid #043F8C;">
+  <canvas id="{{_id}}" style="width:100%;max-width:700px"></canvas>
+  </div>
+</div>
 </div>
 <br>
-</a>
+</div>
 
 <script>
 var xValues = ["Complete","Incomplete"];
@@ -38,7 +47,7 @@ new Chart("{{{_id}}}", {
   options: {
     title: {
       display: true,
-      text: "Completed checklists"
+      text: "{{{teamname}}} Checklist Summary"
     }
   }
 });
