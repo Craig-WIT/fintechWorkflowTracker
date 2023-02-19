@@ -29,11 +29,13 @@ export const fundController = {
   showFundChecklists: {
     handler: async function (request, h) {
         const fund = await db.fundStore.getFundById(request.params.id);
+        const team = await db.teamStore.getTeamById(request.params.teamid);
         const fundChecklists = await db.fundStore.getFundChecklists(fund.fundChecklists);
         const loggedInUser = request.auth.credentials;
         const viewData = {
         title: "View Checklists",
         fund: fund,
+        team: team,
         fundchecklists: fundChecklists,
         user: loggedInUser,
       };
@@ -64,12 +66,14 @@ export const fundController = {
   showEditFundChecklist: {
     handler: async function (request, h) {
       const fund = await db.fundStore.getFundById(request.params.id);
+      const team = await db.teamStore.getTeamById(request.params.teamid);
       const fundChecklist = await db.fundStore.getFundChecklistById(request.params.checklistid);
       const loggedInUser = request.auth.credentials;
 
       const viewData = {
         title: "Edit Fund Checklist",
         fund: fund,
+        team: team,
         fundchecklist: fundChecklist,
         user: loggedInUser,
       };
@@ -110,7 +114,7 @@ export const fundController = {
         const fund = await db.fundStore.getFundById(request.params.id);
         const team = await db.teamStore.getTeamById(request.params.teamid);
         const checklists = await db.checklistStore.getAllChecklists();
-        const fundChecklists = await db.fundStore.getFundChecklists(fund._id);
+        const fundChecklists = await db.fundStore.getFundChecklists(fund.fundChecklists);
         const loggedInUser = request.auth.credentials;
         return h.view("addFundChecklist-view", { title: "Sign up error", errors: error.details, form: formDetails, fund: fund, checklists: checklists, fundchecklists: fundChecklists, user: loggedInUser, team: team }).takeover().code(400);
       },
@@ -147,11 +151,12 @@ export const fundController = {
   deleteFundChecklist: {
     handler: async function (request, h) {
       const fund = await db.fundStore.getFundById(request.params.id);
+      const team = await db.teamStore.getTeamById(request.params.teamid);
       const fundId = request.params.id;
       const fundChecklist = await db.fundStore.getFundChecklistById(request.params.checklistid);
       await db.fundStore.deleteFundChecklistById(fundChecklist._id);
       await db.fundStore.updateFunds();
-      return h.redirect(`/viewFund/${fundId}/addFundChecklist`);
+      return h.redirect(`/${team._id}/viewFund/${fund._id}/addFundChecklist`);
     },
   },
 
@@ -185,7 +190,8 @@ export const fundController = {
 
   editFundChecklist: {
     handler: async function (request, h) {
-      const fundId = request.params.id
+      const fundId = request.params.id;
+      const team = await db.teamStore.getTeamById(request.params.teamid);
       const checklistId = request.params.checklistid
       const checklistItems = request.payload
 
@@ -205,36 +211,55 @@ export const fundController = {
       });
     
     console.log(JSON.stringify(request.payload, null, 4))
-    return h.redirect(`/viewFund/${fundId}/editFundChecklist/${checklistId}`);
+    return h.redirect(`/${team._id}/viewFund/${fundId}/editFundChecklist/${checklistId}`);
   },
   },
 
   preparerSignOff: {
     handler: async function (request, h) {
       const fundId = request.params.id
+      const team = await db.teamStore.getTeamById(request.params.teamid);
       const checklistId = request.params.checklistid
       const loggedInUser = request.auth.credentials;
 
       const fund = await db.fundStore.getFundById(fundId);
       const fundChecklist = await db.fundStore.getFundChecklistById(checklistId);
 
-      if(loggedInUser._id.toString() !== fundChecklist.firstReview.userid && loggedInUser._id.toString() !== fundChecklist.secondReview.userid){
-      await db.fundStore.preparerSignOff(checklistId,loggedInUser);
-      return h.redirect(`/viewFund/${fundId}/editFundChecklist/${checklistId}`);
+      if(fundChecklist.reviewers === "1"){
+        if(loggedInUser._id.toString() !== fundChecklist.firstReview.userid){
+          await db.fundStore.preparerSignOff(checklistId,loggedInUser);
+          return h.redirect(`/${team._id}/viewFund/${fundId}/editFundChecklist/${checklistId}`);
+          }
       }
 
+      if(fundChecklist.reviewers === "2"){
+        if(loggedInUser._id.toString() !== fundChecklist.firstReview.userid && loggedInUser._id.toString() !== fundChecklist.secondReview.userid){
+          await db.fundStore.preparerSignOff(checklistId,loggedInUser);
+          return h.redirect(`/${team._id}/viewFund/${fundId}/editFundChecklist/${checklistId}`);
+          }
+      }
+      
       let errorMsg = ""
 
+      if(fundChecklist.reviewers === "1"){
+        if(loggedInUser._id.toString() === fundChecklist.firstReview.userid)  {
+          errorMsg = "Can't Sign off - user has already signed as 1st Reviewer"
+        }
+      }
+      
+      if(fundChecklist.reviewers === "2"){
       if(loggedInUser._id.toString() === fundChecklist.firstReview.userid)  {
         errorMsg = "Can't Sign off - user has already signed as 1st Reviewer"
       }
       else if(loggedInUser._id.toString() === fundChecklist.secondReview.userid){
         errorMsg = "Can't Sign off - user has already signed as 2nd Reviewer"
       }
+    }
         
       const viewData = {
         title: "Edit Fund Checklist",
         fund: fund,
+        team: team,
         fundchecklist: fundChecklist,
         user: loggedInUser,
         error: errorMsg,
@@ -247,19 +272,39 @@ export const fundController = {
   firstReviewSignOff: {
     handler: async function (request, h) {
       const fundId = request.params.id
+      const team = await db.teamStore.getTeamById(request.params.teamid);
       const checklistId = request.params.checklistid
       const loggedInUser = request.auth.credentials;
 
       const fund = await db.fundStore.getFundById(fundId);
       const fundChecklist = await db.fundStore.getFundChecklistById(checklistId);
 
+      if(fundChecklist.reviewers === "1"){
+        if(loggedInUser.role === "Reviewer" && loggedInUser._id.toString() !== fundChecklist.preparer.userid){
+        await db.fundStore.firstReviewSignOff(checklistId,loggedInUser);
+        return h.redirect(`/${team._id}/viewFund/${fundId}/editFundChecklist/${checklistId}`);
+        }
+      }
+      
+      if(fundChecklist.reviewers === "2"){
       if(loggedInUser.role === "Reviewer" && loggedInUser._id.toString() !== fundChecklist.preparer.userid && loggedInUser._id.toString() !== fundChecklist.secondReview.userid){
       await db.fundStore.firstReviewSignOff(checklistId,loggedInUser);
-      return h.redirect(`/viewFund/${fundId}/editFundChecklist/${checklistId}`);
+      return h.redirect(`/${team._id}/viewFund/${fundId}/editFundChecklist/${checklistId}`);
       }
+    }
 
       let errorMsg = "";
 
+      if(fundChecklist.reviewers === "1"){
+        if(loggedInUser.role !== "Reviewer"){
+          errorMsg = "Can't Sign off - user is not a Reviewer"
+        }
+        else if(loggedInUser._id.toString() === fundChecklist.preparer.userid)  {
+          errorMsg = "Can't Sign off - user has already signed as Preparer"
+        }
+      }
+
+      if(fundChecklist.reviewers === "2"){
         if(loggedInUser.role !== "Reviewer"){
           errorMsg = "Can't Sign off - user is not a Reviewer"
         }
@@ -269,10 +314,12 @@ export const fundController = {
         else{
           errorMsg = "Can't Sign off - user has already signed as 2nd Reviewer"
         }
+      }
         
       const viewData = {
         title: "Edit Fund Checklist",
         fund: fund,
+        team: team,
         fundchecklist: fundChecklist,
         user: loggedInUser,
         error: errorMsg,
@@ -285,6 +332,7 @@ export const fundController = {
   secondReviewSignOff: {
     handler: async function (request, h) {
       const fundId = request.params.id
+      const team = await db.teamStore.getTeamById(request.params.teamid);
       const checklistId = request.params.checklistid
       const loggedInUser = request.auth.credentials;
 
@@ -293,7 +341,7 @@ export const fundController = {
 
       if(loggedInUser.role === "Reviewer" && loggedInUser._id.toString() !== fundChecklist.preparer.userid && loggedInUser._id.toString() !== fundChecklist.firstReview.userid){
         await db.fundStore.secondReviewSignOff(checklistId,loggedInUser);
-        return h.redirect(`/viewFund/${fundId}/editFundChecklist/${checklistId}`);
+        return h.redirect(`/${team._id}/viewFund/${fundId}/editFundChecklist/${checklistId}`);
         }
         
         let errorMsg = "";
@@ -311,6 +359,7 @@ export const fundController = {
         const viewData = {
           title: "Edit Fund Checklist",
           fund: fund,
+          team: team,
           fundchecklist: fundChecklist,
           user: loggedInUser,
           error: errorMsg,
@@ -323,6 +372,7 @@ export const fundController = {
   removePreparerSignOff: {
     handler: async function (request, h) {
       const fundId = request.params.id;
+      const team = await db.teamStore.getTeamById(request.params.teamid);
       const checklistId = request.params.checklistid;
       const loggedInUser = request.auth.credentials;
 
@@ -331,7 +381,7 @@ export const fundController = {
 
       if(loggedInUser.admin || loggedInUser._id.toString() === fundChecklist.preparer.userid){
         await db.fundStore.removePreparerSignOff(checklistId);
-        return h.redirect(`/viewFund/${fundId}/editFundChecklist/${checklistId}`);
+        return h.redirect(`/${team._id}/viewFund/${fundId}/editFundChecklist/${checklistId}`);
       }
 
       const errorMsg = "Can't remove Sign off - Not Admin level"
@@ -339,6 +389,7 @@ export const fundController = {
       const viewData = {
         title: "Edit Fund Checklist",
         fund: fund,
+        team: team,
         fundchecklist: fundChecklist,
         user: loggedInUser,
         error: errorMsg,
@@ -352,6 +403,7 @@ export const fundController = {
   removeFirstReviewSignOff: {
     handler: async function (request, h) {
       const fundId = request.params.id;
+      const team = await db.teamStore.getTeamById(request.params.teamid);
       const checklistId = request.params.checklistid;
       const loggedInUser = request.auth.credentials;
 
@@ -360,7 +412,7 @@ export const fundController = {
 
       if(loggedInUser.admin || loggedInUser._id.toString() === fundChecklist.firstReview.userid){
         await db.fundStore.removeFirstReviewSignOff(checklistId);
-        return h.redirect(`/viewFund/${fundId}/editFundChecklist/${checklistId}`);
+        return h.redirect(`/${team._id}/viewFund/${fundId}/editFundChecklist/${checklistId}`);
       }
 
       const errorMsg = "Can't remove sign off - Not Admin level"
@@ -368,6 +420,7 @@ export const fundController = {
       const viewData = {
         title: "Edit Fund Checklist",
         fund: fund,
+        team: team,
         fundchecklist: fundChecklist,
         user: loggedInUser,
         error: errorMsg,
@@ -381,6 +434,7 @@ export const fundController = {
   removeSecondReviewSignOff: {
     handler: async function (request, h) {
       const fundId = request.params.id
+      const team = await db.teamStore.getTeamById(request.params.teamid);
       const checklistId = request.params.checklistid
       const loggedInUser = request.auth.credentials;
 
@@ -389,7 +443,7 @@ export const fundController = {
 
       if(loggedInUser.admin || loggedInUser._id.toString() === fundChecklist.secondReview.userid){
         await db.fundStore.removeSecondReviewSignOff(checklistId);
-        return h.redirect(`/viewFund/${fundId}/editFundChecklist/${checklistId}`);
+        return h.redirect(`/${team._id}/viewFund/${fundId}/editFundChecklist/${checklistId}`);
       }
 
       const errorMsg = "Can't remove sign off"
@@ -397,6 +451,7 @@ export const fundController = {
       const viewData = {
         title: "Edit Fund Checklist",
         fund: fund,
+        team: team,
         fundchecklist: fundChecklist,
         user: loggedInUser,
         error: errorMsg,

@@ -121,6 +121,24 @@ export const fundMongoStore =  {
     foundChecklist.preparer.firstname = user.firstname;
     foundChecklist.preparer.lastname = user.lastname;
 
+    if(foundChecklist.reviewers === "1"){
+      if(foundChecklist.preparer.userid !== "No preparer" && foundChecklist.firstReview.userid !== "No 1st Reviewer"){
+        foundChecklist.status = "Completed"
+      }
+      else{
+        foundChecklist.status = "Incomplete"
+      }
+    }
+
+    if(foundChecklist.reviewers === "2"){
+      if(foundChecklist.preparer.userid !== "No preparer" && foundChecklist.firstReview.userid !== "No 1st Reviewer" && foundChecklist.secondReview.userid !== "No 2nd Reviewer"){
+        foundChecklist.status = "Completed"
+      }
+      else{
+        foundChecklist.status = "Incomplete"
+      }
+    }
+
     foundChecklist.save();
 
   },
@@ -131,6 +149,24 @@ export const fundMongoStore =  {
     foundChecklist.firstReview.userid = user._id;
     foundChecklist.firstReview.firstname = user.firstname;
     foundChecklist.firstReview.lastname = user.lastname;
+
+    if(foundChecklist.reviewers === "1"){
+      if(foundChecklist.preparer.userid !== "No preparer" && foundChecklist.firstReview.userid !== "No 1st Reviewer"){
+        foundChecklist.status = "Completed"
+      }
+      else{
+        foundChecklist.status = "Incomplete"
+      }
+    }
+
+    if(foundChecklist.reviewers === "2"){
+      if(foundChecklist.preparer.userid !== "No preparer" && foundChecklist.firstReview.userid !== "No 1st Reviewer" && foundChecklist.secondReview.userid !== "No 2nd Reviewer"){
+        foundChecklist.status = "Completed"
+      }
+      else{
+        foundChecklist.status = "Incomplete"
+      }
+    }
 
     foundChecklist.save();
 
@@ -143,6 +179,24 @@ export const fundMongoStore =  {
     foundChecklist.secondReview.firstname = user.firstname;
     foundChecklist.secondReview.lastname = user.lastname;
 
+    if(foundChecklist.reviewers === "1"){
+      if(foundChecklist.preparer.userid !== "No preparer" && foundChecklist.firstReview.userid !== "No 1st Reviewer"){
+        foundChecklist.status = "Completed"
+      }
+      else{
+        foundChecklist.status = "Incomplete"
+      }
+    }
+
+    if(foundChecklist.reviewers === "2"){
+      if(foundChecklist.preparer.userid !== "No preparer" && foundChecklist.firstReview.userid !== "No 1st Reviewer" && foundChecklist.secondReview.userid !== "No 2nd Reviewer"){
+        foundChecklist.status = "Completed"
+      }
+      else{
+        foundChecklist.status = "Incomplete"
+      }
+    }
+
     foundChecklist.save();
 
   },
@@ -151,6 +205,7 @@ export const fundMongoStore =  {
     const foundChecklist = await FundChecklist.findOne({ _id: checklistid });
 
     foundChecklist.preparer = {userid: "No Preparer", firstname: "", lastname: ""}
+    foundChecklist.status = "Incomplete"
 
     foundChecklist.save();
   },
@@ -159,6 +214,7 @@ export const fundMongoStore =  {
     const foundChecklist = await FundChecklist.findOne({ _id: checklistid });
 
     foundChecklist.firstReview = {userid: "No 1st Reviewer", firstname: "", lastname: ""}
+    foundChecklist.status = "Incomplete"
 
     foundChecklist.save();
   },
@@ -167,6 +223,7 @@ export const fundMongoStore =  {
     const foundChecklist = await FundChecklist.findOne({ _id: checklistid });
 
     foundChecklist.secondReview = {userid: "No 2nd Reviewer", firstname: "", lastname: ""}
+    foundChecklist.status = "Incomplete"
 
     foundChecklist.save();
   },

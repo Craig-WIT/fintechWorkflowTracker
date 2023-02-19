@@ -1,4 +1,4 @@
-<form class="ui stacked segment form" action="/viewFund/{{fund._id}}/editFundChecklist/{{fundchecklist._id}}" method="POST"
+<form class="ui stacked segment form" action="/{{team._id}}/viewFund/{{fund._id}}/editFundChecklist/{{fundchecklist._id}}" method="POST"
       style="background-color: #F5C0EF; border: 3px solid white;">
 <table class="ui table">
   <thead>
@@ -6,19 +6,19 @@
     <th>Checklist Item</th>
     <th>Prepared By
         {{#eq fundchecklist.preparer.userid "No Preparer"}}
-    <a href="/viewFund/{{fund._id}}/editFundChecklist/{{fundchecklist._id}}/preparerSignOff">
+    <a href="/{{team._id}}/viewFund/{{fund._id}}/editFundChecklist/{{fundchecklist._id}}/preparerSignOff">
         Click to sign off <i id="check" class="fa-solid fa-circle-check" style="font-size:20px;color:rgb(17, 145, 104);"></i></a>
         {{else}}
-        <a href="/viewFund/{{fund._id}}/editFundChecklist/{{fundchecklist._id}}/removePreparerSignOff">
+        <a href="/{{team._id}}/viewFund/{{fund._id}}/editFundChecklist/{{fundchecklist._id}}/removePreparerSignOff">
         {{fundchecklist.preparer.firstname}} {{fundchecklist.preparer.lastname}} <i id="xmark" class="fa-solid fa-circle-xmark" style="font-size:20px;color:red;"></i>
         {{/eq}}
     </th>
     <th>1st Review
         {{#eq fundchecklist.firstReview.userid "No 1st Reviewer"}}
-    <a href="/viewFund/{{fund._id}}/editFundChecklist/{{fundchecklist._id}}/firstReviewSignOff">
+    <a href="/{{team._id}}/viewFund/{{fund._id}}/editFundChecklist/{{fundchecklist._id}}/firstReviewSignOff">
         Click to sign off <i id="check" class="fa-solid fa-circle-check" style="font-size:20px;color:rgb(17, 145, 104);"></i>
         {{else}}
-        <a href="/viewFund/{{fund._id}}/editFundChecklist/{{fundchecklist._id}}/removeFirstReviewSignOff">
+        <a href="/{{team._id}}/viewFund/{{fund._id}}/editFundChecklist/{{fundchecklist._id}}/removeFirstReviewSignOff">
         {{fundchecklist.firstReview.firstname}} {{fundchecklist.firstReview.lastname}} <i id="xmark" class="fa-solid fa-circle-xmark" style="font-size:20px;color:red;"></i>
         {{/eq}}
     </a>
@@ -26,10 +26,10 @@
     {{#eq fundchecklist.reviewers "2"}}
     <th>2nd Review
         {{#eq fundchecklist.secondReview.userid "No 2nd Reviewer"}}
-    <a href="/viewFund/{{fund._id}}/editFundChecklist/{{fundchecklist._id}}/secondReviewSignOff">
+    <a href="/{{team._id}}/viewFund/{{fund._id}}/editFundChecklist/{{fundchecklist._id}}/secondReviewSignOff">
         Click to sign off <i id="check" class="fa-solid fa-circle-check" style="font-size:20px;color:rgb(17, 145, 104);"></i>
         {{else}}
-        <a href="/viewFund/{{fund._id}}/editFundChecklist/{{fundchecklist._id}}/removeSecondReviewSignOff">
+        <a href="/{{team._id}}/viewFund/{{fund._id}}/editFundChecklist/{{fundchecklist._id}}/removeSecondReviewSignOff">
         {{fundchecklist.secondReview.firstname}} {{fundchecklist.secondReview.lastname}} <i id="xmark" class="fa-solid fa-circle-xmark" style="font-size:20px;color:red;"></i>
         {{/eq}}
     </a>
@@ -106,10 +106,14 @@
     <div class="hidden content">Are you sure?</div>
   </button>
 </form>
+<button id="backButton" class="tiny ui orange submit button">
+    <div class="visible content"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</div>
+</button>
 
 <script>
-  $('#defaultvalue').dropdown();
-  .font-awesome .fa {
-    font-family:monospace,monospace;
-}
+    $('#type').dropdown();
+
+    document.getElementById("backButton").onclick = function () {
+        window.location.href = "/{{{team._id}}}/viewFund/{{{fund._id}}}/addFundChecklist";
+    };
 </script>

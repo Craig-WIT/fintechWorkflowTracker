@@ -1,21 +1,51 @@
 {{#each fundchecklists}}
 <div class="ui segment" style="border: 3px solid #043F8C;">
-    <div class="card" id="cardStyle"><h2>{{checklistname}}</h3>
-    </div>
-    <div class="card" id="cardStyle"><h4>Checklist Date</h2>
-      {{checklistdate}}
-    </div>
-    <div class="card" id="cardStyle"><h4>No of Reviewers</h2>
-      {{reviewers}}
+    <div class="card" id="cardStyle"><h2>{{checklistname}} - {{checklistdate}}</h3>
     </div>
     <br>
-    <a href="/viewFund/{{../fund._id}}/deleteFundChecklist/{{_id}}">
+    {{#eq preparer.userid "No Preparer"}}
+    <div class="card" id="cardStyle"><h4 style="display: inline;">Preparer: </h4>
+      {{preparer.userid}}
+    </div>
+    {{else}}
+    <div class="card" id="cardStyle"><h4 style="display: inline;">Preparer: </h4>
+      {{preparer.firstname}} {{preparer.lastname}}
+    </div>
+    {{/eq}}
+
+    {{#eq firstReview.userid "No 1st Reviewer"}}
+    <div class="card" id="cardStyle"><h4 style="display: inline;">1st Review: </h4>
+      {{firstReview.userid}}
+    </div>
+    {{else}}
+    <div class="card" id="cardStyle"><h4 style="display: inline;">1st Review: </h4>
+      {{firstReview.firstname}} {{firstReview.lastname}}
+    </div>
+    {{/eq}}
+
+    {{#eq reviewers "2"}}
+    {{#eq secondReview.userid "No 2nd Reviewer"}}
+    <div class="card" id="cardStyle"><h4 style="display: inline;">2nd Review: </h4>
+      {{secondReview.userid}}
+    </div>
+    {{else}}
+    <div class="card" id="cardStyle"><h4 style="display: inline;">2nd Review: </h4>
+      {{secondReview.firstname}} {{secondReview.lastname}}
+    </div>
+    {{/eq}}
+    {{/eq}}
+
+    <div class="card" id="cardStyle"><h4 style="display: inline;">Status: </h4>
+      {{status}}
+    </div>
+    <br>
+    <a href="/{{../team._id}}/viewFund/{{../fund._id}}/deleteFundChecklist/{{_id}}">
           <div id="deleteButton" class="tiny red ui animated button" tabindex="0">
             <div class="visible content">Delete Checklist</div>
             <div class="hidden content">Are you sure?</div>
           </div>
     </a>
-    <a href="/viewFund/{{../fund._id}}/editFundChecklist/{{_id}}">
+    <a href="/{{../team._id}}/viewFund/{{../fund._id}}/editFundChecklist/{{_id}}">
           <div id="editButton" class="tiny green ui animated button" tabindex="0">
             <div class="visible content">Edit Checklist</div>
             <div class="hidden content">Are you sure?</div>

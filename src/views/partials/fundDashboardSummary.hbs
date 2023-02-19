@@ -9,17 +9,14 @@
     <br>
     <a href="/{{teamid}}/viewFund/{{_id}}/addFundChecklist">
         <div id="addButton" class="tiny red ui animated button" tabindex="0">
-            <div class="visible content">Add Checklist</div>
-            <div class="hidden content">Are you sure?</div>
-        </div>
-    </a>
-    <a href="/viewFund/{{_id}}/viewFundChecklists">
-        <div id="viewButton" class="tiny green ui animated button" tabindex="0">
-            <div class="visible content">View Checklists</div>
+            <div class="visible content">Add/View Checklists</div>
             <div class="hidden content">Are you sure?</div>
         </div>
     </a>
 </div>
+<button id="backButton" class="tiny ui orange submit button">
+    <div class="visible content"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</div>
+</button>
 </div>
 <div class="column">
    <div class="ui segment" style="border: 3px solid #043F8C;">
@@ -56,4 +53,10 @@ new Chart("{{{_id}}}", {
     }
   }
 });
+
+    $('#type').dropdown();
+
+    document.getElementById("backButton").onclick = function () {
+        window.location.href = "/dashboard";
+    };
 </script>
