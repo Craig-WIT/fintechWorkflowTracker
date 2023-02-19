@@ -33,7 +33,8 @@ const fundChecklistSchema = new Schema({
     firstname: String,
     lastname: String,
     _id : false
-  }, 
+  },
+  status: String,
 });
 
 export const FundChecklist = Mongoose.model("fundChecklist", fundChecklistSchema);

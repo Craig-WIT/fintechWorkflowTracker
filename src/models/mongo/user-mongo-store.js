@@ -1,9 +1,12 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
+import _ from "lodash";
 import { User } from "./user.js";
 import { teamMongoStore } from "./team-mongo-store.js";
 
 export const userMongoStore =  {
   async getAllUsers() {
-    const users = await User.find().lean();
+    let users = await User.find().lean();
+    users = _.sortBy(users, o => o.firstname)
     return users;
   },
 

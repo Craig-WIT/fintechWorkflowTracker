@@ -108,19 +108,22 @@ export const fundController = {
         console.log(error.details)
         const formDetails = request.payload
         const fund = await db.fundStore.getFundById(request.params.id);
+        const team = await db.teamStore.getTeamById(request.params.teamid);
         const checklists = await db.checklistStore.getAllChecklists();
         const fundChecklists = await db.fundStore.getFundChecklists(fund._id);
         const loggedInUser = request.auth.credentials;
-        return h.view("addFundChecklist-view", { title: "Sign up error", errors: error.details, form: formDetails, fund: fund, checklists: checklists, fundchecklists: fundChecklists, user: loggedInUser }).takeover().code(400);
+        return h.view("addFundChecklist-view", { title: "Sign up error", errors: error.details, form: formDetails, fund: fund, checklists: checklists, fundchecklists: fundChecklists, user: loggedInUser, team: team }).takeover().code(400);
       },
     },
     handler: async function (request, h) {
       const fund = await db.fundStore.getFundById(request.params.id);
+      const team = await db.teamStore.getTeamById(request.params.teamid);
       const returnedChecklist = await db.checklistStore.getChecklistById(request.payload.type);
       const newChecklist = JSON.parse(JSON.stringify(returnedChecklist));
-      newChecklist.checklistdate = request.payload.checklistdate
-      newChecklist.preparer = {userid: "No Preparer", firstname: "", lastname: ""}
-      newChecklist.firstReview = {userid: "No 1st Reviewer", firstname: "", lastname: ""}
+      newChecklist.checklistdate = request.payload.checklistdate;
+      newChecklist.preparer = {userid: "No Preparer", firstname: "", lastname: ""};
+      newChecklist.firstReview = {userid: "No 1st Reviewer", firstname: "", lastname: ""};
+      newChecklist.status = "Incomplete";
 
       if(returnedChecklist.reviewers === "2"){
         newChecklist.secondReview = {userid: "No 2nd Reviewer", firstname: "", lastname: ""}
@@ -128,7 +131,7 @@ export const fundController = {
      
       await db.fundStore.addFundChecklist(fund._id,newChecklist);
       console.log(JSON.stringify(fund, null, 4))
-      return h.redirect(`/viewFund/${fund._id}/addFundChecklist`);
+      return h.redirect(`/${team._id}/viewFund/${fund._id}/addFundChecklist`);
     },
   },
 
