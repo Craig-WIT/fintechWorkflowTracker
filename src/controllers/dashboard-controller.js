@@ -29,12 +29,22 @@ export const dashboardController = {
   showViewTeam: {
     handler: async function (request, h) {
         const team = await db.teamStore.getTeamById(request.params.id);
-        const funds = await db.fundStore.getAllFunds();
+        let teamFunds = await db.fundStore.getFundsById(team.funds);
+
+        for (let fundIndex = 0; fundIndex < teamFunds.length; fundIndex += 1) {
+        // eslint-disable-next-line no-await-in-loop
+        await db.fundStore.getIncompleteFundChecklists(teamFunds[fundIndex],teamFunds[fundIndex].fundChecklists)
+        // eslint-disable-next-line no-await-in-loop
+        await db.fundStore.getCompletedFundChecklists(teamFunds[fundIndex],teamFunds[fundIndex].fundChecklists)
+    };  
+
+        teamFunds = await db.fundStore.getFundsById(team.funds);
+
         const loggedInUser = request.auth.credentials;
         const viewData = {
           title: "View Team",
           team: team,
-          funds: funds,
+          funds: teamFunds,
           user: loggedInUser,
       };
       return h.view("viewTeam-view", viewData);

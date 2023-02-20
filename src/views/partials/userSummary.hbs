@@ -25,15 +25,15 @@
     {{/each}}
     </div>
     <br>
-    <a href="/userAdmin/deleteUser/{{_id}}">
-          <div id="deleteButton" class="tiny red ui animated button" tabindex="0">
-            <div class="visible content">Delete User</div>
-            <div class="hidden content">Are you sure?</div>
-          </div>
-    </a>
     <a href="/userAdmin/{{_id}}/editUser">
           <div id="editButton" class="tiny green ui animated button" tabindex="0">
             <div class="visible content">Edit User</div>
+            <div class="hidden content">Are you sure?</div>
+          </div>
+    </a>
+    <a href="/userAdmin/deleteUser/{{_id}}">
+          <div id="deleteButton" class="tiny red ui animated button" tabindex="0">
+            <div class="visible content">Delete User</div>
             <div class="hidden content">Are you sure?</div>
           </div>
     </a>

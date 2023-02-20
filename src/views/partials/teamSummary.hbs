@@ -19,15 +19,15 @@
       {{/each}}
     </div>
     <br>
-    <a href="/teamAdmin/deleteTeam/{{_id}}">
-          <div id="deleteButton" class="tiny red ui animated button" tabindex="0">
-            <div class="visible content">Delete Team</div>
-            <div class="hidden content">Are you sure?</div>
-          </div>
-    </a>
     <a href="/teamAdmin/{{_id}}/editTeam">
           <div id="editButton" class="tiny green ui animated button" tabindex="0">
             <div class="visible content">Edit Team</div>
+            <div class="hidden content">Are you sure?</div>
+          </div>
+    </a>
+    <a href="/teamAdmin/deleteTeam/{{_id}}">
+          <div id="deleteButton" class="tiny red ui animated button" tabindex="0">
+            <div class="visible content">Delete Team</div>
             <div class="hidden content">Are you sure?</div>
           </div>
     </a>

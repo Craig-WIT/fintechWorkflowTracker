@@ -1,5 +1,9 @@
 {{#each fundchecklists}}
-<div class="ui segment" style="border: 3px solid #043F8C;">
+{{#eq status "Completed"}}
+<div class="ui segment" style="border: 3px solid #043F8C; background-color: rgb(175, 207, 175)">
+{{else}}
+<div class="ui segment" style="border: 3px solid #043F8C; background-color: rgb(218, 179, 179)">
+{{/eq}}
     <div class="card" id="cardStyle"><h2>{{checklistname}} - {{checklistdate}}</h3>
     </div>
     <br>

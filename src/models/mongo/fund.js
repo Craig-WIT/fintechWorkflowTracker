@@ -9,6 +9,8 @@ const fundSchema = new Schema({
   fundChecklists: [{ 
     type: Schema.Types.ObjectId, ref: "FundChecklist" 
     }],
+  completedFundChecklists: Number,
+  incompleteFundChecklists: Number,
 });
 
 export const Fund = Mongoose.model("Fund", fundSchema);

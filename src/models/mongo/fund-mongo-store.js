@@ -1,4 +1,5 @@
-import { v4 } from "uuid";
+// eslint-disable-next-line import/no-extraneous-dependencies
+import _ from "lodash";import { v4 } from "uuid";
 import Mongoose from "mongoose";
 import { Fund } from "./fund.js";
 import { FundChecklist } from "./fundChecklist.js";
@@ -45,7 +46,7 @@ export const fundMongoStore =  {
   },
 
   async getFundChecklists(ids) {
-    const fundChecklists =[];
+    let fundChecklists =[];
     for (let fundChecklistIndex = 0; fundChecklistIndex < ids.length; fundChecklistIndex += 1) {
         const fundChecklistId = ids[fundChecklistIndex]
         // eslint-disable-next-line no-await-in-loop
@@ -54,6 +55,7 @@ export const fundMongoStore =  {
             fundChecklists.push(foundFundChecklist)
         }
     };
+    fundChecklists = _.orderBy(fundChecklists, "status", "desc");
     return fundChecklists
   },
 
@@ -228,7 +230,8 @@ export const fundMongoStore =  {
     foundChecklist.save();
   },
   
-  async getIncompleteFundChecklists(ids){
+  async getIncompleteFundChecklists(fund,ids){
+    const foundFund = await Fund.findOne({ _id: fund._id });
     let incompleteChecklists = 0;
     for (let fundChecklistIndex = 0; fundChecklistIndex < ids.length; fundChecklistIndex += 1) {
         const fundChecklistId = ids[fundChecklistIndex]
@@ -239,21 +242,24 @@ export const fundMongoStore =  {
             incompleteChecklists += 1
         }
     };
-    return incompleteChecklists
+    foundFund.incompleteFundChecklists = incompleteChecklists;
+    await foundFund.save();
   },
 
-  async getCompleteFundChecklists(ids){
-    let completeChecklists = 0;
+  async getCompletedFundChecklists(fund,ids){
+    const foundFund = await Fund.findOne({ _id: fund._id });
+    let completedChecklists = 0;
     for (let fundChecklistIndex = 0; fundChecklistIndex < ids.length; fundChecklistIndex += 1) {
         const fundChecklistId = ids[fundChecklistIndex]
         // eslint-disable-next-line no-await-in-loop
         const foundFundChecklist = await FundChecklist.findOne({ _id: fundChecklistId }).lean();
         if(foundFundChecklist){
-          if(foundFundChecklist.status === "Complete")
-            completeChecklists += 1
+          if(foundFundChecklist.status === "Completed")
+            completedChecklists += 1
         }
     };
-    return completeChecklists
+    foundFund.completedFundChecklists = completedChecklists;
+    await foundFund.save();
   },
 
   async updateFunds(){
@@ -290,6 +296,14 @@ export const fundMongoStore =  {
   async deleteFundChecklistById(id) {
     try {
         await FundChecklist.deleteOne({ _id: id });
+      } catch (error) {
+        console.log("bad id");
+      }
+  },
+
+  async deleteFundById(id) {
+    try {
+        await Fund.deleteOne({ _id: id });
       } catch (error) {
         console.log("bad id");
       }
