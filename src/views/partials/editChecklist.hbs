@@ -1,8 +1,23 @@
 <form class="ui stacked segment form" action="/checklistAdmin/editChecklist/{{checklist._id}}" method="POST"
       style="background-color: #C9E5F0; border: 3px solid white;">
   <div class="field">
-    <input type="checkbox" name="checklistheader">
     <label>Is checklist header item?</label>
+    <input type="checkbox" name="checklistheader">
+    <label>Add dates for Checklist</label>
+      <label>Start date</label>
+      <div class="ui calendar" id="rangestart">
+        <div class="ui input left icon">
+          <i class="calendar icon"></i>
+          <input type="text" placeholder="Start" name="startdate">
+        </div>
+      </div>
+      <label>End date</label>
+      <div class="ui calendar" id="rangeend">
+        <div class="ui input left icon">
+          <i class="calendar icon"></i>
+          <input type="text" placeholder="End" name="enddate">
+        </div>
+      </div>
     <label>Add Checklist Item</label>
     <input type="text" name="checklistitem">
     <label>Default Value</label>
@@ -33,4 +48,15 @@
   document.getElementById("backButton").onclick = function () {
       window.location.href = "/checklistAdmin";
   };
+</script>
+
+<script>
+$('#rangestart').calendar({
+  type: 'date',
+  endCalendar: $('#rangeend')
+});
+$('#rangeend').calendar({
+  type: 'date',
+  startCalendar: $('#rangestart')
+});
 </script>

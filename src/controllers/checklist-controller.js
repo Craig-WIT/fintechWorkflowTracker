@@ -58,6 +58,32 @@ export const checklistController = {
         if(request.payload.checklistheader === "on"){
             checklistItem.header = true
         }
+
+        if(request.payload.startdate !== "" && request.payload.enddate !== ""){
+          const start = new Date(request.payload.startdate);
+          const end = new Date(request.payload.enddate);
+
+
+          let loop = new Date(start);
+          while(loop <= end){    
+
+            const dateItem = {
+              title: loop.toDateString(),
+              header: checklistItem.header,
+              default: request.payload.defaultvalue,
+              preparer: request.payload.defaultvalue,
+              firstReview: request.payload.defaultvalue,
+              secondReview: request.payload.defaultvalue
+            };
+
+            // eslint-disable-next-line no-await-in-loop
+            await db.checklistStore.addChecklistItem(checklist._id,dateItem);
+            
+          const newDate = loop.setDate(loop.getDate() + 1);
+          loop = new Date(newDate);
+        }
+        }
+
         const newItem = {
             title: request.payload.checklistitem,
             header: checklistItem.header,
@@ -70,6 +96,9 @@ export const checklistController = {
         title: "Edit Checklist",
         checklist: checklist,
       };
+      if(request.payload.checklistitem === ""){
+        return h.redirect(`/checklistAdmin/${checklistId}/editChecklist`, viewData);
+      }
       await db.checklistStore.addChecklistItem(checklist._id,newItem);
       console.log(checklist)
       return h.redirect(`/checklistAdmin/${checklistId}/editChecklist`, viewData);
