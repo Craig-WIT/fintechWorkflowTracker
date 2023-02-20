@@ -1,5 +1,5 @@
 <form class="ui stacked segment form" action="/{{team._id}}/viewFund/addFundChecklist/{{fund._id}}" method="POST"
-      style="background-color: #F5C0EF; border: 3px solid white;">
+      style="background-color: #F5C0EF; border: 3px solid black;">
   <div class="field">
     <div class="ui calendar" id="date_calendar">
       <div class="ui input left icon">
@@ -15,12 +15,12 @@
       {{/each}}
     </select>
   </div>
-  <button id="submitButton" class="tiny ui blue submit animated button">
+  <button id="submitButton" class="tiny ui black submit animated button">
     <div class="visible content">Add Fund Checklist</div>
     <div class="hidden content">Are you sure?</div>
   </button>
 </form>
-<button id="backButton" class="tiny ui orange submit button">
+<button id="backButton" class="tiny ui gray submit button">
     <div class="visible content"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</div>
 </button>
 

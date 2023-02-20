@@ -227,6 +227,34 @@ export const fundMongoStore =  {
 
     foundChecklist.save();
   },
+  
+  async getIncompleteFundChecklists(ids){
+    let incompleteChecklists = 0;
+    for (let fundChecklistIndex = 0; fundChecklistIndex < ids.length; fundChecklistIndex += 1) {
+        const fundChecklistId = ids[fundChecklistIndex]
+        // eslint-disable-next-line no-await-in-loop
+        const foundFundChecklist = await FundChecklist.findOne({ _id: fundChecklistId }).lean();
+        if(foundFundChecklist){
+          if(foundFundChecklist.status === "Incomplete")
+            incompleteChecklists += 1
+        }
+    };
+    return incompleteChecklists
+  },
+
+  async getCompleteFundChecklists(ids){
+    let completeChecklists = 0;
+    for (let fundChecklistIndex = 0; fundChecklistIndex < ids.length; fundChecklistIndex += 1) {
+        const fundChecklistId = ids[fundChecklistIndex]
+        // eslint-disable-next-line no-await-in-loop
+        const foundFundChecklist = await FundChecklist.findOne({ _id: fundChecklistId }).lean();
+        if(foundFundChecklist){
+          if(foundFundChecklist.status === "Complete")
+            completeChecklists += 1
+        }
+    };
+    return completeChecklists
+  },
 
   async updateFunds(){
     const funds = await this.getAllFunds();
