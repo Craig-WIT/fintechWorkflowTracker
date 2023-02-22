@@ -1,38 +1,65 @@
-<form class="ui stacked segment form" action="/{{team._id}}/viewFund/{{fund._id}}/editFundChecklist/{{fundchecklist._id}}" method="POST"
-      style="background-color: #F5C0EF; border: 3px solid white;">
 <table class="ui table">
   <thead>
   <tr>
-    <th>Checklist Item</th>
-    <th>Prepared By
+    <th>Prepared By</th>
+    <th>1st Reviewer</th>
+    {{#eq fundchecklist.reviewers "2"}}
+    <th>2nd Reviewer</th>
+    {{/eq}}
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
         {{#eq fundchecklist.preparer.userid "No Preparer"}}
-    <a href="/{{team._id}}/viewFund/{{fund._id}}/editFundChecklist/{{fundchecklist._id}}/preparerSignOff">
-        Click to sign off <i id="check" class="fa-solid fa-circle-check" style="font-size:20px;color:rgb(17, 145, 104);"></i></a>
+        <a href="/{{team._id}}/viewFund/{{fund._id}}/editFundChecklist/{{fundchecklist._id}}/preparerSignOff">
+          Click to sign off<i id="check" class="fa-solid fa-circle-check" style="font-size:20px;color:rgb(17, 145, 104); margin-left: 10px;"></i>
+        </a>
         {{else}}
         <a href="/{{team._id}}/viewFund/{{fund._id}}/editFundChecklist/{{fundchecklist._id}}/removePreparerSignOff">
-        {{fundchecklist.preparer.firstname}} {{fundchecklist.preparer.lastname}} <i id="xmark" class="fa-solid fa-circle-xmark" style="font-size:20px;color:red;"></i>
+          {{fundchecklist.preparer.firstname}} {{fundchecklist.preparer.lastname}} <i id="xmark" class="fa-solid fa-circle-xmark" style="font-size:20px;color:red; margin-left: 10px;"></i>
+        </a>
         {{/eq}}
-    </th>
-    <th>1st Review
+      </td>
+      <td>
         {{#eq fundchecklist.firstReview.userid "No 1st Reviewer"}}
-    <a href="/{{team._id}}/viewFund/{{fund._id}}/editFundChecklist/{{fundchecklist._id}}/firstReviewSignOff">
-        Click to sign off <i id="check" class="fa-solid fa-circle-check" style="font-size:20px;color:rgb(17, 145, 104);"></i>
+         <a href="/{{team._id}}/viewFund/{{fund._id}}/editFundChecklist/{{fundchecklist._id}}/firstReviewSignOff">
+          Click to sign off <i id="check" class="fa-solid fa-circle-check" style="font-size:20px;color:rgb(17, 145, 104); margin-left: 10px;"></i>
         {{else}}
         <a href="/{{team._id}}/viewFund/{{fund._id}}/editFundChecklist/{{fundchecklist._id}}/removeFirstReviewSignOff">
-        {{fundchecklist.firstReview.firstname}} {{fundchecklist.firstReview.lastname}} <i id="xmark" class="fa-solid fa-circle-xmark" style="font-size:20px;color:red;"></i>
+          {{fundchecklist.firstReview.firstname}} {{fundchecklist.firstReview.lastname}} <i id="xmark" class="fa-solid fa-circle-xmark" style="font-size:20px;color:red; margin-left: 10px;"></i>
         {{/eq}}
-    </a>
-    </th>
-    {{#eq fundchecklist.reviewers "2"}}
-    <th>2nd Review
+      </td>
+      {{#eq fundchecklist.reviewers "2"}}
+      <td>
         {{#eq fundchecklist.secondReview.userid "No 2nd Reviewer"}}
-    <a href="/{{team._id}}/viewFund/{{fund._id}}/editFundChecklist/{{fundchecklist._id}}/secondReviewSignOff">
-        Click to sign off <i id="check" class="fa-solid fa-circle-check" style="font-size:20px;color:rgb(17, 145, 104);"></i>
+        <a href="/{{team._id}}/viewFund/{{fund._id}}/editFundChecklist/{{fundchecklist._id}}/secondReviewSignOff">
+          Click to sign off <i id="check" class="fa-solid fa-circle-check" style="font-size:20px;color:rgb(17, 145, 104);"></i>
         {{else}}
         <a href="/{{team._id}}/viewFund/{{fund._id}}/editFundChecklist/{{fundchecklist._id}}/removeSecondReviewSignOff">
-        {{fundchecklist.secondReview.firstname}} {{fundchecklist.secondReview.lastname}} <i id="xmark" class="fa-solid fa-circle-xmark" style="font-size:20px;color:red;"></i>
+          {{fundchecklist.secondReview.firstname}} {{fundchecklist.secondReview.lastname}} <i id="xmark" class="fa-solid fa-circle-xmark" style="font-size:20px;color:red;"></i>
         {{/eq}}
-    </a>
+        </a>
+      </td>
+      {{/eq}}
+    </tr>
+  </tbody>
+</table>
+<button id="backButton" class="tiny ui gray submit button">
+    <div class="visible content"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</div>
+</button>
+<form class="ui stacked segment form" action="/{{team._id}}/viewFund/{{fund._id}}/editFundChecklist/{{fundchecklist._id}}" method="POST"
+      style="background-color: #F5C0EF; border: 3px solid white;">
+<table class="ui table" style="width:100%">
+  <thead>
+  <tr>
+    <th style="width:70%">Checklist Item</th>
+    <th style="width:10%">Preparer
+    </th>
+    <th style="width:10%">1st Reviewer
+    </th>
+    {{#eq fundchecklist.reviewers "2"}}
+    <th style="width:10%">2nd Reviewer
     </th>
     {{/eq}}
   </tr>
@@ -106,8 +133,9 @@
     <div class="hidden content">Are you sure?</div>
   </button>
 </form>
-<button id="backButton" class="tiny ui gray submit button">
-    <div class="visible content"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</div>
+
+<button id="downloadButton" class="tiny ui gray submit button">
+    <div class="visible content"><i class="fa fa-arrow-left" aria-hidden="true"></i> Download PDF</div>
 </button>
 
 <script>
@@ -115,5 +143,9 @@
 
     document.getElementById("backButton").onclick = function () {
         window.location.href = "/{{{team._id}}}/viewFund/{{{fund._id}}}/addFundChecklist";
+    };
+
+    document.getElementById("downloadButton").onclick = function () {
+        window.location.href = "/checklistAdmin/downloadPDF";
     };
 </script>

@@ -47,6 +47,7 @@ export const webRoutes = [
     { method: "GET", path: "/{teamid}/viewFund/{id}/editFundChecklist/{checklistid}/removeSecondReviewSignOff", config: fundController.removeSecondReviewSignOff },
     
     { method: "GET", path: "/checklistAdmin", config: checklistController.showChecklistAdmin },
+    { method: "GET", path: "/checklistAdmin/downloadPDF", config: checklistController.downloadPDF },
     { method: "GET", path: "/checklistAdmin/{id}/editChecklist", config: checklistController.showEditChecklist },
     { method: "POST", path: "/checklistAdmin/editChecklist/{id}", config: checklistController.editChecklist },
     { method: "POST", path: "/checklistAdmin/addChecklist", config: checklistController.addChecklist },

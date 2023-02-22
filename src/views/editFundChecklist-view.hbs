@@ -6,20 +6,20 @@
   </h2>
 </section>
 
-{{> errors }}
-
-  <div class="column">
-    {{> editFundChecklist}}
-  </div>
-
-  {{#if error}}
+{{#if error}}
   <div class="ui negative message">
   <div class="header">
     Error
   </div>
   <p>{{error}}</p>
   </div>
-  {{/if}}
+{{/if}}
+
+{{> errors }}
+
+  <div class="column">
+    {{> editFundChecklist}}
+  </div>
 
   <script>
     $('.negative.message .close')
