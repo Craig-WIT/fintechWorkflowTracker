@@ -1,12 +1,16 @@
-<div class="ui segment" style="border: 3px solid #043F8C;">
-    <div class="card" id="cardStyle"><h2>{{checklistname}}</h3>
+<div class="ui accordion" style="border: 3px solid #043F8C; padding: 10px; background-color: white; border-radius: 5px">
+    <div class="title" style="cursor: default;">
+    <i class="dropdown icon" style="cursor: default;"></i> 
+    <h3 class="header" style="display: inline; cursor: pointer">{{checklistname}}  </h3>
+    <h3 style="display: inline"><a href="/checklistAdmin/{{_id}}/editChecklist"><i class="fas fa-edit" style="cursor: zoom-in;"></i></a></h3>
     </div>
-    <div class="card" id="cardStyle"><h4>No of Reviewers</h2>
+    <div class="content">
+    <div class="card" id="cardStyle"><h4>No of Reviewers Required</h2>
       {{reviewers}}
     </div>
     <br>
     <a href="/checklistAdmin/{{_id}}/editChecklist">
-          <div id="editButton" class="tiny green ui animated button" tabindex="0">
+          <div id="editButton" class="tiny black ui animated button" tabindex="0">
             <div class="visible content">Edit Checklist</div>
             <div class="hidden content">Are you sure?</div>
           </div>
@@ -17,4 +21,15 @@
             <div class="hidden content">Are you sure?</div>
           </div>
     </a>
+    </div>
 </div>
+
+<script>
+  $('.ui.accordion')
+  .accordion({
+    selector: {
+      trigger: '.title .header'
+    }
+  })
+;
+</script>

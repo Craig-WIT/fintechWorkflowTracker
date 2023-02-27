@@ -1,20 +1,35 @@
-<div class="ui segment" style="border: 3px solid #043F8C;">
-    <div class="card" id="cardStyle"><h2>{{fundname}}</h3>
+<div class="ui accordion" style="border: 3px solid #043F8C; padding: 10px; background-color: white; border-radius: 5px">
+    <div class="title" style="cursor: default;">
+    <i class="dropdown icon" style="cursor: default;"></i> 
+    <h3 class="header" style="display: inline; cursor: pointer">{{fundname}}  </h3>
+    <h3 style="display: inline"><a href="/fundAdmin/{{_id}}/editFund"><i class="fas fa-edit" style="cursor: zoom-in;"></i></a></h3>
     </div>
+    <div class="content">
     <div class="card" id="cardStyle"><h4>Year End</h2>
       {{yearend}}
     </div>
     <br>
+    <a href="/fundAdmin/{{_id}}/editFund">
+          <div id="editButton" class="tiny black ui animated button" tabindex="0">
+            <div class="visible content">Edit Fund</div>
+            <div class="hidden content">Are you sure?</div>
+          </div>
+    </a>
     <a href="/fundAdmin/deleteFund/{{_id}}">
           <div id="deleteButton" class="tiny red ui animated button" tabindex="0">
             <div class="visible content">Delete Fund</div>
             <div class="hidden content">Are you sure?</div>
           </div>
     </a>
-    <a href="/fundAdmin/{{_id}}/editFund">
-          <div id="editButton" class="tiny green ui animated button" tabindex="0">
-            <div class="visible content">Edit Fund</div>
-            <div class="hidden content">Are you sure?</div>
-          </div>
-    </a>
+    </div>
 </div>
+
+<script>
+  $('.ui.accordion')
+  .accordion({
+    selector: {
+      trigger: '.title .header'
+    }
+  })
+;
+</script>

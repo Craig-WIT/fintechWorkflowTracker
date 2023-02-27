@@ -134,10 +134,6 @@
   </button>
 </form>
 
-<button id="downloadButton" class="tiny ui gray submit button">
-    <div class="visible content"><i class="fa fa-arrow-left" aria-hidden="true"></i> Download PDF</div>
-</button>
-
 <script>
     $('#type').dropdown();
 
@@ -145,7 +141,4 @@
         window.location.href = "/{{{team._id}}}/viewFund/{{{fund._id}}}/addFundChecklist";
     };
 
-    document.getElementById("downloadButton").onclick = function () {
-        window.location.href = "/checklistAdmin/downloadPDF";
-    };
 </script>
