@@ -1,5 +1,6 @@
 <nav class="ui menu" style="border: 3px solid #043F8C; border-radius: 10px; background-color: #F5C0EF">
   <header class="ui header item"></header>
+  <div class="right menu">
   <div class="ui right dropdown item">
     Admin
     <i class="dropdown icon"></i>
@@ -11,7 +12,13 @@
     </div>
   </div>
     
-    <a id="dashboard" class="item" href="/dashboard">Dashboard</a>
+    <div class="ui right dropdown item">
+    Dashboards
+    <i class="dropdown icon"></i>
+    <div class="menu">
+      <a id="dashboard" class="item" href="/dashboard">Teams Dashboard</a>
+    </div>
+  </div>
     <a id="logout" class="item" href="/logout">Logout</a>
   </div>
 </nav>
