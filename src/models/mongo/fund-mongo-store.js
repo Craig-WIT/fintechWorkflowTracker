@@ -29,6 +29,7 @@ export const fundMongoStore =  {
     });
 
     fundChecklist.items = checklistItems;
+    fund.incompleteFundChecklists += 1
 
     const newFundChecklist = new FundChecklist(fundChecklist);
     const fundChecklistObj = await newFundChecklist.save();
@@ -116,7 +117,8 @@ export const fundMongoStore =  {
     await foundChecklist.save();
   },
 
-  async preparerSignOff(checklistid,user) {
+  async preparerSignOff(fund,checklistid,user) {
+    const foundFund = await Fund.findOne({ _id: fund._id });
     const foundChecklist = await FundChecklist.findOne({ _id: checklistid });
 
     foundChecklist.preparer.userid = user._id;
@@ -124,8 +126,10 @@ export const fundMongoStore =  {
     foundChecklist.preparer.lastname = user.lastname;
 
     if(foundChecklist.reviewers === "1"){
-      if(foundChecklist.preparer.userid !== "No preparer" && foundChecklist.firstReview.userid !== "No 1st Reviewer"){
-        foundChecklist.status = "Completed"
+      if(foundChecklist.preparer.userid !== "No Preparer" && foundChecklist.firstReview.userid !== "No 1st Reviewer"){
+        foundChecklist.status = "Completed";
+        foundFund.completedFundChecklists += 1;
+        foundFund.incompleteFundChecklists -= 1;
       }
       else{
         foundChecklist.status = "Incomplete"
@@ -133,19 +137,23 @@ export const fundMongoStore =  {
     }
 
     if(foundChecklist.reviewers === "2"){
-      if(foundChecklist.preparer.userid !== "No preparer" && foundChecklist.firstReview.userid !== "No 1st Reviewer" && foundChecklist.secondReview.userid !== "No 2nd Reviewer"){
-        foundChecklist.status = "Completed"
+      if(foundChecklist.preparer.userid !== "No Preparer" && foundChecklist.firstReview.userid !== "No 1st Reviewer" && foundChecklist.secondReview.userid !== "No 2nd Reviewer"){
+        foundChecklist.status = "Completed";
+        foundFund.completedFundChecklists += 1;
+        foundFund.incompleteFundChecklists -= 1;
       }
       else{
         foundChecklist.status = "Incomplete"
       }
     }
 
+    foundFund.save();
     foundChecklist.save();
 
   },
 
-  async firstReviewSignOff(checklistid,user) {
+  async firstReviewSignOff(fund,checklistid,user) {
+    const foundFund = await Fund.findOne({ _id: fund._id });
     const foundChecklist = await FundChecklist.findOne({ _id: checklistid });
 
     foundChecklist.firstReview.userid = user._id;
@@ -153,8 +161,10 @@ export const fundMongoStore =  {
     foundChecklist.firstReview.lastname = user.lastname;
 
     if(foundChecklist.reviewers === "1"){
-      if(foundChecklist.preparer.userid !== "No preparer" && foundChecklist.firstReview.userid !== "No 1st Reviewer"){
-        foundChecklist.status = "Completed"
+      if(foundChecklist.preparer.userid !== "No Preparer" && foundChecklist.firstReview.userid !== "No 1st Reviewer"){
+        foundChecklist.status = "Completed";
+        foundFund.completedFundChecklists += 1;
+        foundFund.incompleteFundChecklists -= 1;
       }
       else{
         foundChecklist.status = "Incomplete"
@@ -162,19 +172,23 @@ export const fundMongoStore =  {
     }
 
     if(foundChecklist.reviewers === "2"){
-      if(foundChecklist.preparer.userid !== "No preparer" && foundChecklist.firstReview.userid !== "No 1st Reviewer" && foundChecklist.secondReview.userid !== "No 2nd Reviewer"){
+      if(foundChecklist.preparer.userid !== "No Preparer" && foundChecklist.firstReview.userid !== "No 1st Reviewer" && foundChecklist.secondReview.userid !== "No 2nd Reviewer"){
         foundChecklist.status = "Completed"
+        foundFund.completedFundChecklists += 1;
+        foundFund.incompleteFundChecklists -= 1;
       }
       else{
         foundChecklist.status = "Incomplete"
       }
     }
 
+    foundFund.save();
     foundChecklist.save();
 
   },
 
-  async secondReviewSignOff(checklistid,user) {
+  async secondReviewSignOff(fund,checklistid,user) {
+    const foundFund = await Fund.findOne({ _id: fund._id });
     const foundChecklist = await FundChecklist.findOne({ _id: checklistid });
 
     foundChecklist.secondReview.userid = user._id;
@@ -182,51 +196,77 @@ export const fundMongoStore =  {
     foundChecklist.secondReview.lastname = user.lastname;
 
     if(foundChecklist.reviewers === "1"){
-      if(foundChecklist.preparer.userid !== "No preparer" && foundChecklist.firstReview.userid !== "No 1st Reviewer"){
-        foundChecklist.status = "Completed"
+      if(foundChecklist.preparer.userid !== "No Preparer" && foundChecklist.firstReview.userid !== "No 1st Reviewer"){
+        foundChecklist.status = "Completed";
+        foundFund.completedFundChecklists += 1;
+        foundFund.incompleteFundChecklists -= 1;
       }
       else{
-        foundChecklist.status = "Incomplete"
+        foundChecklist.status = "Incomplete";
       }
     }
 
     if(foundChecklist.reviewers === "2"){
-      if(foundChecklist.preparer.userid !== "No preparer" && foundChecklist.firstReview.userid !== "No 1st Reviewer" && foundChecklist.secondReview.userid !== "No 2nd Reviewer"){
-        foundChecklist.status = "Completed"
+      if(foundChecklist.preparer.userid !== "No Preparer" && foundChecklist.firstReview.userid !== "No 1st Reviewer" && foundChecklist.secondReview.userid !== "No 2nd Reviewer"){
+        foundChecklist.status = "Completed";
+        foundFund.completedFundChecklists += 1;
+        foundFund.incompleteFundChecklists -= 1;
       }
       else{
         foundChecklist.status = "Incomplete"
       }
     }
 
+    foundFund.save();
     foundChecklist.save();
 
   },
 
-  async removePreparerSignOff(checklistid) {
+  async removePreparerSignOff(fund,checklistid) {
+    const foundFund = await Fund.findOne({ _id: fund._id });
     const foundChecklist = await FundChecklist.findOne({ _id: checklistid });
+
+    if(foundChecklist.status === "Completed"){
+      foundFund.incompleteFundChecklists += 1;
+      foundFund.completedFundChecklists -= 1;
+    }
 
     foundChecklist.preparer = {userid: "No Preparer", firstname: "", lastname: ""}
-    foundChecklist.status = "Incomplete"
+    foundChecklist.status = "Incomplete";
 
+    foundFund.save();
     foundChecklist.save();
   },
 
-  async removeFirstReviewSignOff(checklistid) {
+  async removeFirstReviewSignOff(fund,checklistid) {
+    const foundFund = await Fund.findOne({ _id: fund._id });
     const foundChecklist = await FundChecklist.findOne({ _id: checklistid });
+
+    if(foundChecklist.status === "Completed"){
+      foundFund.incompleteFundChecklists += 1;
+      foundFund.completedFundChecklists -= 1;
+    }
 
     foundChecklist.firstReview = {userid: "No 1st Reviewer", firstname: "", lastname: ""}
-    foundChecklist.status = "Incomplete"
+    foundChecklist.status = "Incomplete";
 
+    foundFund.save();
     foundChecklist.save();
   },
 
-  async removeSecondReviewSignOff(checklistid) {
+  async removeSecondReviewSignOff(fund,checklistid) {
+    const foundFund = await Fund.findOne({ _id: fund._id });
     const foundChecklist = await FundChecklist.findOne({ _id: checklistid });
 
-    foundChecklist.secondReview = {userid: "No 2nd Reviewer", firstname: "", lastname: ""}
-    foundChecklist.status = "Incomplete"
+    if(foundChecklist.status === "Completed"){
+      foundFund.incompleteFundChecklists += 1;
+      foundFund.completedFundChecklists -= 1;
+    }
 
+    foundChecklist.secondReview = {userid: "No 2nd Reviewer", firstname: "", lastname: ""}
+    foundChecklist.status = "Incomplete";
+
+    foundFund.save();
     foundChecklist.save();
   },
   
@@ -293,8 +333,19 @@ export const fundMongoStore =  {
   };
   },
 
-  async deleteFundChecklistById(id) {
+  async deleteFundChecklistById(fund,id) {
     try {
+        const foundFund = await Fund.findOne({ _id: fund._id });
+        const foundChecklist = await FundChecklist.findOne({ _id: id });
+
+        if(foundChecklist.status === "Completed"){
+          foundFund.completedFundChecklists -= 1;
+        }
+        else{
+          foundFund.incompleteFundChecklists -= 1;
+        }
+
+        foundFund.save();
         await FundChecklist.deleteOne({ _id: id });
       } catch (error) {
         console.log("bad id");

@@ -10,6 +10,8 @@ const teamSchema = new Schema({
   funds: [{ 
     type: Schema.Types.ObjectId, ref: "Fund" 
     }],
+  completedFundChecklists: Number,
+  incompleteFundChecklists: Number,
 });
 
 export const Team = Mongoose.model("Team", teamSchema);

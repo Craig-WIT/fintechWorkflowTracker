@@ -4,6 +4,8 @@ export const dashboardController = {
   index: {
     handler: async function (request, h) {
       const loggedInUser = request.auth.credentials;
+      const teams = await db.teamStore.updateTeams();
+      const funds = await db.fundStore.updateFunds();
       const userTeams = await db.teamStore.getTeamsById(loggedInUser.teams);
 
       for (let teamIndex = 0; teamIndex < userTeams.length; teamIndex += 1) {

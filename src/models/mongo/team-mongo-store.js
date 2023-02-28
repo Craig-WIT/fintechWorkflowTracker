@@ -72,8 +72,12 @@ export const teamMongoStore =  {
   async updateTeamFunds(id,teamFunds) {
     const foundTeam = await Team.findOne({ _id: id });
     const updatedFundIds = [];
+    foundTeam.completedFundChecklists = 0;
+    foundTeam.incompleteFundChecklists = 0;
     teamFunds.forEach((fund) => {
         updatedFundIds.push(fund._id)
+        foundTeam.completedFundChecklists += fund.completedFundChecklists
+        foundTeam.incompleteFundChecklists += fund.incompleteFundChecklists
     })
     foundTeam.funds = updatedFundIds;
     await foundTeam.save();

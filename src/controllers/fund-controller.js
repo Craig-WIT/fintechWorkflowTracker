@@ -154,7 +154,7 @@ export const fundController = {
       const team = await db.teamStore.getTeamById(request.params.teamid);
       const fundId = request.params.id;
       const fundChecklist = await db.fundStore.getFundChecklistById(request.params.checklistid);
-      await db.fundStore.deleteFundChecklistById(fundChecklist._id);
+      await db.fundStore.deleteFundChecklistById(fund,fundChecklist._id);
       await db.fundStore.updateFunds();
       return h.redirect(`/${team._id}/viewFund/${fund._id}/addFundChecklist`);
     },
@@ -227,14 +227,14 @@ export const fundController = {
 
       if(fundChecklist.reviewers === "1"){
         if(loggedInUser._id.toString() !== fundChecklist.firstReview.userid){
-          await db.fundStore.preparerSignOff(checklistId,loggedInUser);
+          await db.fundStore.preparerSignOff(fund,checklistId,loggedInUser);
           return h.redirect(`/${team._id}/viewFund/${fundId}/editFundChecklist/${checklistId}`);
           }
       }
 
       if(fundChecklist.reviewers === "2"){
         if(loggedInUser._id.toString() !== fundChecklist.firstReview.userid && loggedInUser._id.toString() !== fundChecklist.secondReview.userid){
-          await db.fundStore.preparerSignOff(checklistId,loggedInUser);
+          await db.fundStore.preparerSignOff(fund,checklistId,loggedInUser);
           return h.redirect(`/${team._id}/viewFund/${fundId}/editFundChecklist/${checklistId}`);
           }
       }
@@ -281,14 +281,14 @@ export const fundController = {
 
       if(fundChecklist.reviewers === "1"){
         if(loggedInUser.role === "Reviewer" && loggedInUser._id.toString() !== fundChecklist.preparer.userid){
-        await db.fundStore.firstReviewSignOff(checklistId,loggedInUser);
+        await db.fundStore.firstReviewSignOff(fund,checklistId,loggedInUser);
         return h.redirect(`/${team._id}/viewFund/${fundId}/editFundChecklist/${checklistId}`);
         }
       }
       
       if(fundChecklist.reviewers === "2"){
       if(loggedInUser.role === "Reviewer" && loggedInUser._id.toString() !== fundChecklist.preparer.userid && loggedInUser._id.toString() !== fundChecklist.secondReview.userid){
-      await db.fundStore.firstReviewSignOff(checklistId,loggedInUser);
+      await db.fundStore.firstReviewSignOff(fund,checklistId,loggedInUser);
       return h.redirect(`/${team._id}/viewFund/${fundId}/editFundChecklist/${checklistId}`);
       }
     }
@@ -340,7 +340,7 @@ export const fundController = {
       const fundChecklist = await db.fundStore.getFundChecklistById(checklistId);
 
       if(loggedInUser.role === "Reviewer" && loggedInUser._id.toString() !== fundChecklist.preparer.userid && loggedInUser._id.toString() !== fundChecklist.firstReview.userid){
-        await db.fundStore.secondReviewSignOff(checklistId,loggedInUser);
+        await db.fundStore.secondReviewSignOff(fund,checklistId,loggedInUser);
         return h.redirect(`/${team._id}/viewFund/${fundId}/editFundChecklist/${checklistId}`);
         }
         
@@ -380,7 +380,7 @@ export const fundController = {
       const fundChecklist = await db.fundStore.getFundChecklistById(checklistId);
 
       if(loggedInUser.admin || loggedInUser._id.toString() === fundChecklist.preparer.userid){
-        await db.fundStore.removePreparerSignOff(checklistId);
+        await db.fundStore.removePreparerSignOff(fund,checklistId);
         return h.redirect(`/${team._id}/viewFund/${fundId}/editFundChecklist/${checklistId}`);
       }
 
@@ -408,10 +408,10 @@ export const fundController = {
       const loggedInUser = request.auth.credentials;
 
       const fund = await db.fundStore.getFundById(fundId);
-      const fundChecklist = await db.fundStore.getFundChecklistById(checklistId);
+      const fundChecklist = await db.fundStore.getFundChecklistById(fund,checklistId);
 
       if(loggedInUser.admin || loggedInUser._id.toString() === fundChecklist.firstReview.userid){
-        await db.fundStore.removeFirstReviewSignOff(checklistId);
+        await db.fundStore.removeFirstReviewSignOff(fund,checklistId);
         return h.redirect(`/${team._id}/viewFund/${fundId}/editFundChecklist/${checklistId}`);
       }
 
@@ -439,10 +439,10 @@ export const fundController = {
       const loggedInUser = request.auth.credentials;
 
       const fund = await db.fundStore.getFundById(fundId);
-      const fundChecklist = await db.fundStore.getFundChecklistById(checklistId);
+      const fundChecklist = await db.fundStore.getFundChecklistById(fund,checklistId);
 
       if(loggedInUser.admin || loggedInUser._id.toString() === fundChecklist.secondReview.userid){
-        await db.fundStore.removeSecondReviewSignOff(checklistId);
+        await db.fundStore.removeSecondReviewSignOff(fund,checklistId);
         return h.redirect(`/${team._id}/viewFund/${fundId}/editFundChecklist/${checklistId}`);
       }
 

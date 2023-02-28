@@ -27,17 +27,13 @@
 </div>
 </div>
 <br>
-</div>
 
 <script>
-var xValues = ["Complete","Incomplete"];
-var yValues = [100,45];
+var xValues = ["Completed","Incomplete"];
+var yValues = ["{{{completedFundChecklists}}}","{{{incompleteFundChecklists}}}"];
 var barColors = [
   "#0DF205",
   "#BEBEC0",
-  "#2b5797",
-  "#e8c3b9",
-  "#1e7145"
 ];
 
 new Chart("{{{_id}}}", {
