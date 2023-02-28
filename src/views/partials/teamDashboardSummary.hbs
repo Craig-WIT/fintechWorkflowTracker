@@ -8,13 +8,13 @@
     </div>
     <div class="card" id="cardStyle"><h4>Fund(s)</h2>
     {{#each funds}}
-      <li>{{fundname}}</li>
+      <li>{{fundname}} <a href="/{{../_id}}/viewFund/{{_id}}/addFundChecklist"><i class="fa fa-plus-circle" aria-hidden="true"></i></a></li>
     {{/each}}
     </div>
 <br>
 <a href="/dashboard/{{_id}}/viewTeam">
   <div id="addButton" class="tiny black ui animated button" tabindex="0">
-      <div class="visible content">View Funds</div>
+      <div class="visible content">View Funds Dashboard</div>
       <div class="hidden content">Are you sure?</div>
   </div>
 </a>
