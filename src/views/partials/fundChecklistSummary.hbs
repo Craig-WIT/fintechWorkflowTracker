@@ -7,8 +7,8 @@
     <div class="title" style="cursor: default;">
     <i class="dropdown icon" style="cursor: default;"></i> 
     <h3 class="header" style="display: inline; cursor: pointer">{{checklistname}} - {{checklistdate}}</h3>
-    <h3 class="edit" data-tooltip="Edit/Sign-Off" data-position="top left" data-inverted="" style="display: inline"><a href="/{{../team._id}}/viewFund/{{../fund._id}}/editFundChecklist/{{_id}}"><i class="fas fa-edit" data-variation="inverted" style="cursor: zoom-in;"></i></a></h3>
-    <h3 class="delete" data-tooltip="Delete" data-position="top left" data-inverted="" style="display: inline"><a href="/{{../team._id}}/viewFund/{{../fund._id}}/deleteFundChecklist/{{_id}}"><i class="fa fa-trash" data-variation="inverted" style="cursor: pointer; color: red;"></i></a></h3>
+    <h3 data-tooltip="Edit/Sign-Off" data-position="top left" data-inverted="" style="display: inline"><a href="/{{../team._id}}/viewFund/{{../fund._id}}/editFundChecklist/{{_id}}"><i class="fas fa-edit" data-variation="inverted" style="cursor: zoom-in;"></i></a></h3>
+    <h3 data-tooltip="Delete" data-position="top left" data-inverted="" style="display: inline"><a href="/{{../team._id}}/viewFund/{{../fund._id}}/deleteFundChecklist/{{_id}}"><i class="fa fa-trash" data-variation="inverted" style="cursor: pointer; color: red;"></i></a></h3>
     </div>
     <div class="content">
     {{#eq preparer.userid "No Preparer"}}
@@ -74,7 +74,7 @@
   })
 ;
 
-  $('.title .edit')
+  $('.title')
   .popup({
     hoverable  : true,
   })

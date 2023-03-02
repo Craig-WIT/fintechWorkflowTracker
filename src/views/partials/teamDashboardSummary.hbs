@@ -8,7 +8,7 @@
     </div>
     <div class="card" id="cardStyle"><h4>Fund(s)</h2>
     {{#each funds}}
-      <li>{{fundname}} <a href="/{{../_id}}/viewFund/{{_id}}/addFundChecklist"><i class="fa fa-plus-circle" aria-hidden="true"></i></a></li>
+      <li>{{fundname}} <a data-tooltip="Add/Sign-Off Checklists" data-inverted="" data-variation="inverted" href="/{{../_id}}/viewFund/{{_id}}/addFundChecklist"><i class="fa fa-plus-circle" aria-hidden="true"></i></a></li>
     {{/each}}
     </div>
 <br>
@@ -52,4 +52,10 @@ new Chart("{{{_id}}}", {
     }
   }
 });
+
+$('.a')
+  .popup({
+    hoverable  : true,
+  })
+;
 </script>
