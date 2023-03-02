@@ -379,12 +379,15 @@ export const fundController = {
       const fund = await db.fundStore.getFundById(fundId);
       const fundChecklist = await db.fundStore.getFundChecklistById(checklistId);
 
-      if(loggedInUser.admin || loggedInUser._id.toString() === fundChecklist.preparer.userid){
+      let errorMsg = "Can't remove Sign off - Not Admin level";
+
+      if(loggedInUser.role === "Preparer" && fundChecklist.status === "Completed"){
+        errorMsg = "Can't remove Sign off as Checklist is completed"
+      }
+      else if(loggedInUser.admin || loggedInUser._id.toString() === fundChecklist.preparer.userid){
         await db.fundStore.removePreparerSignOff(fund,checklistId);
         return h.redirect(`/${team._id}/viewFund/${fundId}/editFundChecklist/${checklistId}`);
       }
-
-      const errorMsg = "Can't remove Sign off - Not Admin level"
         
       const viewData = {
         title: "Edit Fund Checklist",
@@ -408,7 +411,7 @@ export const fundController = {
       const loggedInUser = request.auth.credentials;
 
       const fund = await db.fundStore.getFundById(fundId);
-      const fundChecklist = await db.fundStore.getFundChecklistById(fund,checklistId);
+      const fundChecklist = await db.fundStore.getFundChecklistById(checklistId);
 
       if(loggedInUser.admin || loggedInUser._id.toString() === fundChecklist.firstReview.userid){
         await db.fundStore.removeFirstReviewSignOff(fund,checklistId);
@@ -439,7 +442,7 @@ export const fundController = {
       const loggedInUser = request.auth.credentials;
 
       const fund = await db.fundStore.getFundById(fundId);
-      const fundChecklist = await db.fundStore.getFundChecklistById(fund,checklistId);
+      const fundChecklist = await db.fundStore.getFundChecklistById(checklistId);
 
       if(loggedInUser.admin || loggedInUser._id.toString() === fundChecklist.secondReview.userid){
         await db.fundStore.removeSecondReviewSignOff(fund,checklistId);
