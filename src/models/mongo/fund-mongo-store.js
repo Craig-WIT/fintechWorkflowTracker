@@ -1,5 +1,9 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import _ from "lodash";import { v4 } from "uuid";
+// eslint-disable-next-line import/no-extraneous-dependencies
+import Mailgun from "mailgun.js"
+// eslint-disable-next-line import/no-extraneous-dependencies
+import formData from "form-data"
 import Mongoose from "mongoose";
 import { Fund } from "./fund.js";
 import { FundChecklist } from "./fundChecklist.js";
@@ -130,6 +134,7 @@ export const fundMongoStore =  {
         foundChecklist.status = "Completed";
         foundFund.completedFundChecklists += 1;
         foundFund.incompleteFundChecklists -= 1;
+        this.sendEmail(fund,user)
       }
       else{
         foundChecklist.status = "Incomplete"
@@ -362,5 +367,22 @@ export const fundMongoStore =  {
 
   async deleteAll() {
     await Fund.deleteMany({});
+  },
+
+  async sendEmail(fund, user) {
+
+    const mailgun = new Mailgun(formData);
+    const mg = mailgun.client({username: "api", key: process.env.MAILGUN_API_KEY});
+  
+    mg.messages.create(process.env.DOMAIN, {
+      from: "Checklist Update <noreply@fintechworkflowtracker>",
+      to: ["craig.grehan3@gmail.com"],
+      subject: `A checklist for ${  fund.fundname  } has changed status`,
+      text: `Checklist marked as completed by ${user.firstname} ${user.firstname}`,
+      html: `<h1>Checklist marked as completed by ${user.firstname} ${user.lastname}</h1>`
+    })
+    .then(msg => console.log(msg)) // logs response data
+    .catch(err => console.error(err)); // logs any error
+  
   },
 };
