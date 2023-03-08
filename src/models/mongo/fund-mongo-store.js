@@ -376,7 +376,7 @@ export const fundMongoStore =  {
   
     mg.messages.create(process.env.DOMAIN, {
       from: "Checklist Update <noreply@fintechworkflowtracker>",
-      to: ["craig.grehan3@gmail.com"],
+      to: ["craig.grehan@centaurfs.com"],
       subject: `A checklist for ${  fund.fundname  } has changed status`,
       text: `Checklist marked as completed by ${user.firstname} ${user.firstname}`,
       html: `<h1>Checklist marked as completed by ${user.firstname} ${user.lastname}</h1>`

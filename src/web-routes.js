@@ -30,6 +30,7 @@ export const webRoutes = [
 
     { method: "GET", path: "/fundAdmin", config: fundController.showFundAdmin },
     { method: "POST", path: "/fundAdmin/addFund", config: fundController.addFund },
+    { method: "POST", path: "/fundAdmin/addFundExcel", config: fundController.addFundExcel },
     { method: "GET", path: "/fundAdmin/deleteFund/{id}", config: fundController.deleteFund },
     { method: "GET", path: "/fundAdmin/{id}/editFund", config: fundController.showEditFund },
     { method: "POST", path: "/fundAdmin/editFund/{id}", config: fundController.editFund },

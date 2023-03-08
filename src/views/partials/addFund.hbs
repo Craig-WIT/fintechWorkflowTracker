@@ -11,3 +11,30 @@
     <div class="hidden content">Are you sure?</div>
   </button>
 </form>
+
+<section class="ui raised segment">
+    <h2>Upload Excel Funds</h2>
+    <div>
+        Download the Excel Fund template file from here:
+        <button style="margin-left: 20px" class="ui pink button" onclick="document.getElementById('link').click()" >
+            <i class="download icon"></i>
+            Download
+        </button>
+        <a id="link" href="../addFundTemplate.xlsx" download hidden></a>
+    </div>
+    <br/>
+    <div>
+        <br/>
+        When you're ready upload your Fund excel file here:
+        <div >
+            <form class="ui form" action="/fundAdmin/addFundExcel" method="POST"
+                  enctype="multipart/form-data">
+                <div class="field">
+                    <input type="file" class="input" name="excelfile"
+                           accept="text/plain, .csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+                </div>
+                <button type="submit" value="Upload" class="ui pink button">Upload</button>
+            </form>
+        </div>
+    </div>
+</section>

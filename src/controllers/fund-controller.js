@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import Excel from "exceljs";
+import {ExcelHelper} from "../utils/excelhelper.js";
 import { db } from "../models/db.js";
 import { FundSpec,FundChecklistSpec } from "../models/joi-schemas.js";
 
@@ -101,6 +101,20 @@ export const fundController = {
       };
       await db.fundStore.addFund(newFund);
       console.log(newFund)
+      return h.redirect("/fundAdmin");
+    },
+  },
+
+  addFundExcel: {
+    payload: {
+      maxBytes: 209715200,
+      output: "file",
+      parse: true,
+      multipart: true     // <-- this fixed the media type error
+    },
+    handler: async function (request, h) {
+      const filepath = request.payload.excelfile.path;
+      await ExcelHelper.parseExcel(filepath);
       return h.redirect("/fundAdmin");
     },
   },
