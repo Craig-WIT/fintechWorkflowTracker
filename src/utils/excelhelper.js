@@ -13,7 +13,7 @@ export const ExcelHelper = {
     for(let i=0; i< data.length; i += 1) {
       const newFund = new Fund({
         fundname: data[i].fundname,
-        financialyearend: data[i].financialyearend,
+        yearend: data[i].financialyearend,
       });
       // eslint-disable-next-line no-await-in-loop
       await db.fundStore.addFund(newFund);
