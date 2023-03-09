@@ -1,3 +1,5 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
+import {ExcelHelper} from "../utils/excelhelper.js";
 import { db } from "../models/db.js";
 import { TeamSpec, } from "../models/joi-schemas.js";
 
@@ -77,6 +79,20 @@ export const teamController = {
       };
       await db.teamStore.addTeam(newTeam,funds);
       console.log(newTeam)
+      return h.redirect("/teamAdmin");
+    },
+  },
+
+  addTeamExcel: {
+    payload: {
+      maxBytes: 209715200,
+      output: "file",
+      parse: true,
+      multipart: true
+    },
+    handler: async function (request, h) {
+      const filepath = request.payload.excelfile.path;
+      await ExcelHelper.addTeam(filepath);
       return h.redirect("/teamAdmin");
     },
   },

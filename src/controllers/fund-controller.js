@@ -110,11 +110,11 @@ export const fundController = {
       maxBytes: 209715200,
       output: "file",
       parse: true,
-      multipart: true     // <-- this fixed the media type error
+      multipart: true
     },
     handler: async function (request, h) {
       const filepath = request.payload.excelfile.path;
-      await ExcelHelper.parseExcel(filepath);
+      await ExcelHelper.addFund(filepath);
       return h.redirect("/fundAdmin");
     },
   },

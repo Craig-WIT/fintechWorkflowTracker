@@ -8,6 +8,7 @@ import { dashboardController } from "./controllers/dashboard-controller.js";
 export const webRoutes = [
     { method: "GET", path: "/teamAdmin", config: teamController.showTeamAdmin },
     { method: "POST", path: "/teamAdmin/addTeam", config: teamController.addTeam },
+    { method: "POST", path: "/teamAdmin/addTeamExcel", config: teamController.addTeamExcel },
     { method: "GET", path: "/teamAdmin/deleteTeam/{id}", config: teamController.deleteTeam },
     { method: "GET", path: "/teamAdmin/{id}/editTeam", config: teamController.showEditTeam },
     { method: "POST", path: "/teamAdmin/editTeam/{id}", config: teamController.editTeam },
