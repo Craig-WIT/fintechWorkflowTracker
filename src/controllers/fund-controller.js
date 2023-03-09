@@ -479,22 +479,4 @@ export const fundController = {
       
   },
   },
-
 };
-
-async function sendEmail(user, fund) {
-
-  const mailgun = new Mailgun(formData);
-  const mg = mailgun.client({username: "api", key: process.env.MAILGUN_API_KEY});
-
-  mg.messages.create(process.env.DOMAIN, {
-    from: "Checklist Update <noreply@fintechworkflowtracker>",
-    to: ["craig.grehan3@gmail.com"],
-    subject: "A checklist has changed status",
-    text: "Testing some Mailgun awesomness!",
-    html: "<h1>Testing some Mailgun awesomness!</h1>"
-  })
-  .then(msg => console.log(msg)) // logs response data
-  .catch(err => console.error(err)); // logs any error
-
-}
