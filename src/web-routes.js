@@ -52,4 +52,15 @@ export const webRoutes = [
     { method: "POST", path: "/checklistAdmin/editChecklist/{id}", config: checklistController.editChecklist },
     { method: "POST", path: "/checklistAdmin/addChecklist", config: checklistController.addChecklist },
     { method: "GET", path: "/checklistAdmin/deleteChecklist/{id}", config: checklistController.deleteChecklist },
+
+    {
+        method: "GET",
+        path: "/{param*}",
+        handler: {
+          directory: {
+            path: "./public"
+          }
+        },
+        options: { auth: false }
+      }
 ];

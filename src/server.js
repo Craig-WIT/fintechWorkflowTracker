@@ -4,6 +4,8 @@ import Yar from "@hapi/yar";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import Vision from "@hapi/vision";
 // eslint-disable-next-line import/no-extraneous-dependencies
+import Inert from "@hapi/inert";
+// eslint-disable-next-line import/no-extraneous-dependencies
 import Joi from "joi";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import dotenv from "dotenv";
@@ -30,6 +32,7 @@ if (result.error) {
   console.log(result.error.message);
   // process.exit(1);
 }
+  await server.register(Inert);
   await server.register(Vision);
   await server.register(Cookie);
   server.validator(Joi);
