@@ -2,7 +2,8 @@
       <div class="title" style="cursor: default;">
       <i class="dropdown icon" style="cursor: default;"></i> 
       <h3 class="header" style="display: inline; cursor: pointer">{{firstname}} {{lastname}}  </h3>
-      <h3 style="display: inline"><a href="/userAdmin/{{_id}}/editUser"><i class="fas fa-edit" style="cursor: zoom-in;"></i></a></h3>
+      <h3 data-tooltip="Edit" data-position="top left" data-inverted="" style="display: inline"><a href="/userAdmin/{{_id}}/editUser"><i class="fas fa-edit" data-variation="inverted" style="cursor: zoom-in;"></i></a></h3>
+      <h3 data-tooltip="Delete" data-position="top left" data-inverted="" style="display: inline"><a href="/userAdmin/deleteUser/{{_id}}"><i class="fa fa-trash" data-variation="inverted" style="cursor: pointer; color: red;"></i></a></h3>
     </div>
     <div class="content">
     <div class="card" id="cardStyle"><h4>Email Address</h4>
