@@ -17,6 +17,13 @@ export const userMongoStore =  {
     return u;
   },
 
+  async addUserExcel(user) {
+    const newUser = new User(user);
+    const userObj = await newUser.save();
+    const u = await this.getUserById(userObj._id);
+    return u;
+  },
+
   async checkIfUserExists(user) {
     const foundUser = await User.findOne({ email: user.email }).lean();
     if(foundUser){

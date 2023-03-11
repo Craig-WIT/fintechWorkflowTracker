@@ -17,6 +17,13 @@ export const teamMongoStore =  {
     return u;
   },
 
+  async addTeamExcel(team) {
+    const newTeam = new Team(team);
+    const teamObj = await newTeam.save();
+    const u = await this.getTeamById(teamObj._id);
+    return u;
+  },
+
   async getTeamById(id) {
     if (id) {
         const team = await Team.findOne({ _id: id }).lean();

@@ -1,3 +1,5 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
+import {ExcelHelper} from "../utils/excelhelper.js";
 import { db } from "../models/db.js";
 
 export const checklistController = {
@@ -107,6 +109,26 @@ export const checklistController = {
       }
       await db.checklistStore.addChecklistItem(checklist._id,newItem);
       console.log(checklist)
+      return h.redirect(`/checklistAdmin/${checklistId}/editChecklist`, viewData);
+    },
+  },
+
+  editChecklistExcel: {
+    payload: {
+      maxBytes: 209715200,
+      output: "file",
+      parse: true,
+      multipart: true
+    },
+    handler: async function (request, h) {
+      const filepath = request.payload.excelfile.path;
+      const checklist = await db.checklistStore.getChecklistById(request.params.id);
+      const checklistId = request.params.id
+      await ExcelHelper.addChecklistItem(checklistId,filepath);
+      const viewData = {
+        title: "Edit Checklist",
+        checklist: checklist,
+      };
       return h.redirect(`/checklistAdmin/${checklistId}/editChecklist`, viewData);
     },
   },

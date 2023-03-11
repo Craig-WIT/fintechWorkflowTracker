@@ -35,6 +35,24 @@
   </button>
 </form>
 
+<section class="ui raised segment">
+    <h2>Create Users via Excel</h2>
+    <div>
+        Upload a completed User template here:
+        <div >
+            <br>
+            <form class="ui form" action="/userAdmin/addUserExcel" method="POST"
+                  enctype="multipart/form-data">
+                <div class="field">
+                    <input type="file" class="input" name="excelfile"
+                           accept="text/plain, .csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+                </div>
+                <button type="submit" value="Upload" class="ui pink button">Upload</button>
+            </form>
+        </div>
+    </div>
+</section>
+
 <script>
     $('#teams').dropdown();
     $('#role').dropdown();

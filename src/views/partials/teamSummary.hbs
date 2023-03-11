@@ -15,9 +15,13 @@
     </div>
     <br>
     <div class="card" id="cardStyle"><h4>Fund(s)</h2>
+    {{#if funds}}
       {{#each funds}}
         {{fundname}}<br>
       {{/each}}
+    {{else}}
+    No Funds added yet
+    {{/if}}
     </div>
     <br>
     <a href="/teamAdmin/{{_id}}/editTeam">

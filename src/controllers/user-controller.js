@@ -1,3 +1,5 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
+import {ExcelHelper} from "../utils/excelhelper.js";
 import { db } from "../models/db.js";
 import { AddUserSpec, } from "../models/joi-schemas.js";
 
@@ -106,6 +108,20 @@ export const userController = {
         return h.view("userAdmin-view", viewData);
       }
       console.log(JSON.stringify(newUser, null, 4))
+      return h.redirect("/userAdmin");
+    },
+  },
+
+  addUserExcel: {
+    payload: {
+      maxBytes: 209715200,
+      output: "file",
+      parse: true,
+      multipart: true
+    },
+    handler: async function (request, h) {
+      const filepath = request.payload.excelfile.path;
+      await ExcelHelper.addUser(filepath);
       return h.redirect("/userAdmin");
     },
   },

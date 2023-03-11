@@ -25,6 +25,7 @@ export const webRoutes = [
 
     { method: "GET", path: "/userAdmin", config: userController.showUserAdmin },
     { method: "POST", path: "/userAdmin/addUser", config: userController.addUser },
+    { method: "POST", path: "/userAdmin/addUserExcel", config: userController.addUserExcel },
     { method: "GET", path: "/userAdmin/deleteUser/{id}", config: userController.deleteUser },
     { method: "GET", path: "/userAdmin/{id}/editUser", config: userController.showEditUser },
     { method: "POST", path: "/userAdmin/editUser/{id}", config: userController.editUser },
@@ -51,6 +52,7 @@ export const webRoutes = [
     { method: "GET", path: "/checklistAdmin", config: checklistController.showChecklistAdmin },
     { method: "GET", path: "/checklistAdmin/{id}/editChecklist", config: checklistController.showEditChecklist },
     { method: "POST", path: "/checklistAdmin/editChecklist/{id}", config: checklistController.editChecklist },
+    { method: "POST", path: "/checklistAdmin/editChecklistExcel/{id}", config: checklistController.editChecklistExcel },
     { method: "POST", path: "/checklistAdmin/addChecklist", config: checklistController.addChecklist },
     { method: "GET", path: "/checklistAdmin/deleteChecklist/{id}", config: checklistController.deleteChecklist },
 

@@ -21,9 +21,13 @@
     </div>
     <br>
     <div class="card" id="cardStyle"><h4>Team(s)</h4>
+    {{#if teams}}
     {{#each teams}}
       {{teamname}}<br>
     {{/each}}
+    {{else}}
+    No Teams added yet
+    {{/if}}
     </div>
     <br>
     <a href="/userAdmin/{{_id}}/editUser">
