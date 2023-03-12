@@ -2,6 +2,7 @@
 import { assert, expect } from "chai";
 import { db } from "../src/models/db.js";
 import { newUser, testUsers } from "./fixtures.js";
+import { assertSubset } from "./test-utils.js";
 
 suite("User Model tests", () => {
 
@@ -12,7 +13,7 @@ suite("User Model tests", () => {
 
   test("create a user", async () => {
     const addNewUser = await db.userStore.addUser(newUser);
-    expect(addNewUser).to.containSubset(newUser)
+    assertSubset(newUser, addNewUser);
   });
 
   test("get a user - success", async () => {
