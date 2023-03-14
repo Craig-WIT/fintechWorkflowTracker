@@ -22,7 +22,8 @@ export const accountsController = {
       payload: UserSpec,
       options: { abortEarly: false },
       failAction: function (request, h, error) {
-        return h.view("signup-view", { title: "Sign up error", errors: error.details }).takeover().code(400);
+        const user = request.payload;
+        return h.view("signup-view", { title: "Sign up error", errors: error.details, user: user }).takeover().code(400);
       },
     },
     handler: async function (request, h) {
@@ -35,7 +36,7 @@ export const accountsController = {
       }
       else {
         const errorMsg = "That email address is already registered - please try again"
-        return h.view("signup-view", { error: errorMsg });
+        return h.view("signup-view", { error: errorMsg, user: user });
       }
       return h.redirect("/login");
     },
@@ -54,7 +55,8 @@ export const accountsController = {
       payload: UserCredentials,
       options: { abortEarly: false },
       failAction: function (request, h, error) {
-        return h.view("login-view", { title: "Sign up error", errors: error.details }).takeover().code(400);
+        const {email} = request.payload; 
+        return h.view("login-view", { title: "Sign up error", errors: error.details, email: email }).takeover().code(400);
       },
     },
     handler: async function (request, h) {
@@ -71,7 +73,7 @@ export const accountsController = {
         request.cookieAuth.set({ id: user._id });
         return h.redirect("/dashboard");
       }
-      return h.view("login-view",{error: errorMsg})
+      return h.view("login-view",{error: errorMsg, email: email})
     },
   },
 

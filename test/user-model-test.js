@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { assert, expect } from "chai";
+import { assert } from "chai";
 import { db } from "../src/models/db.js";
 import { newUser, testUsers } from "./fixtures.js";
 import { assertSubset } from "./test-utils.js";

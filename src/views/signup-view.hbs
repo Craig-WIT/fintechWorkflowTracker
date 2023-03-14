@@ -1,5 +1,13 @@
 {{> welcome-menu id="signup"}}
 {{> errors }}
+{{#if error}}
+  <div class="ui negative message">
+  <div class="header">
+    There was a problem...
+  </div>
+  <p>{{error}}</p>
+  </div>
+{{/if}}
 <div class="ui two column grid basic middle aligned segment">
   <div class="column">
     <form class="ui stacked segment form" action="/register" method="POST"
@@ -8,16 +16,17 @@
       <div class="two fields">
         <div class="field">
           <label style="color: white;">First Name</label>
-          <input placeholder="First Name" type="text" name="firstname">
+          <input placeholder="First Name" type="text" name="firstname" 
+          {{#if errors}}value={{user.firstname}}{{/if}}{{#if error}}value={{user.firstname}}{{/if}}>
         </div>
         <div class="field">
           <label style="color: white;">Last Name</label>
-          <input placeholder="Last Name" type="text" name="lastname">
+          <input placeholder="Last Name" type="text" name="lastname" {{#if errors}}value={{user.lastname}}{{/if}}{{#if error}}value={{user.lastname}}{{/if}}>
         </div>
       </div>
       <div class="field">
         <label style="color: white;">Email</label>
-        <input placeholder="Email" type="text" name="email">
+        <input placeholder="Email" type="text" name="email" {{#if errors}}value={{user.email}}{{/if}}{{#if error}}value={{user.email}}{{/if}}>
       </div>
       <div class="field">
         <label style="color: white;">Password</label>
@@ -31,12 +40,3 @@
     </div>
   </div>
 </div>
-
-{{#if error}}
-  <div class="ui negative message">
-  <div class="header">
-    Error
-  </div>
-  <p>{{error}}</p>
-  </div>
-{{/if}}

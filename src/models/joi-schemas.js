@@ -1,5 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import Joi from "joi";
+// eslint-disable-next-line import/no-extraneous-dependencies
+import PasswordComplexity from "joi-password-complexity";
 
 export const UserCredentials = {
     email: Joi.string().email().required().error(errors => {
@@ -71,7 +73,15 @@ export const UserSpec = {
     });
     return errors;
   }),
-  password: Joi.string().required().error(errors => {
+  password: new PasswordComplexity({
+    min: 8,
+    max: 25,
+    lowerCase: 1,
+    upperCase: 1,
+    numeric: 1,
+    symbol: 1,
+    requirementCount: 4
+  }).required().error(errors => {
     errors.forEach(err => {
       switch (err.code) {
         case "string.empty":
@@ -125,11 +135,19 @@ export const AddUserSpec = {
         });
         return errors;
       }),
-    password: Joi.string().required().error(errors => {
+      password: new PasswordComplexity({
+        min: 8,
+        max: 25,
+        lowerCase: 1,
+        upperCase: 1,
+        numeric: 1,
+        symbol: 1,
+        requirementCount: 4
+      }).required().error(errors => {
         errors.forEach(err => {
           switch (err.code) {
             case "string.empty":
-              err.message = "User password cannot be empty";
+              err.message = "Password cannot be empty";
               break;
             default:
               break;
