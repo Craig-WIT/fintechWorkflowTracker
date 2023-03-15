@@ -1,10 +1,10 @@
-<table class="ui table">
+<table class="ui table" style="width:100%">
   <thead>
   <tr>
-    <th>Prepared By</th>
-    <th>1st Reviewer</th>
+    <th {{#eq fundchecklist.reviewers "2"}}style="width:33%"{{else}}style="width:50%"{{/eq}}>Prepared By</th>
+    <th {{#eq fundchecklist.reviewers "2"}}style="width:33%"{{else}}style="width:50%"{{/eq}}>1st Reviewer</th>
     {{#eq fundchecklist.reviewers "2"}}
-    <th>2nd Reviewer</th>
+    <th style="width:33%">2nd Reviewer</th>
     {{/eq}}
   </tr>
   </thead>
@@ -17,7 +17,8 @@
         </a>
         {{else}}
         <a href="/{{team._id}}/viewFund/{{fund._id}}/editFundChecklist/{{fundchecklist._id}}/removePreparerSignOff">
-          {{fundchecklist.preparer.firstname}} {{fundchecklist.preparer.lastname}} <i id="xmark" class="fa-solid fa-circle-xmark" style="font-size:20px;color:red; margin-left: 10px;"></i>
+          {{fundchecklist.preparer.firstname}} {{fundchecklist.preparer.lastname}} 
+          <br>{{fundchecklist.preparer.timestamp}} <i id="xmark" class="fa-solid fa-circle-xmark" style="font-size:20px;color:red; margin-left: 10px;"></i>
         </a>
         {{/eq}}
       </td>
@@ -27,7 +28,8 @@
           Click to sign off <i id="check" class="fa-solid fa-circle-check" style="font-size:20px;color:rgb(17, 145, 104); margin-left: 10px;"></i>
         {{else}}
         <a href="/{{team._id}}/viewFund/{{fund._id}}/editFundChecklist/{{fundchecklist._id}}/removeFirstReviewSignOff">
-          {{fundchecklist.firstReview.firstname}} {{fundchecklist.firstReview.lastname}} <i id="xmark" class="fa-solid fa-circle-xmark" style="font-size:20px;color:red; margin-left: 10px;"></i>
+          {{fundchecklist.firstReview.firstname}} {{fundchecklist.firstReview.lastname}} 
+          <br>{{fundchecklist.firstReview.timestamp}}  <i id="xmark" class="fa-solid fa-circle-xmark" style="font-size:20px;color:red; margin-left: 10px;"></i>
         {{/eq}}
       </td>
       {{#eq fundchecklist.reviewers "2"}}
@@ -37,7 +39,8 @@
           Click to sign off <i id="check" class="fa-solid fa-circle-check" style="font-size:20px;color:rgb(17, 145, 104);"></i>
         {{else}}
         <a href="/{{team._id}}/viewFund/{{fund._id}}/editFundChecklist/{{fundchecklist._id}}/removeSecondReviewSignOff">
-          {{fundchecklist.secondReview.firstname}} {{fundchecklist.secondReview.lastname}} <i id="xmark" class="fa-solid fa-circle-xmark" style="font-size:20px;color:red;"></i>
+          {{fundchecklist.secondReview.firstname}} {{fundchecklist.secondReview.lastname}} 
+          <br>{{fundchecklist.secondReview.timestamp}}  <i id="xmark" class="fa-solid fa-circle-xmark" style="font-size:20px;color:red;"></i>
         {{/eq}}
         </a>
       </td>

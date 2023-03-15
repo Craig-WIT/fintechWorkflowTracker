@@ -20,18 +20,21 @@ const fundChecklistSchema = new Schema({
     userid : String,
     firstname: String,
     lastname: String,
+    timestamp: String,
     _id : false
   },
   firstReview: { 
     userid : String,
     firstname: String,
     lastname: String,
+    timestamp: String,
     _id : false
   }, 
   secondReview: { 
     userid : String,
     firstname: String,
     lastname: String,
+    timestamp: String,
     _id : false
   },
   status: String,

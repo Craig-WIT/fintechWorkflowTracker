@@ -125,9 +125,14 @@ export const fundMongoStore =  {
     const foundFund = await Fund.findOne({ _id: fund._id });
     const foundChecklist = await FundChecklist.findOne({ _id: checklistid });
 
+    const timeelapsed = Date.now();
+    let timestamp = new Date(timeelapsed)
+    timestamp = timestamp.toUTCString();
+
     foundChecklist.preparer.userid = user._id;
     foundChecklist.preparer.firstname = user.firstname;
     foundChecklist.preparer.lastname = user.lastname;
+    foundChecklist.preparer.timestamp = timestamp
 
     if(foundChecklist.reviewers === "1"){
       if(foundChecklist.preparer.userid !== "No Preparer" && foundChecklist.firstReview.userid !== "No 1st Reviewer"){
@@ -161,9 +166,14 @@ export const fundMongoStore =  {
     const foundFund = await Fund.findOne({ _id: fund._id });
     const foundChecklist = await FundChecklist.findOne({ _id: checklistid });
 
+    const timeelapsed = Date.now();
+    let timestamp = new Date(timeelapsed)
+    timestamp = timestamp.toUTCString();
+
     foundChecklist.firstReview.userid = user._id;
     foundChecklist.firstReview.firstname = user.firstname;
     foundChecklist.firstReview.lastname = user.lastname;
+    foundChecklist.firstReview.timestamp = timestamp;
 
     if(foundChecklist.reviewers === "1"){
       if(foundChecklist.preparer.userid !== "No Preparer" && foundChecklist.firstReview.userid !== "No 1st Reviewer"){
@@ -196,9 +206,14 @@ export const fundMongoStore =  {
     const foundFund = await Fund.findOne({ _id: fund._id });
     const foundChecklist = await FundChecklist.findOne({ _id: checklistid });
 
+    const timeelapsed = Date.now();
+    let timestamp = new Date(timeelapsed)
+    timestamp = timestamp.toUTCString();
+
     foundChecklist.secondReview.userid = user._id;
     foundChecklist.secondReview.firstname = user.firstname;
     foundChecklist.secondReview.lastname = user.lastname;
+    foundChecklist.secondReview.timestamp = timestamp;
 
     if(foundChecklist.reviewers === "1"){
       if(foundChecklist.preparer.userid !== "No Preparer" && foundChecklist.firstReview.userid !== "No 1st Reviewer"){
