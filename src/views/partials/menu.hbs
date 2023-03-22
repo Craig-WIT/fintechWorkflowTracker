@@ -1,26 +1,26 @@
-<nav class="ui inverted secondary menu" style="border: 3px solid black; border-radius: 10px; background-color: black">
+<nav class="ui secondary menu" style="border: 3px solid black; border-radius: 10px;">
   <header class="ui header item"><img id="menuImage" class="ui image" src="https://res.cloudinary.com/dtf6gxvaq/image/upload/v1679408219/logo_gajvas.jpg" style="width: 90px; border-radius: 100px"></header>
   <div class="right menu">
     {{#if user.admin}}
-    <div class="ui right dropdown item">
+    <div class="ui right dropdown item" style="font-size:large">
     Admin
     <i class="dropdown icon"></i>
     <div class="menu">
-      <a id="userAdmin" class="item" href="/userAdmin">Users</a>
-      <a id="teamAdmin" class="item" href="/teamAdmin">Teams</a>
-      <a id="fundAdmin" class="item" href="/fundAdmin">Funds</a>
-      <a id="checklistAdmin" class="item" href="/checklistAdmin">Checklists</a>
+      <a id="userAdmin" class="item" href="/userAdmin" style="color: black;">Users</a>
+      <a id="teamAdmin" class="item" href="/teamAdmin" style="color: black;">Teams</a>
+      <a id="fundAdmin" class="item" href="/fundAdmin" style="color: black;">Funds</a>
+      <a id="checklistAdmin" class="item" href="/checklistAdmin" style="color: black;">Checklists</a>
     </div>
   </div>
     {{/if}}
-    <div class="ui right dropdown item">
+    <div class="ui right dropdown item" style="font-size:large">
     Dashboards
     <i class="dropdown icon"></i>
     <div class="menu">
-      <a id="dashboard" class="item" href="/dashboard">Teams Dashboard</a>
+      <a id="dashboard" class="item" href="/dashboard" style="color: black;">Teams Dashboard</a>
     </div>
   </div>
-    <a id="logout" class="item" href="/logout">Logout</a>
+    <a id="logout" class="item" href="/logout" style="color: black; font-size:large">Logout</a>
   </div>
 </nav>
 

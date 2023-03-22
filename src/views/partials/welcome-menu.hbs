@@ -1,11 +1,15 @@
-<nav class="ui inverted secondary menu" style="border: 3px solid black; border-radius: 10px; background-color: black">
+<nav class="ui secondary menu" style="border: 3px solid black; border-radius: 10px;">
   <header class="ui header item"><img id="menuImage" class="ui image" src="https://res.cloudinary.com/dtf6gxvaq/image/upload/v1679408219/logo_gajvas.jpg" style="width: 90px; border-radius: 100px"></header>
-  <div class="right menu">
-    <a id="signup" class="item" href="/signup">Sign Up</a>
-    <a id="login" class="item" href="/login">Login</a>
+  <div class="inverted right menu">
+    <a id="signup" class="item" href="/signup" style="color: black; font-size:large">Sign Up</a>
+    <a id="login" class="item" href="/login" style="color: black; font-size:large">Login</a>
   </div>
 </nav>
 
 <script>
   $("#{{id}}").addClass("active item");
+
+  .ui.item.menu .active.item{ 
+    background-color: pink; 
+    }
 </script>

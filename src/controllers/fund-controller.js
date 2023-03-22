@@ -98,6 +98,8 @@ export const fundController = {
         fundname: request.payload.fundname,
         yearend: request.payload.financialyearend,
         fundChecklists: [],
+        completedFundChecklists: 0,
+        incompleteFundChecklists: 0,
       };
       await db.fundStore.addFund(newFund);
       console.log(newFund)
