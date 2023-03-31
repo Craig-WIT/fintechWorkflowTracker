@@ -129,6 +129,22 @@ export const userController = {
   deleteUser: {
     handler: async function (request, h) {
       const user = await db.userStore.getUserById(request.params.id);
+      const loggedInUser = request.auth.credentials;
+
+      if(loggedInUser.email === user.email){
+        const users = await db.userStore.updateUsers();
+        const teams = await db.teamStore.getAllTeams();
+
+        const viewData = {
+        title: "Users Dashboard",
+        teams: teams,
+        users: users,
+        error: "Can't delete your own account details"
+      };
+
+      return h.view("userAdmin-view", viewData);
+      }
+
       await db.userStore.deleteUserById(user._id);
       return h.redirect("/userAdmin");
     },

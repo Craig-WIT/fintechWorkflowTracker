@@ -2,9 +2,9 @@
       style="background-color: #F5C0EF; border: 3px solid black;">
   <div class="field">
     <label>Fund Name</label>
-    <input placeholder="Fund name" type="text" name="fundname" {{#if form}}value="{{form.fundname}}"{{/if}}>
+    <input placeholder="Fund name" type="text" name="fundname" {{#if form}}value="{{form.fundname}}"{{/if}} autocomplete="off">
     <label>Financial Year End</label>
-    <input placeholder="DD/MM" type="text" name="financialyearend" {{#if form}}value="{{form.financialyearend}}"{{/if}}>
+    <input placeholder="DD/MM" type="text" name="financialyearend" {{#if form}}value="{{form.financialyearend}}"{{/if}} autocomplete="off">
   </div>
   <button id="submitButton" class="tiny ui black submit animated button">
     <div class="visible content">Add Fund</div>

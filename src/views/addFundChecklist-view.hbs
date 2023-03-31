@@ -6,6 +6,15 @@
   </h2>
 </section>
 
+{{#if error}}
+  <div class="ui negative message">
+  <div class="header">
+    Error
+  </div>
+  <p>{{error}}</p>
+  </div>
+  {{/if}}
+
 {{> errors }}
 
 <div class="ui two column grid basic segment">

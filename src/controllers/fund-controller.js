@@ -48,6 +48,12 @@ export const fundController = {
     handler: async function (request, h) {
         const fund = await db.fundStore.getFundById(request.params.id);
         const team = await db.teamStore.getTeamById(request.params.teamid);
+        let error = "";
+
+        if(request.params.error){
+          error = request.params.error;
+        }
+
         const checklists = await db.checklistStore.getAllChecklists();
         const fundChecklists = await db.fundStore.getFundChecklists(fund.fundChecklists);
 
@@ -59,6 +65,7 @@ export const fundController = {
         checklists: checklists,
         fundchecklists: fundChecklists,
         user: loggedInUser,
+        error: error,
       };
       return h.view("addFundChecklist-view", viewData);
     },
@@ -171,6 +178,14 @@ export const fundController = {
       const team = await db.teamStore.getTeamById(request.params.teamid);
       const fundId = request.params.id;
       const fundChecklist = await db.fundStore.getFundChecklistById(request.params.checklistid);
+
+      if(fundChecklist.status === "Completed"){
+        
+        const error = "Can't delete a completed checklist"
+
+        return h.redirect(`/${team._id}/viewFund/${fund._id}/addFundChecklist/${error}`);
+      }
+
       await db.fundStore.deleteFundChecklistById(fund,fundChecklist._id);
       await db.fundStore.updateFunds();
       return h.redirect(`/${team._id}/viewFund/${fund._id}/addFundChecklist`);

@@ -2,13 +2,13 @@
       style="background-color: #F5C0EF; border: 3px solid black;">
   <div class="field">
     <label>First Name</label>
-    <input placeholder="First name" type="text" name="firstname" {{#if form}}value="{{form.firstname}}"{{/if}}>
+    <input placeholder="First name" type="text" name="firstname" {{#if form}}value="{{form.firstname}}"{{/if}} autocomplete="off">
     <label>Last Name</label>
-    <input placeholder="Last name" type="text" name="lastname" {{#if form}}value="{{form.lastname}}"{{/if}}>
+    <input placeholder="Last name" type="text" name="lastname" {{#if form}}value="{{form.lastname}}"{{/if}} autocomplete="off">
     <label>Email</label>
-    <input placeholder="Email" type="text" name="email" {{#if form}}value="{{form.email}}"{{/if}}>
+    <input placeholder="Email" type="text" name="email" {{#if form}}value="{{form.email}}"{{/if}} autocomplete="off">
     <label>Password</label>
-    <input placeholder="Password" type="password" name="password" {{#if form}}value="{{form.password}}"{{/if}}>
+    <input placeholder="Password" type="password" name="password" {{#if form}}value="{{form.password}}"{{/if}} autocomplete="off">
     <label>Role</label>
     <select name="role" class="ui fluid dropdown" id="role">
     <option value="">Select role</option>

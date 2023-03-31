@@ -37,6 +37,7 @@ export const webRoutes = [
     { method: "GET", path: "/fundAdmin/{id}/editFund", config: fundController.showEditFund },
     { method: "POST", path: "/fundAdmin/editFund/{id}", config: fundController.editFund },
     { method: "GET", path: "/{teamid}/viewFund/{id}/addFundChecklist", config: fundController.showAddFundChecklist },
+    { method: "GET", path: "/{teamid}/viewFund/{id}/addFundChecklist/{error}", config: fundController.showAddFundChecklist },
     { method: "GET", path: "/{teamid}/viewFund/{id}/viewFundChecklists", config: fundController.showFundChecklists },
     { method: "GET", path: "/{teamid}/viewFund/{id}/deleteFundChecklist/{checklistid}", config: fundController.deleteFundChecklist },
     { method: "GET", path: "/{teamid}/viewFund/{id}/editFundChecklist/{checklistid}", config: fundController.showEditFundChecklist },
