@@ -132,7 +132,9 @@ export const fundMongoStore =  {
     foundChecklist.preparer.userid = user._id;
     foundChecklist.preparer.firstname = user.firstname;
     foundChecklist.preparer.lastname = user.lastname;
-    foundChecklist.preparer.timestamp = timestamp
+    foundChecklist.preparer.timestamp = timestamp;
+
+    this.sendEmail(fund,user)
 
     if(foundChecklist.reviewers === "1"){
       if(foundChecklist.preparer.userid !== "No Preparer" && foundChecklist.firstReview.userid !== "No 1st Reviewer"){
@@ -151,6 +153,7 @@ export const fundMongoStore =  {
         foundChecklist.status = "Completed";
         foundFund.completedFundChecklists += 1;
         foundFund.incompleteFundChecklists -= 1;
+        this.sendEmail(fund,user)
       }
       else{
         foundChecklist.status = "Incomplete"
@@ -391,7 +394,7 @@ export const fundMongoStore =  {
   
     mg.messages.create(process.env.DOMAIN, {
       from: "Checklist Update <noreply@fintechworkflowtracker>",
-      to: ["craig.grehan@centaurfs.com"],
+      to: ["20095351@mail.wit.ie"],
       subject: `A checklist for ${  fund.fundname  } has changed status`,
       text: `Checklist marked as completed by ${user.firstname} ${user.firstname}`,
       html: `<h1>Checklist marked as completed by ${user.firstname} ${user.lastname}</h1>`

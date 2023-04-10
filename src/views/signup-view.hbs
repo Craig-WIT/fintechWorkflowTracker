@@ -17,16 +17,16 @@
         <div class="field">
           <label style="color: white;">First Name</label>
           <input placeholder="First Name" type="text" name="firstname" 
-          {{#if errors}}value={{user.firstname}}{{/if}}{{#if error}}value={{user.firstname}}{{/if}}>
+          {{#if errors}}value={{user.firstname}}{{/if}}{{#if error}}value={{user.firstname}}{{/if}} autocomplete="off">
         </div>
         <div class="field">
           <label style="color: white;">Last Name</label>
-          <input placeholder="Last Name" type="text" name="lastname" {{#if errors}}value={{user.lastname}}{{/if}}{{#if error}}value={{user.lastname}}{{/if}}>
+          <input placeholder="Last Name" type="text" name="lastname" {{#if errors}}value={{user.lastname}}{{/if}}{{#if error}}value={{user.lastname}}{{/if}} autocomplete="off">
         </div>
       </div>
       <div class="field">
         <label style="color: white;">Email</label>
-        <input placeholder="Email" type="text" name="email" {{#if errors}}value={{user.email}}{{/if}}{{#if error}}value={{user.email}}{{/if}}>
+        <input placeholder="Email" type="text" name="email" {{#if errors}}value={{user.email}}{{/if}}{{#if error}}value={{user.email}}{{/if}} autocomplete="off">
       </div>
       <div class="field">
         <label style="color: white;">Password</label>

@@ -14,7 +14,7 @@
           style="border: 3px solid black; border-radius: 10px; background-color: #DB65C6;">
       <h3 class="ui header" style="color: white;">Log-in</h3>
       <div class="field">
-        <label style="color: white;">Email</label> <input placeholder="Email" name="email" {{#if errors}}value={{email}}{{/if}}{{#if error}}value={{email}}{{/if}}>
+        <label style="color: white;">Email</label> <input placeholder="Email" name="email" {{#if errors}}value={{email}}{{/if}}{{#if error}}value={{email}}{{/if}} autocomplete="off">
       </div>
       <div class="field">
         <label style="color: white;">Password</label> <input placeholder="Password" type="password" name="password">
